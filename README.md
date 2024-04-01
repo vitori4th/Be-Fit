@@ -79,7 +79,7 @@ Esse projeto será desenvolvido utilizando as seguintes tecnologias/frameworks/f
   
 ## 🔖 Layout
 
-Você pode visualizar o layout do projeto através [desse link](). É necessário ter conta no [Figma](https://figma.com) para acessá-lo.
+Você pode visualizar o layout do projeto através [desse link](https://www.figma.com/file/5bJxWlv1oYM5UpZ1eQlN0G/befit?type=design&node-id=0%3A1&mode=design&t=mbUVHuutgNif81VS-1). É necessário ter conta no [Figma](https://www.figma.com/file/5bJxWlv1oYM5UpZ1eQlN0G/befit?type=design&node-id=0%3A1&mode=design&t=mbUVHuutgNif81VS-1) para acessá-lo.
 
 ---
 
