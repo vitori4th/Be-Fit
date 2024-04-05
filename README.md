@@ -176,14 +176,23 @@ Para atender às demandas da BeFit e enfrentar seus desafios atuais, sugerimos a
     - Descrição: Cumprir todas as regulamentações legais e de conformidade, como leis de proteção de dados e regulamentos de comércio eletrônico.
 
 ## 🚀 Tecnologias
-
 Esse projeto será desenvolvido utilizando as seguintes tecnologias/frameworks/ferramentas:
+### Desenvolvimento
 - Linguagem de programação: Typescript
 - Banco de dados: PostgresSQL
 - Frontend: React
-- BackEnd: Node.js
+- BackEnd: Node
 - Ferramenta de controle de versão: Git
 - Hospedagem: Vercel
+- Segurança:
+### Testes
+- Teste de interface gráfica:
+- Teste de rotas/endpoint:
+- Teste de unidade no código servidor:
+### Integração Contínua
+- Servidor: Github Actions
+### Gerenciamento
+- Gerência do projeto: [GitHub Project](https://github.com/users/vitori4th/projects/2)
 
 ## 👩‍💻 Equipe
 
