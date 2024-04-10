@@ -183,8 +183,8 @@ Esse projeto será desenvolvido utilizando as seguintes tecnologias/frameworks/f
 - Frontend: React
 - BackEnd: Node
 - Ferramenta de controle de versão: Git
-- Hospedagem: Vercel
-- Segurança:
+- Hospedagem: Azure
+- Segurança: JWT
 ### Testes
 - Teste de interface gráfica:
 - Teste de rotas/endpoint:
@@ -196,9 +196,9 @@ Esse projeto será desenvolvido utilizando as seguintes tecnologias/frameworks/f
 
 ## 👩‍💻 Equipe
 
-- Vitória Thais da Silva: 
-- André:
-- Igor:
+- Vitória Thais da Silva: Front-end, back-end e gerenciamento.
+- André: Design, front-end e back-end.
+- Igor: Front-end, back-end e testes.
   
 ## 🔖 Layout
 
