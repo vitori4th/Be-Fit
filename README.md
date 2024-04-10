@@ -186,9 +186,9 @@ Esse projeto será desenvolvido utilizando as seguintes tecnologias/frameworks/f
 - Hospedagem: Azure
 - Segurança: JWT
 ### Testes
-- Teste de interface gráfica:
-- Teste de rotas/endpoint:
-- Teste de unidade no código servidor:
+- Teste de interface gráfica: Cypress
+- Teste de rotas/endpoint: Jest
+- Teste de unidade no código servidor: Jest
 ### Integração Contínua
 - Servidor: Github Actions
 ### Gerenciamento
