@@ -10,6 +10,7 @@
   <a href="#-layout">Layout</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 </p>
+[![Azure Static Web Apps CI/CD](https://github.com/vitori4th/Be-Fit/actions/workflows/azure-static-web-apps-wonderful-glacier-0e88d8010.yml/badge.svg)](https://github.com/vitori4th/Be-Fit/actions/workflows/azure-static-web-apps-wonderful-glacier-0e88d8010.yml)
 
 ## 💻 Projeto
 
