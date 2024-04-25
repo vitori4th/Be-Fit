@@ -128,6 +128,7 @@ exports.Prisma.UserScalarFieldEnum = {
   dataNascimento: 'dataNascimento',
   senha: 'senha',
   telefone: 'telefone',
+  role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -141,7 +142,10 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
-
+exports.UserRoleType = exports.$Enums.UserRoleType = {
+  ADMIN: 'ADMIN',
+  USER: 'USER'
+};
 
 exports.Prisma.ModelName = {
   User: 'User'

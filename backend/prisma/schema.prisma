@@ -23,6 +23,14 @@ model User {
   dataNascimento DateTime
   senha          String
   telefone       Int
+  role           UserRoleType @default(USER)
   createdAt      DateTime @default(now())
   updatedAt      DateTime @default(now())
+
+  @@map("users")
+}
+
+enum UserRoleType {
+  ADMIN
+  USER
 }

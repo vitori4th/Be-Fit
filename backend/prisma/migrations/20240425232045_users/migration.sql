@@ -1,5 +1,8 @@
+-- CreateEnum
+CREATE TYPE "UserRoleType" AS ENUM ('ADMIN', 'USER');
+
 -- CreateTable
-CREATE TABLE "User" (
+CREATE TABLE "users" (
     "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "cpf" INTEGER NOT NULL,
@@ -8,14 +11,15 @@ CREATE TABLE "User" (
     "dataNascimento" TIMESTAMP(3) NOT NULL,
     "senha" TEXT NOT NULL,
     "telefone" INTEGER NOT NULL,
+    "role" "UserRoleType" NOT NULL DEFAULT 'USER',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_cpf_key" ON "User"("cpf");
+CREATE UNIQUE INDEX "users_cpf_key" ON "users"("cpf");
