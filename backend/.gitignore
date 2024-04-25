@@ -1,12 +1,7 @@
-.idea/
-.vscode/
+# Dependency directories
 node_modules/
-build/
-temp/
-.env
-coverage
-ormconfig.json
-# dist/** */
 
-uploads/*
-!uploads/.gitkeep
+# Environment variables
+.env
+.vscode
+
