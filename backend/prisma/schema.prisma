@@ -14,17 +14,17 @@ datasource db {
 }
 
 model User {
-  id             String   @id @default(uuid())
-  email          String   @unique
-  cpf            Int      @unique
-  nome           String
-  sobrenome      String
-  dataNascimento DateTime
-  senha          String
-  telefone       Int
-  role           UserRoleType @default(USER)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @default(now())
+  id        String       @id @default(uuid())
+  email     String       @unique
+  cpf       Int          @unique
+  name      String
+  lastname  String
+  dateBirth DateTime
+  password  String
+  cellphone Int
+  role      UserRoleType @default(USER)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @default(now())
 
   @@map("users")
 }

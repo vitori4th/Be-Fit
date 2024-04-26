@@ -10,17 +10,13 @@ export interface IUserDTO {
 
   name: string;
 
-  lastName: string;
+  lastname: string;
 
   dateBirth: Date;
 
   password: string;
 
   cellphone: number;
-
-  createdAt: Date;
-
-  updatedAt: Date;
 }
 
 class User {
@@ -34,7 +30,7 @@ class User {
 
   name: string;
 
-  lastName: string;
+  lastname: string;
 
   dateBirth: Date;
 
@@ -42,9 +38,9 @@ class User {
 
   cellphone: number;
 
-  createdAt: Date;
+  createdAt?: Date;
 
-  updatedAt: Date;
+  updatedAt?: Date;
 
   constructor() {
     if (!this.id) {
