@@ -1,3 +1,4 @@
+import { UserRoleType } from '@prisma/client';
 import { randomUUID } from 'crypto';
 
 export interface IUserDTO {
@@ -5,7 +6,7 @@ export interface IUserDTO {
 
   cpf: number;
 
-  role?: string;
+  role?: UserRoleType;
 
   name: string;
 
@@ -29,7 +30,7 @@ class User {
 
   cpf: number;
 
-  role?: string;
+  role?: UserRoleType;
 
   name: string;
 
