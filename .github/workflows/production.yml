@@ -24,8 +24,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Detect package manager
         id: detect-package-manager
+        working-directory: ./frontend
         run: 
-            pushd './${{ env.REPO_PATH }}'
             echo "manager=npm" >> $GITHUB_OUTPUT
             echo "command=ci" >> $GITHUB_OUTPUT
             echo "runner=npx --no-install" >> $GITHUB_OUTPUT
@@ -47,12 +47,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
+        working-directory: ./frontend
         run:
-          pushd './${{ env.REPO_PATH }}'
          ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
+        working-directory: ./frontend
         run:
-          pushd './${{ env.REPO_PATH }}'
          ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
