@@ -1,7 +1,7 @@
 import { IUserDTO, User } from '../entities/user';
 
 export interface IUserRepository {
-  register(user: IUserDTO): Promise<void>;
+  register(user: IUserDTO): Promise<User>;
 
   findByEmail(email: string): Promise<User>;
 

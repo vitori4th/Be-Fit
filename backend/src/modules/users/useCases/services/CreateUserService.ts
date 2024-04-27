@@ -3,6 +3,7 @@ import { User } from '../../entities/user';
 import UserRepository from '../../repositories/UserRepository';
 import { hash } from 'bcrypt';
 import AppError from '../../../../shared/errors/AppError';
+import { excludeFromObject } from '../../../../shared/utils/excludePasswordUser';
 
 interface IUserConfig {
   cellphone: number;
@@ -13,7 +14,7 @@ interface IUserConfig {
   name: string;
   password: string;
   role: UserRoleType;
-  confirmPassword: string; // Novo parâmetro adicionado
+  confirmPassword: string;
 }
 
 export default class CreateUserService {
@@ -58,8 +59,10 @@ export default class CreateUserService {
       role,
     };
 
-    await userRepository.register(user);
+    const userCreated = await userRepository.register(user);
 
-    return user;
+    const userWithoutPassword = excludeFromObject(userCreated, ['password']);
+
+    return userWithoutPassword as User;
   }
 }

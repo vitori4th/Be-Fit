@@ -1,7 +1,10 @@
+import 'express-async-errors';
+import 'reflect-metadata';
 import express, { Application, NextFunction, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import routes from './routes';
+
 import AppError from '../errors/AppError';
 import { errors } from 'celebrate';
 

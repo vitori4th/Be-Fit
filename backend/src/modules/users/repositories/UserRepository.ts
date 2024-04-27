@@ -1,6 +1,10 @@
 import { IUserDTO, User } from '../entities/user';
 import { IUserRepository } from './IUserRepository';
 import { prismaClient } from '../../../../prisma/prismaClient';
+import {
+  excludeFromList,
+  excludeFromObject,
+} from '../././../../shared/utils/excludePasswordUser';
 
 export default class UserRepository implements IUserRepository {
   public async register({
@@ -12,8 +16,8 @@ export default class UserRepository implements IUserRepository {
     name,
     password,
     role,
-  }: IUserDTO): Promise<void> {
-    await prismaClient.user.create({
+  }: IUserDTO): Promise<User> {
+    const user = await prismaClient.user.create({
       data: {
         cellphone,
         cpf,
@@ -25,6 +29,10 @@ export default class UserRepository implements IUserRepository {
         role,
       },
     });
+
+    const userWithoutPassword = excludeFromObject(user, ['password']);
+
+    return userWithoutPassword as User;
   }
 
   public async findByEmail(email: string): Promise<User | undefined> {
@@ -43,6 +51,10 @@ export default class UserRepository implements IUserRepository {
       },
     });
 
+    const userWithoutPassword = excludeFromObject(user, ['password']);
+
+    return userWithoutPassword as User;
+
     return user;
   }
 
@@ -54,5 +66,13 @@ export default class UserRepository implements IUserRepository {
     });
 
     return user;
+  }
+
+  public async findAllUsers(): Promise<User[] | undefined> {
+    const users = await prismaClient.user.findMany();
+
+    const usersWithoutPassword = excludeFromList(users, ['password']);
+
+    return usersWithoutPassword as User[];
   }
 }

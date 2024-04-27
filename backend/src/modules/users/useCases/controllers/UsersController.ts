@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import CreateUserService from '../services/CreateUserService';
 import { instanceToInstance } from 'class-transformer';
+import UserRepository from '../../repositories/UserRepository';
 
 export default class UsersController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -28,5 +29,18 @@ export default class UsersController {
       confirmPassword,
     });
     return response.json(instanceToInstance(user));
+  }
+
+  public async show(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+    const userRepository = new UserRepository();
+    const user = await userRepository.findById(id);
+    return response.json(instanceToInstance(user));
+  }
+
+  public async index(_request: Request, response: Response): Promise<Response> {
+    const userRepository = new UserRepository();
+    const users = await userRepository.findAllUsers();
+    return response.json(instanceToInstance(users));
   }
 }
