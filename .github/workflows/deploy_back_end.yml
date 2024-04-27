@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - main
-    paths:
-      - './backend/**'
-      - 'deploy_back_end.yml'
+    # paths:
+    #   - './backend/**'
+    #   - 'deploy_back_end.yml'
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
