@@ -40,7 +40,8 @@ jobs:
 
       - name: "Zip build artifact"
         shell: bash
-        run: |
+        working-directory: ${{ env.REPO_PATH }}
+        run:
           zip -r ${{env.ARTIFACT_NAME}}.zip * 
 
       - name: "Upload Artifact"
