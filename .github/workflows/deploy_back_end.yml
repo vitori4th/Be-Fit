@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-       name: "Download Artifact"
+      - name: "Download Artifact"
         uses: actions/download-artifact@v3
         with:
             name: ${{ env.ARTIFACT_NAME }}
