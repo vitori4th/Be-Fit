@@ -78,7 +78,7 @@ jobs:
           rm ${{env.ARTIFACT_NAME}}.zip
 
       - name: Install Vercel CLI
-        working-directory: ${{ env.REPO_PATH }}
+        # working-directory: ${{ env.REPO_PATH }}
         run: npm install --global vercel
 
       - name: Pull Vercel Environment Information
