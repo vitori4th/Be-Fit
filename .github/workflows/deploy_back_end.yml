@@ -20,7 +20,7 @@ jobs:
   build:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
-    name: Build and Deploy Job
+    name: Build 
     steps:
       - uses: actions/checkout@v3
         with:
@@ -34,8 +34,6 @@ jobs:
         working-directory: ./backend
   Deploy-Production:
     runs-on: ubuntu-latest
-    needs: build  # O job "Deploy-Production" depende do job "build"
-    if: ${{ needs.build.outcome == 'success' }}  # Executar apenas se o job "build" tiver sucesso
     steps:
       - uses: actions/checkout@v3
 
