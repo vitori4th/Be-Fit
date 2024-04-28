@@ -1,12 +1,12 @@
 import { UserRoleType } from '@prisma/client';
 import { User } from '../../entities/user';
-import UserRepository from '../../repositories/UserRepository';
+import UserRepository from '../../repositories/user/UserRepository';
 import { hash } from 'bcrypt';
 import AppError from '../../../../shared/errors/AppError';
 import { excludeFromObject } from '../../../../shared/utils/excludePasswordUser';
 
 interface IUserConfig {
-  cellphone: number;
+  cellphone: string;
   cpf: number;
   email: string;
   dateBirth: Date;

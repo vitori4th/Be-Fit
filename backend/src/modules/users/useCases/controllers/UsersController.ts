@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import CreateUserService from '../services/CreateUserService';
 import { instanceToInstance } from 'class-transformer';
-import UserRepository from '../../repositories/UserRepository';
+import UserRepository from '../../repositories/user/UserRepository';
 
 export default class UsersController {
   public async create(request: Request, response: Response): Promise<Response> {

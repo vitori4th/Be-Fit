@@ -4,7 +4,7 @@
   "description": "TypeScript Rest API with Express.js, JWT, MongoDB",
   "main": "server.ts",
   "scripts": {
-    "start": "nodemon src/shared/http/server.ts",
+    "start": "nodemon -r tsconfig-paths/register src/shared/http/server.ts",
     "build": "rimraf dist && tsc",
     "prisma": "npx prisma migrate dev",
     "ts.check": "tsc --project tsconfig.json",
@@ -30,6 +30,7 @@
     "pre-commit": "^1.2.2",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.3.2"
   },
   "dependencies": {
@@ -38,6 +39,7 @@
     "bcrypt": "^5.0.1",
     "celebrate": "^15.0.3",
     "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
     "cors": "^2.8.5",
     "dotenv": "^14.2.0",
     "express": "^4.18.2",

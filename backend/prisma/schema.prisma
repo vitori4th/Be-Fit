@@ -21,12 +21,24 @@ model User {
   lastname  String
   dateBirth DateTime
   password  String
-  cellphone Int
+  cellphone String
   role      UserRoleType @default(USER)
   createdAt DateTime     @default(now())
   updatedAt DateTime     @default(now())
+  token     UserToken[]
 
   @@map("users")
+}
+
+model UserToken {
+  id        String   @id @default(uuid())
+  token     String   @unique @default(uuid())
+  user_id   String   @map("user_id")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  User      User     @relation(fields: [user_id], references: [id])
+
+  @@map("users_token")
 }
 
 enum UserRoleType {

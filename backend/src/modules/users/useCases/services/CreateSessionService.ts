@@ -1,6 +1,6 @@
 import { sign } from 'jsonwebtoken';
 import { User } from '../../entities/user';
-import UserRepository from '../../repositories/UserRepository';
+import UserRepository from '../../repositories/user/UserRepository';
 import AppError from '../../../../shared/errors/AppError';
 import { compare } from 'bcrypt';
 import authConfig from '../../../../config/auth';

@@ -1,8 +1,8 @@
 import AppError from '../../../../shared/errors/AppError';
 import { User } from '../../entities/user';
-import UserRepository from '../../repositories/UserRepository';
+import UserRepository from '../../repositories/user/UserRepository';
 
-export default class ListUserService {
+export default class ListAllUserService {
   public async execute(): Promise<User[]> {
     const usersRepository = new UserRepository();
 

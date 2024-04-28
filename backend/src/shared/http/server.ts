@@ -1,18 +1,20 @@
-import 'express-async-errors';
 import 'reflect-metadata';
+import 'express-async-errors';
 import express, { Application, NextFunction, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import routes from './routes';
 
-import AppError from '../errors/AppError';
 import { errors } from 'celebrate';
+import AppError from '@shared/errors/AppError';
 
 const app: Application = express();
 
 app.use(cors());
 
-dotenv.config();
+dotenv.config({
+  path: process.env.NODE_ENV === 'prod' ? '.env.production' : '.env',
+});
 
 app.use(express.json());
 

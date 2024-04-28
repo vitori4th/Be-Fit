@@ -1,6 +1,6 @@
 import AppError from '../../../../shared/errors/AppError';
 import { User } from '../../entities/user';
-import UserRepository from '../../repositories/UserRepository';
+import UserRepository from '../../repositories/user/UserRepository';
 
 interface IRequest {
   id: string;

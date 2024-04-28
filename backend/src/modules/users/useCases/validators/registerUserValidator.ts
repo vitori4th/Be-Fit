@@ -2,7 +2,7 @@ import { Joi, Segments } from 'celebrate';
 
 export const registerUservalidator = {
   [Segments.BODY]: {
-    cellphone: Joi.number().required(),
+    cellphone: Joi.string().required(),
     cpf: Joi.number().required(),
     email: Joi.string().email().required(),
     dateBirth: Joi.date().required(),

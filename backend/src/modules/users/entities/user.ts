@@ -1,7 +1,10 @@
 import { UserRoleType } from '@prisma/client';
 import { randomUUID } from 'crypto';
+import { IUserTokenDTO } from './UserToken';
 
 export interface IUserDTO {
+  id?: string;
+
   email: string;
 
   cpf: number;
@@ -16,7 +19,9 @@ export interface IUserDTO {
 
   password: string;
 
-  cellphone: number;
+  cellphone: string;
+
+  token?: IUserTokenDTO[];
 }
 
 class User {
@@ -36,7 +41,9 @@ class User {
 
   password: string;
 
-  cellphone: number;
+  cellphone: string;
+
+  token?: IUserTokenDTO[];
 
   createdAt?: Date;
 
