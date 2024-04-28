@@ -34,11 +34,6 @@ jobs:
         working-directory: ${{ env.REPO_PATH }}
         run: npm install
 
-      # - name: Apply all pending migrations to the database
-      #   run: npx prisma migrate deploy --schema src/prisma/schema.prisma
-      #   env: 
-      #     DATABASE_URL: ${{secrets.POSTGRES_URL}}
-
       - name: Build project
         working-directory: ${{ env.REPO_PATH }}
         run: npm run build
@@ -55,6 +50,12 @@ jobs:
           name: ${{env.ARTIFACT_NAME}}
           path: ${{ env.REPO_PATH }}/${{env.ARTIFACT_NAME}}.zip
           if-no-files-found: error
+      
+      - name: Apply all pending migrations to the database
+        working-directory: ${{ env.REPO_PATH }}
+        run: npx prisma migrate deploy --schema src/prisma/schema.prisma
+        env: 
+          DATABASE_URL: ${{secrets.POSTGRES_URL}}
 
   deploy_production:
     runs-on: ubuntu-latest
