@@ -40,7 +40,7 @@ jobs:
       
       - name: Apply all pending migrations to the database
         working-directory: ${{ env.REPO_PATH }}
-        run: npx prisma migrate deploy --schema src/prisma/schema.prisma
+        run: npx prisma migrate deploy --schema dist/prisma/schema.prisma
         env: 
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
 
