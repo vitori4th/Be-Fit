@@ -1,112 +1,444 @@
 import Image from "next/image";
+import befitLogo from '../public/icons/beFit-logo.png'
+import cartLogo from '../public/icons/cart.png'
+import imageHero from '../public/image-hero.png'
+import pexels1 from '../public/pexels1.png'
+import pexels2 from '../public/pexels2.png'
+import pexels3 from '../public/pexels3.png'
+import footer from '../public/image-footer.png'
+import azul from '../public/em alta/azul.png'
+import rosa from '../public/em alta/rosa.png'
+import star from '../public/icons/star.png'
+import lines from '../public/lines.png'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className="home-page flex min-h-screen flex-col items-center justify-between p-0">
+      <header className="header w-full pl-[10%] pr-[3%] py-[3%] flex items-center justify-between">
+            {/* Logo Befit */}
+            <div className="flex items-center">
+              <Image src={befitLogo} alt="Befit Logo" width={59} height={68} />
+            </div>
+            {/* Menu */}
+            <nav className="flex items-center justify-center space-x-8">
+              <a href="#" className="custom-green hover:text-green-600 font-bold transition-colors duration-500">PRODUTOS</a>
+              <a href="#" className="custom-green hover:text-green-600 font-bold transition-colors duration-500">EM ALTA</a>
+              <a href="#" className="custom-green hover:text-green-600 font-bold transition-colors duration-500">CONJUNTOS</a>
+              <a href="#" className="custom-green hover:text-green-600 font-bold transition-colors duration-500">LANÇAMENTOS</a>
+            </nav>
+            {/* Login e Carrinho */}
+            <div className="flex items-center space-x-4">
+            <div className="relative">
+                <Image src={cartLogo} alt="Cart Icon" width={30} height={30} />
+                {/* Badge com quantidade de itens no carrinho, se necessário */}
+                <div className="absolute bottom-[75%] left-[75%] bg-red-500 text-black rounded-full w-3 h-3 flex items-center justify-center text-xs">
+                  1
+                </div>
+              </div>
+              <button className="bg-transparent border border-green-800 text-green-800 px-8 py-1 rounded-lg hover:bg-green-800 hover:text-white duration-500 font-bold">Login</button>
+            </div>
+          </header>
+
+      <section className="sectionRose w-full h-[800px] flex items-start justify-center pr-[45%] py-[8%]">
+        <div className="text-left">
+          <h1 className="custom-title text-4xl text-green-800 font-normal text-6xl">
+            Be You, Be <br /> Happy & Be Fit
+          </h1>
+          <p className="custom-font text-lg py-[8%]" > Elevando seu estilo, impulsionando sua performance. <br /> Vista-se para o sucesso com nossas roupas fitness <br /> exclusivas.</p>
+          <button className="button-green border border-green-800 rounded-md hover:bg-green-800 hover:text-white duration-500 text-white px-[20%] py-3 mt-2">Compre já</button>
         </div>
-      </div>
+        <Image className="image-border absolute top-60 left-[60%]" src={imageHero} alt="Befit Logo" width={503} height={628} />       
+      </section>
+      
+        <h1 className="custom-title-page text-4xl text-green-800 font-bold text-xl">
+          Nova Coleção
+        </h1>
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+        <p className="custom-font text-lg py-[2%]" > Descubra a nova coleção que redefine a moda fitness. Encontre peças projetadas para elevar seu treino e seu estilo. Explore agora e vista-se para o sucesso!</p>
+      
+        <div className="relative py-[2%] mb-[5%]">
+          {/* Primeira imagem com botão */}
+          <div className="inline-block relative mr-[30px] w-[375px] h-[400px] overflow-hidden">
+            <Image src={pexels1} alt="Imagem 1" className="w-full h-full object-cover" />
+            <button className="absolute bottom-[15px] transform left-1/2 -translate-x-1/2 w-[331px] h-[62px] bg-white rounded-none hover:bg-gray-200 transition duration-500 text-black font-bold text-lg leading-[32.4px] align-middle">Veja</button>
+          </div>
+          
+          {/* Segunda imagem com botão */}
+          <div className="inline-block relative mr-[30px] w-[375px] h-[400px] overflow-hidden">
+          <Image src={pexels2} alt="Imagem 1" className="w-full h-full object-cover" />
+            <button className="absolute bottom-[15px] transform left-1/2 -translate-x-1/2 w-[331px] h-[62px] bg-white rounded-none hover:bg-gray-200 transition duration-500 text-black font-bold text-lg leading-[32.4px] align-middle">Veja</button>
+          </div>
+          
+          {/* Terceira imagem com botão */}
+          <div className="inline-block relative w-[375px] h-[400px] overflow-hidden ">
+          <Image src={pexels3} alt="Imagem 1" className="w-full h-full object-cover" />
+            <button className="absolute bottom-[15px] transform left-1/2 -translate-x-1/2 w-[331px] h-[62px] bg-white rounded-none hover:bg-gray-200 transition duration-500 text-black font-bold text-lg leading-[32.4px] align-middle">Veja</button>
+          </div>
+        </div>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+        
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+    <section className="sectionGreen w-full pl-[10%] py-[5%] ">
+    {/* Bloco Green Produtos em Alta */}
+      <div className="text-left flex-1 min-w-[30%] pr-[5%]">
+            <h1 className="custom-titleRose text-4xl text-white font-normal text-6xl">
+              Produtos <br /> Em Alta
+            </h1>
+            <p className="custom-fontRose text-lg py-4 text-white">
+              Explore Nossos Produtos Em Alta <br /> Demanda! Descubra As Peças Mais <br /> Populares Que Estão Elevando O Jogo Da <br /> Moda Fitness. Garanta O Seu Estilo E <br /> Desempenho Hoje Mesmo!
+            </p>
+            <button className="button-white border border-green-800 rounded-none hover:bg-green-800 hover:text-white duration-500 text-white">VEJA MAIS</button>
+          </div>
+          
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+          <div className="flex">
+            
+          <div className="w-[375px] h-[533.5px] overflow-hidden mr-[20px] bg-white">
+            <div className="w-full h-[384px] overflow-hidden">
+              <Image src={rosa} alt="Imagem 2" className="w-full h-full object-cover" />
+            </div>
+            <div className="flex flex-col justify-start h-[149.5px] bg-white px-10 py-10">
+              <div className="flex items-center justify-start mb-2"> {/* Alinhado à esquerda com a mesma margem */}
+                <Image src={star} alt="Star 1" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 2" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 3" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 4" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 5" className="h-3 w-3 mr-1" />
+              </div>
+              <p className="text-av font-bold">
+                Conjunto Rosa
+              </p>
+              <div className="flex justify-between items-center mt-2">
+                <div className="flex items-center">
+                  <span className="text-price-before font-normal">R$</span>
+                  <span className="text-price-before font-normal mx-1">220</span>
+                  <div className="-ml-12 w-[45px] h-[1px] bg-[#9B9B9B]"></div> {/* Risco horizontal */}
+                  <span className="text-price font-bold ml-[10px]">R$ 140</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-[375px] h-[533.5px] overflow-hidden mr-[20px] bg-white">
+            <div className="w-full h-[384px] overflow-hidden">
+              <Image src={rosa} alt="Imagem 2" className="w-full h-full object-cover" />
+            </div>
+            <div className="flex flex-col justify-start h-[149.5px] bg-white px-10 py-10">
+              <div className="flex items-center justify-start mb-2"> {/* Alinhado à esquerda com a mesma margem */}
+                <Image src={star} alt="Star 1" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 2" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 3" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 4" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 5" className="h-3 w-3 mr-1" />
+              </div>
+              <p className="text-av font-bold">
+                Conjunto Rosa
+              </p>
+              <div className="flex justify-between items-center mt-2">
+                <div className="flex items-center">
+                  <span className="text-price-before font-normal">R$</span>
+                  <span className="text-price-before font-normal mx-1">220</span>
+                  <div className="-ml-12 w-[45px] h-[1px] bg-[#9B9B9B]"></div> {/* Risco horizontal */}
+                  <span className="text-price font-bold ml-[10px]">R$ 140</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-[375px] h-[533.5px] overflow-hidden mr-[20px] bg-white">
+            <div className="w-full h-[384px] overflow-hidden">
+              <Image src={rosa} alt="Imagem 2" className="w-full h-full object-cover" />
+            </div>
+            <div className="flex flex-col justify-start h-[149.5px] bg-white px-10 py-10">
+              <div className="flex items-center justify-start mb-2"> {/* Alinhado à esquerda com a mesma margem */}
+                <Image src={star} alt="Star 1" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 2" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 3" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 4" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 5" className="h-3 w-3 mr-1" />
+              </div>
+              <p className="text-av font-bold">
+                Conjunto Rosa
+              </p>
+              <div className="flex justify-between items-center mt-2">
+                <div className="flex items-center">
+                  <span className="text-price-before font-normal">R$</span>
+                  <span className="text-price-before font-normal mx-1">220</span>
+                  <div className="-ml-12 w-[45px] h-[1px] bg-[#9B9B9B]"></div> {/* Risco horizontal */}
+                  <span className="text-price font-bold ml-[10px]">R$ 140</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-[375px] h-[533.5px] overflow-hidden mr-[20px] bg-white">
+            <div className="w-full h-[384px] overflow-hidden">
+              <Image src={rosa} alt="Imagem 2" className="w-full h-full object-cover" />
+            </div>
+            <div className="flex flex-col justify-start h-[149.5px] bg-white px-10 py-10">
+              <div className="flex items-center justify-start mb-2"> {/* Alinhado à esquerda com a mesma margem */}
+                <Image src={star} alt="Star 1" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 2" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 3" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 4" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 5" className="h-3 w-3 mr-1" />
+              </div>
+              <p className="text-av font-bold">
+                Conjunto Rosa
+              </p>
+              <div className="flex justify-between items-center mt-2">
+                <div className="flex items-center">
+                  <span className="text-price-before font-normal">R$</span>
+                  <span className="text-price-before font-normal mx-1">220</span>
+                  <div className="-ml-12 w-[45px] h-[1px] bg-[#9B9B9B]"></div> {/* Risco horizontal */}
+                  <span className="text-price font-bold ml-[10px]">R$ 140</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          
+        </div>
+    
+  </section>
+
+  <h1 className="custom-title-page text-4xl text-green-800 font-bold text-xl">
+    Nossos Produtos
+  </h1>
+
+    {/* Menu */}
+    <nav className="flex items-center justify-center space-x-8 py-[3%]">
+      <a href="#" className="custom-green hover:text-green-600 font-bold transition-colors duration-500 underline decoration-custom-green decoration-2 underline-offset-8">EM ALTA</a>
+      <a href="#" className="custom-green hover:text-green-600 font-normal transition-colors duration-500">À VENDA</a>
+      <a href="#" className="custom-green hover:text-green-600 font-normal transition-colors duration-500">TENDÊNCIAS</a>
+      <a href="#" className="custom-green hover:text-green-600 font-normal transition-colors duration-500">NOVA COLEÇÃO</a>
+    </nav>
+        
+        <div className="flex justify-center items-center overflow-hidden py-[3%] mb-[5%] w-[1172px]">
+          <div className="inline-block relative mr-[30px] w-[275px] overflow-hidden">
+            <Image src={pexels1} alt="Imagem 1" className="w-full h-[300px] object-cover" />
+            <div className="flex flex-col justify-center bg-white py-10">
+              <div className="flex items-center justify-center mb-2"> {/* Alinhado à esquerda com a mesma margem */}
+                <Image src={star} alt="Star 1" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 2" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 3" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 4" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 5" className="h-3 w-3 mr-1" />
+              </div>
+              <p className="text-gr font-bold justify-center">
+                Conjunto Rosa
+              </p>
+              <div className="flex justify-center items-center mt-2">
+                <div className="flex items-center">
+                  <span className="text-price-before font-normal">R$</span>
+                  <span className="text-price-before font-normal mx-1">220</span>
+                  <div className="-ml-12 w-[45px] h-[1px] bg-[#9B9B9B]"></div> {/* Risco horizontal */}
+                  <span className="text-price-gr font-bold ml-[10px]">R$ 140</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="inline-block relative mr-[30px] w-[275px] overflow-hidden">
+            <Image src={pexels1} alt="Imagem 1" className="w-full h-[300px] object-cover" />
+            <div className="flex flex-col justify-center bg-white py-10">
+              <div className="flex items-center justify-center mb-2"> {/* Alinhado à esquerda com a mesma margem */}
+                <Image src={star} alt="Star 1" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 2" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 3" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 4" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 5" className="h-3 w-3 mr-1" />
+              </div>
+              <p className="text-gr font-bold justify-center">
+                Conjunto Rosa
+              </p>
+              <div className="flex justify-center items-center mt-2">
+                <div className="flex items-center">
+                  <span className="text-price-before font-normal">R$</span>
+                  <span className="text-price-before font-normal mx-1">220</span>
+                  <div className="-ml-12 w-[45px] h-[1px] bg-[#9B9B9B]"></div> {/* Risco horizontal */}
+                  <span className="text-price-gr font-bold ml-[10px]">R$ 140</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="inline-block relative mr-[30px] w-[275px] overflow-hidden">
+            <Image src={pexels1} alt="Imagem 1" className="w-full h-[300px] object-cover" />
+            <div className="flex flex-col justify-center bg-white py-10">
+              <div className="flex items-center justify-center mb-2"> {/* Alinhado à esquerda com a mesma margem */}
+                <Image src={star} alt="Star 1" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 2" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 3" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 4" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 5" className="h-3 w-3 mr-1" />
+              </div>
+              <p className="text-gr font-bold justify-center">
+                Conjunto Rosa
+              </p>
+              <div className="flex justify-center items-center mt-2">
+                <div className="flex items-center">
+                  <span className="text-price-before font-normal">R$</span>
+                  <span className="text-price-before font-normal mx-1">220</span>
+                  <div className="-ml-12 w-[45px] h-[1px] bg-[#9B9B9B]"></div> {/* Risco horizontal */}
+                  <span className="text-price-gr font-bold ml-[10px]">R$ 140</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="inline-block relative mr-[30px] w-[275px] overflow-hidden">
+            <Image src={pexels1} alt="Imagem 1" className="w-full h-[300px] object-cover" />
+            <div className="flex flex-col justify-center bg-white py-10">
+              <div className="flex items-center justify-center mb-2"> {/* Alinhado à esquerda com a mesma margem */}
+                <Image src={star} alt="Star 1" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 2" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 3" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 4" className="h-3 w-3 mr-1" />
+                <Image src={star} alt="Star 5" className="h-3 w-3 mr-1" />
+              </div>
+              <p className="text-gr font-bold justify-center">
+                Conjunto Rosa
+              </p>
+              <div className="flex justify-center items-center mt-2">
+                <div className="flex items-center">
+                  <span className="text-price-before font-normal">R$</span>
+                  <span className="text-price-before font-normal mx-1">220</span>
+                  <div className="-ml-12 w-[45px] h-[1px] bg-[#9B9B9B]"></div> {/* Risco horizontal */}
+                  <span className="text-price-gr font-bold ml-[10px]">R$ 140</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+            
+
+        <section className="sectionRose flex justify-between items-center w-[1175px] h-[538px]">
+          <div className="text-left pl-[10%]">
+            <h1 className="custom-title-bold text-4xl text-green-800 font-bold text-6xl">
+              Oferta Do Dia
+            </h1>
+            <p className="custom-font-oferta text-lg py-[2%]"> Preços Baixos E Frete Grátis. Seu Momento De Brilhar <br></br> Na Academia!</p>
+            <div className="flex mt-4 mb-[8%]">
+              <div className="block-container  mr-5">
+                <div className="block-number">01</div>
+                <div className="block-text">Dia</div>
+              </div>
+              <div className="block-container  mr-5">
+                <div className="block-number">07</div>
+                <div className="block-text">Horas</div>
+              </div>
+              <div className="block-container">
+                <div className="block-number">55</div>
+                <div className="block-text">Minutos</div>
+              </div>
+            </div>
+            <button className="button-white border border-green-800 rounded-none hover:bg-green-800 hover:text-white duration-500 text-white">VEJA MAIS</button>
+            
+          </div>
+          <div className="relative pr-[10%]">
+            <Image className="" src={rosa} alt="Befit Logo" width={400} height={478} />
+          </div>
+        </section>
+
+        <h1 className="custom-title-end text-4xl text-green-800 font-bold text-xl py-[2%]">
+          Depoimento Dos Clientes
+        </h1>
+
+        <p className="custom-font text-lg" > Testemunhos Reais Sobre Como Nossas Roupas Fitness Estão Transformando Suas Vidas.</p>
+      
+
+<section className="sectionWhite pl-[10%] py-[5%] ">
+    {/* Bloco Depoimento dos Clientes*/}
+        <div className="block">
+          <div className="">
+            <p className="sub-title font-bold py-[8%]">Motivação Elevada E Estilo Impecável!</p>
+          </div>
+          <div className="description px-[8%]">
+            <p>Desde que comecei a usar as roupas fitness deste site, minha motivação para treinar aumentou consideravelmente! Além de confortáveis, elas são super estilosas. Recomendo a todos que buscam qualidade e estilo em suas peças de academia.</p>
+          </div>
+          <div className="image py-[2%] flex justify-center">
+            <Image src={rosa} alt="Imagem do cliente" className="rounded-full" width="88" height="88" />
+          </div>
+          <div className="sub-title font-bold">
+            <p className="font-bold">Ana Souza</p>
+          </div>
+          <div className="description">
+            <p>Cliente</p>
+          </div>
+        </div>
+        <div className="block">
+          <div className="">
+            <p className="sub-title font-bold py-[8%]">Motivação Elevada E Estilo Impecável!</p>
+          </div>
+          <div className="description px-[8%]">
+            <p>Desde que comecei a usar as roupas fitness deste site, minha motivação para treinar aumentou consideravelmente! Além de confortáveis, elas são super estilosas. Recomendo a todos que buscam qualidade e estilo em suas peças de academia.</p>
+          </div>
+          <div className="image py-[2%] flex justify-center">
+            <Image src={rosa} alt="Imagem do cliente" className="rounded-full" width="88" height="88" />
+          </div>
+          <div className="sub-title font-bold">
+            <p className="font-bold">Ana Souza</p>
+          </div>
+          <div className="description">
+            <p>Cliente</p>
+          </div>
+        </div>
+        <div className="block">
+          <div className="">
+            <p className="sub-title font-bold py-[8%]">Motivação Elevada E Estilo Impecável!</p>
+          </div>
+          <div className="description px-[8%]">
+            <p>Desde que comecei a usar as roupas fitness deste site, minha motivação para treinar aumentou consideravelmente! Além de confortáveis, elas são super estilosas. Recomendo a todos que buscam qualidade e estilo em suas peças de academia.</p>
+          </div>
+          <div className="image py-[2%] flex justify-center">
+            <Image src={rosa} alt="Imagem do cliente" className="rounded-full" width="88" height="88" />
+          </div>
+          <div className="sub-title font-bold">
+            <p className="font-bold">Ana Souza</p>
+          </div>
+          <div className="description">
+            <p>Cliente</p>
+          </div>
+        </div>
+        <div className="block">
+          <div className="">
+            <p className="sub-title font-bold py-[8%]">Motivação Elevada E Estilo Impecável!</p>
+          </div>
+          <div className="description px-[8%]">
+            <p>Desde que comecei a usar as roupas fitness deste site, minha motivação para treinar aumentou consideravelmente! Além de confortáveis, elas são super estilosas. Recomendo a todos que buscam qualidade e estilo em suas peças de academia.</p>
+          </div>
+          <div className="image py-[2%] flex justify-center">
+            <Image src={rosa} alt="Imagem do cliente" className="rounded-full" width="88" height="88" />
+          </div>
+          <div className="sub-title font-bold">
+            <p className="font-bold">Ana Souza</p>
+          </div>
+          <div className="description">
+            <p>Cliente</p>
+          </div>
+        </div>
+    
+  </section>
+
+ {/* Rodapé*/}
+    <div className="relative">
+      <Image src={footer} alt="Imagem de Rodapé" />
+      <div className="text-price-gr font-bold flex justify-center items-center absolute transform left-1/2 -translate-x-1/2 -translate-y-1/2 w-[463px] h-[78px] bg-white">NOS SIGA NO INSTAGRAM: @_lojabefit</div>
+    </div>
+
+      <div className="bg-[#023314] text-white w-[1440px] h-[275px] flex flex-col justify-center items-center">
+        <div className="flex mb-10 mt-5">
+          <h1 className="footer-text text-4xl font-bold mx-4">BE</h1>
+          <h1 className="footer-text text-4xl font-bold mx-4">YOU</h1>
+          <h1 className="footer-text text-4xl font-bold mx-4">BE</h1>
+          <h1 className="footer-text text-4xl font-bold mx-4">HAPPY</h1>
+          <h1 className="footer-text text-4xl font-bold mx-4">BE</h1>
+          <h1 className="footer-text text-4xl font-bold mx-4">FIT</h1>
+        </div>
+        <div className="footer-text text-lg font-bold mt-5">Be Fit.</div>
       </div>
     </main>
   );

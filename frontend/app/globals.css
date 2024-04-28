@@ -4,7 +4,7 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
+  --background-start-rgb: 0, 0, 0;
   --background-end-rgb: 255, 255, 255;
 }
 
@@ -18,12 +18,222 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+}
+
+.home-page {
+  background-color: white; /* Define o background específico para a página Home */
+}
+
+.header{
+  background-color: #FADCD9;
+}
+
+.sectionRose{
+    background-color: #FADCD9;
+}
+
+.sectionGreen{
+  background-color: #023314;
+  display: flex;
+  overflow-x: auto;
+}
+
+.sectionWhite {
+  background-color: white;
+  width: 100%; /* Defina a largura desejada */
+  display: flex;
+  overflow-x: auto; /* Habilita a rolagem horizontal */
+  overflow-y: hidden; /* Esconde a barra de rolagem vertical */
+}
+
+/* Estilo para a cor padrão */
+.custom-green {
+  color: #023314;
+}
+
+/* Estilo para a cor de hover */
+.custom-hover-green {
+  color: white;
+}
+
+.custom-title {
+  font-family: "Frank Ruhl Libre";
+  color: #023314;
+  font-weight: 400;
+  font-size: 72px;
+  line-height: 92.95px;
+}
+
+.custom-title-bold {
+  font-family: "Frank Ruhl Libre";
+  color: #023314;
+  font-weight: 700;
+  font-size: 72px;
+  line-height: 92.95px;
+}
+
+.custom-title-page{
+  font-family: "Frank Ruhl Libre";
+  color: #023314;
+  font-weight: 700;
+  font-size: 60px;
+  line-height: 92.95px;
+  margin-top: 6%;
+}
+
+.custom-title-end{
+  font-family: "Frank Ruhl Libre";
+  color: #023314;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 61.97px;
+  margin-top: 6%;
+}
+
+.custom-font {
+  color: #023314;
+  font-size: 16px;
+  line-height: 28.8px;
+}
+
+.custom-font-oferta{
+  color: #023314;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 32.4px;
+}
+
+.custom-titleRose {
+  font-family: "Frank Ruhl Libre";
+  color: #FADCD9;
+  font-weight: 700;
+  font-size: 60px;
+  line-height: 77.46px;
+}
+
+.custom-fontRose{
+  color: #FADCD9;
+  font-size: 18px;
+  line-height: 32.4px;
+}
+
+.button-green{
+  color: white;
+  background-color: #023314;
+  font-size: 90%;
+}
+
+.button-white{
+  color: #FADCD9;
+  background-color: #023314;
+  border-color: #FADCD9;
+  font-size: 90%;
+  width: 212px;
+   height: 68px;
+}
+
+.image-border{
+  border-bottom-left-radius: 30%; 
+}
+
+.container {
+  display: flex;
+  overflow-x: auto;
+}
+
+.text-av{
+  font-family: "Frank Ruhl Libre";
+  color: #140005;
+  font-size: 18px;
+  line-height: 23.24px;
+}
+
+.text-gr{
+  font-family: "Frank Ruhl Libre";
+  color: #023314;
+  font-size: 18px;
+  line-height: 23.24px;
+  text-align: center;
+}
+
+.text-price-before{
+  font-family: "Lato";
+  color: #9B9B9B;
+  font-size: 18px;
+  line-height: 21.6px;
+}
+
+.text-price{
+  font-family: "Lato";
+  color: #140005;
+  font-size: 18px;
+  line-height: 21.6px;
+}
+
+.text-price-gr{
+  color: #023314;
+  font-size: 18px;
+  line-height: 21.6px;
+}
+
+.block-container {
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.block-number {
+  font-family: 'Lato';
+  font-weight: 900;
+  font-size: 48px;
+  line-height: 57.6px;
+  color: #023314;
+}
+
+.block-text {
+  font-family: 'Lato';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19.2px;
+  color: #023314;
+}
+
+.footer-text {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19.2px;
+  color: #FADCD9;
+}
+
+.sectionWhite {
+  display: flex;
+}
+
+
+.block {
+  background-color: white;
+  width: 575px; /* Largura do bloco */
+  height: 450px;
+  margin-right: 20px; /* Espaçamento entre os blocos */
+  flex-shrink: 0; /* Impede que o bloco seja reduzido em tamanho */
+}
+
+.sub-title {
+  text-align: center;
+  color: #023314;
+  font-size: 20px;
+  line-height: 36px;
+}
+
+.description {
+  text-align: center;
+  color: #023314;
+  font-size: 16px;
+  line-height: 28.8px;
 }
 
 @layer utilities {
