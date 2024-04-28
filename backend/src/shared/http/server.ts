@@ -13,8 +13,10 @@ const app: Application = express();
 app.use(cors());
 
 dotenv.config({
-  path: process.env.NODE_ENV === 'prod' ? '.env.production' : '.env',
+  path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env',
 });
+
+console.log(process.env.NODE_ENV);
 
 app.use(express.json());
 

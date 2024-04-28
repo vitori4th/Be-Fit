@@ -12,8 +12,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const app = (0, _express.default)();
 app.use((0, _cors.default)());
 _dotenv.default.config({
-  path: process.env.NODE_ENV === 'prod' ? '.env.production' : '.env'
+  path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env'
 });
+console.log(process.env.NODE_ENV);
 app.use(_express.default.json());
 app.use(_routes.default);
 app.use((0, _celebrate.errors)());
