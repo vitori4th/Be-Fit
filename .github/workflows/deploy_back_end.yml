@@ -28,6 +28,7 @@ jobs:
           submodules: true
           lfs: false
       - name: Cache Dependencies
+        working-directory: ${{ env.REPO_PATH }}
         uses: actions/cache@v1
         with:
           path: ~/.npm
@@ -35,11 +36,13 @@ jobs:
           restore-keys: ${{ runner.os }}-node-
  
       - name: Setup Node 14
+        working-directory: ${{ env.REPO_PATH }}
         uses: actions/setup-node@v2
         with:
           node-version: '14'
  
       - name: Build
+        working-directory: ${{ env.REPO_PATH }}
         run: |
           yarn install --frozen-lockfile
           npm run bundle
