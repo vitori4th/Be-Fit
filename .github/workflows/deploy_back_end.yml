@@ -45,7 +45,7 @@ jobs:
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
       - name: Generate
         working-directory: ${{ env.REPO_PATH }}
-        run: npx prisma generate deploy --schema dist/prisma/schema.prisma
+        run: npx prisma generate --schema dist/prisma/schema.prisma
         env: 
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
 
