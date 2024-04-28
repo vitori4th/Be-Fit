@@ -55,7 +55,7 @@ jobs:
         working-directory: ${{ env.REPO_PATH }}
         run: npx prisma migrate deploy --schema src/prisma/schema.prisma
         env: 
-          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL}}
 
   deploy_production:
     runs-on: ubuntu-latest
