@@ -43,6 +43,7 @@ jobs:
         run: npx prisma migrate deploy --schema dist/prisma/schema.prisma
         env: 
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+          
       - name: Generate
         working-directory: ${{ env.REPO_PATH }}
         run: npx prisma generate --schema dist/prisma/schema.prisma
@@ -83,9 +84,8 @@ jobs:
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
-      # - name: Build Project Artifacts
-      #   working-directory: ${{ env.REPO_PATH }}
-      #   run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy Project Artifacts
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
