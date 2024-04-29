@@ -1,16 +1,15 @@
-"use client"; 
-import React, { useState, useRef } from 'react';
-import Image from "next/image";
-import mail from '../../../public/icons/mail.png'
-import pass from '../../../public/icons/pass.png'
-import visible from '../../../public/icons/visible.png'
-import google from '../../../public/icons/google.png'
-import facebook from '../../../public/icons/facebook.png'
-import CadastroModal from '../cadastro/cadastro'
+import React, { useState } from 'react';
+import Image from 'next/image';
+import axios from 'axios'; // Importar a biblioteca Axios
+import mail from '../../../public/icons/mail.png';
+import pass from '../../../public/icons/pass.png';
+import visible from '../../../public/icons/visible.png';
+import google from '../../../public/icons/google.png';
+import facebook from '../../../public/icons/facebook.png';
+import CadastroModal from '../cadastro/cadastro';
 
 import '../login/login.css';
 
-// Definição de tipos para as props
 interface LoginModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -19,7 +18,7 @@ interface LoginModalProps {
 const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isOpenCadastro, setIsOpenCadastro] = useState(false); // Novo estado para controlar o modal de cadastro
+  const [isOpenCadastro, setIsOpenCadastro] = useState(false);
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -29,17 +28,25 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
     setPassword(event.target.value);
   };
 
-  const handleLoginClick = () => {
-    if (email.trim() !== '' && password.trim() !== '') {
-      // lógica de login
-    } else {
+  const handleLoginClick = async () => {
+    if (!email.trim() || !password.trim()) {
       alert('Por favor, preencha todos os campos para fazer login.');
+      return;
+    }
+  
+    try {
+      const response = await axios.post('/sessions', {
+        email,
+        password,
+      });
+      console.log(response.data);
+    } catch (error) {
+      alert('Ocorreu um erro ao Logar. Por favor, tente novamente mais tarde.');
     }
   };
 
   const handleCadastroClick = () => {
-    // Abrir o modal de cadastro
-    setIsOpenCadastro(true); // Abrir o modal de cadastro
+    setIsOpenCadastro(true);
   };
 
   return (
@@ -50,12 +57,12 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
           <p className="sub-info mt-8 mb-2">Email</p>
           <div className="custom-input-container">
             <Image src={mail} alt="Icone" width={13.33} height={10.67} className="input-icon" />
-            <input type="text" className="custom-input" placeholder="Input" value={email} onChange={handleEmailChange} />
+            <input type="text" className="custom-input" placeholder="Email" value={email} onChange={handleEmailChange} />
           </div>
           <p className="sub-info mt-2 mb-2">Senha</p>
           <div className="custom-input-container">
             <Image src={pass} alt="Icone" width={13.33} height={10.67} className="input-icon" />
-            <input type="password" className="custom-input" placeholder="Input" value={password} onChange={handlePasswordChange} />
+            <input type="password" className="custom-input" placeholder="Senha" value={password} onChange={handlePasswordChange} />
             <div className="right-icon">
               <Image src={visible} alt="Icone" width={13.33} height={10.67} className="input-icon relative left-[60%]" />
             </div>

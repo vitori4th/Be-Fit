@@ -1,16 +1,24 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Image from 'next/image';
 import mail from '../../../public/icons/mail.png';
 import pass from '../../../public/icons/pass.png';
 import visible from '../../../public/icons/visible.png';
 import './cadastro.css';
+import { User } from '../../../../backend/src/modules/users/entities/user';
+import AppError from '../../../../backend/src/shared/errors/AppError';
+import CreateUserService from '../../../../backend/src/modules/users/useCases/services/CreateUserService';
+import { IUserRepository }  from '../../../../backend/src/modules/users/repositories/user/IUserRepository';
+import { UserRoleType } from '@prisma/client';
+
 
 interface CadastroModalProps {
   isOpen: boolean;
   onClose: () => void;
+  userRepository: IUserRepository;
 }
 
-const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
+const CadastroModal = ({ isOpen, onClose, userRepository }: CadastroModalProps) => {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
@@ -47,7 +55,7 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
     setConfirmPassword(event.target.value);
   };
 
-  const handleCadastroClick = () => {
+  const handleCadastroClick = async () => {
     if (nome.trim() === '' || email.trim() === '' || dataNascimento.trim() === '' || cpf.trim() === '' || telefone.trim() === '' || password.trim() === '' || confirmPassword.trim() === '') {
       alert('Por favor, preencha todos os campos para se cadastrar.');
       return;
@@ -58,7 +66,35 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
       return;
     }
 
-    // Aqui você pode continuar com a lógica de cadastro
+    try {
+      const userData = {
+        cellphone: telefone,
+        cpf: Number(cpf),
+        email,
+        dateBirth: new Date(dataNascimento),
+        lastname: 'Sobrenome',
+        name: nome,
+        password,
+        role: 'USER', // ou UserRoleType.USER
+        confirmPassword,
+      };
+      
+      
+      // Chamar a API para o registro do usuário
+      const response = await axios.post('http://localhost:3333/users/', userData);
+
+      // Verificar se o usuário foi registrado com sucesso
+      if (response.status === 200) {
+        alert('Usuário cadastrado com sucesso!');
+        onClose();
+      } else {
+        alert('Ocorreu um erro ao cadastrar o usuário. Por favor, tente novamente mais tarde.');
+      }
+    } catch (error) {
+      // Se ocorrer um erro, exibir uma mensagem de erro
+      alert('Ocorreu um erro ao cadassatrar o usuário. Por favor, tente novamente mais tarde.');
+      console.error(error);
+    }
   };
 
   return (
