@@ -86,6 +86,9 @@ jobs:
       - name: List contents of current directory
         run: ls
 
+      - name: List contents of current directory
+        run: ls node_modules
+
       - name: Install prisma
         run: npm install --global prisma
       
