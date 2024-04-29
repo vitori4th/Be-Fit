@@ -43,12 +43,14 @@ jobs:
         run: npx prisma migrate deploy --schema dist/prisma/schema.prisma
         env: 
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+          POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
           
       - name: Generate
         working-directory: ${{ env.REPO_PATH }}
         run: npx prisma generate --schema dist/prisma/schema.prisma
         env: 
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+          POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
 
       - name: "Zip build artifact"
         shell: bash
