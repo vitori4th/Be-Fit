@@ -10,34 +10,12 @@ import azul from '../public/em alta/azul.png'
 import rosa from '../public/em alta/rosa.png'
 import star from '../public/icons/star.png'
 import lines from '../public/lines.png'
+import Header from '../app/components/header/header'
 
 export default function Home() {
   return (
     <main className="home-page flex min-h-screen flex-col items-center justify-between p-0">
-      <header className="header w-full pl-[10%] pr-[3%] py-[3%] flex items-center justify-between">
-            {/* Logo Befit */}
-            <div className="flex items-center">
-              <Image src={befitLogo} alt="Befit Logo" width={59} height={68} />
-            </div>
-            {/* Menu */}
-            <nav className="flex items-center justify-center space-x-8">
-              <a href="#" className="custom-green hover:text-green-600 font-bold transition-colors duration-500">PRODUTOS</a>
-              <a href="#" className="custom-green hover:text-green-600 font-bold transition-colors duration-500">EM ALTA</a>
-              <a href="#" className="custom-green hover:text-green-600 font-bold transition-colors duration-500">CONJUNTOS</a>
-              <a href="#" className="custom-green hover:text-green-600 font-bold transition-colors duration-500">LANÇAMENTOS</a>
-            </nav>
-            {/* Login e Carrinho */}
-            <div className="flex items-center space-x-4">
-            <div className="relative">
-                <Image src={cartLogo} alt="Cart Icon" width={30} height={30} />
-                {/* Badge com quantidade de itens no carrinho, se necessário */}
-                <div className="absolute bottom-[75%] left-[75%] bg-red-500 text-black rounded-full w-3 h-3 flex items-center justify-center text-xs">
-                  1
-                </div>
-              </div>
-              <button className="bg-transparent border border-green-800 text-green-800 px-8 py-1 rounded-lg hover:bg-green-800 hover:text-white duration-500 font-bold">Login</button>
-            </div>
-          </header>
+      <Header></Header>
 
       <section className="sectionRose w-full h-[800px] flex items-start justify-center pr-[45%] py-[8%]">
         <div className="text-left">
