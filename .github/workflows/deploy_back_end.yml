@@ -70,10 +70,10 @@ jobs:
     needs: build
     steps:
       - name: Run production migration
-          run: npm run migrate:deploy
-          env:
-            POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
-            POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
+        run: npm run migrate:deploy
+        env:
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+          POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
 
       - name: "Download Artifact"
         uses: actions/download-artifact@v3
