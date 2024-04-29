@@ -16,19 +16,21 @@ describe('CreateUser', () => {
     it('POST', async () => {
       const userData = {
         cellphone: '5588899',
-        cpf: 1234569,
-        email: 'teste33@email.com',
+        cpf: 1234,
+        email: 'teste@email.com',
         dateBirth: new Date('2002-12-03'),
         lastname: 'teste',
         name: 'ze',
-        password: '12345',
+        password: 'teste',
         role: 'USER',
-        confirmPassword: '12345',
+        confirmPassword: 'teste',
       };
 
       const response = await request('http://localhost:3333')
         .post('/users/')
         .send(userData);
+
+      console.log(response)
 
       expect(response.status).toBe(200);
 

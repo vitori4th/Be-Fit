@@ -3,10 +3,10 @@ import 'reflect-metadata';
 
 
 describe('POST /sessions', () => {
-  it('deve retornar um usuário e um token quando as credenciais estiverem corretas', async () => {
+  it('should return a user and token when credentials are correct', async () => {
     // Dados de algum usuario existente
     const email = 'teste@email.com';
-    const password = '12345';
+    const password = 'teste';
 
     const response = await request('http://localhost:3333')
       .post('/login/')
