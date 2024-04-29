@@ -81,6 +81,7 @@ jobs:
           rm ${{env.ARTIFACT_NAME}}.zip
       
       - name: Run production migration
+        working-directory: ${{ env.REPO_PATH }}
         run: npm run migrate:deploy
         env:
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
