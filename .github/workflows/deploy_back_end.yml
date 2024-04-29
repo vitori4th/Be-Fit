@@ -79,14 +79,20 @@ jobs:
         run: |
           unzip ${{env.ARTIFACT_NAME}}.zip -d .
           rm ${{env.ARTIFACT_NAME}}.zip
+
+      - name: Print current directory
+        run: echo "Current directory: $PWD"
+
+      - name: List contents of current directory
+        run: ls
       
-      - name: Run production migration
-        run: |
-          cd backend
-          npx prisma migrate deploy --schema src/prisma/schema.prisma
-        env:
-          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
-          POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
+      # - name: Run production migration
+      #   run: |
+      #     cd backend
+      #     npx prisma migrate deploy --schema src/prisma/schema.prisma
+      #   env:
+      #     POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+      #     POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
 
       - name: Install Vercel CLI
         run: npm install --global vercel
