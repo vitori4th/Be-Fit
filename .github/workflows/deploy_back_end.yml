@@ -81,7 +81,7 @@ jobs:
           rm ${{env.ARTIFACT_NAME}}.zip
 
       - name: Print current directory
-        run: echo "Current directory: $PWD"
+        run: echo ${{ github.workspace }}
 
       - name: List contents of current directory
         run: ls
