@@ -75,11 +75,10 @@ const CadastroModal = ({ isOpen, onClose, userRepository }: CadastroModalProps) 
         lastname: 'Sobrenome',
         name: nome,
         password,
-        role: 'USER', // ou UserRoleType.USER
         confirmPassword,
       };
       
-      
+      console.log(userData);
       // Chamar a API para o registro do usuário
       const response = await axios.post('http://localhost:3333/users/', userData);
 
