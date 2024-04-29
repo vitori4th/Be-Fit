@@ -1,0 +1,100 @@
+name: Backend
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID_API }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_API }}
+  REPO_PATH: "./backend"
+  ARTIFACT_NAME: build-${{ github.event.repository.name }}-${{ github.run_id }}
+
+
+on:
+  push:
+    branches:
+      - main
+    # paths:
+    #   - './backend/**'
+    #   - 'deploy_back_end.yml'
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches:
+      - main
+
+jobs:
+  build:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+    name: Build 
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+          lfs: false
+
+      - name: Install dependencies
+        working-directory: ${{ env.REPO_PATH }}
+        run: npm install
+
+      - name: Build project
+        working-directory: ${{ env.REPO_PATH }}
+        run: npm run build
+      
+      - name: Apply all pending migrations to the database
+        working-directory: ${{ env.REPO_PATH }}
+        run: npx prisma migrate deploy --schema dist/prisma/schema.prisma
+        env: 
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+          
+      - name: Generate
+        working-directory: ${{ env.REPO_PATH }}
+        run: npx prisma generate --schema dist/prisma/schema.prisma
+        env: 
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+
+      - name: "Zip build artifact"
+        shell: bash
+        working-directory: ${{ env.REPO_PATH }}
+        run:
+          zip -r ${{env.ARTIFACT_NAME}}.zip * 
+
+      - name: "Upload Artifact"
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{env.ARTIFACT_NAME}}
+          path: ${{ env.REPO_PATH }}/${{env.ARTIFACT_NAME}}.zip
+          if-no-files-found: error
+
+  deploy_production:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: "Download Artifact"
+        uses: actions/download-artifact@v3
+        with:
+            name: ${{ env.ARTIFACT_NAME }}
+
+      - name: "Unzip Artifact"
+        shell: bash
+        run: |
+          unzip ${{env.ARTIFACT_NAME}}.zip -d .
+          rm ${{env.ARTIFACT_NAME}}.zip
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel
+      
+      - name: Generate
+        working-directory: ${{ env.REPO_PATH }}
+        run: npx prisma generate --schema dist/prisma/schema.prisma
+        env: 
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy Project Artifacts
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+
+
