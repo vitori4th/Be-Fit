@@ -150,9 +150,7 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
           value={password}
           onChange={handlePasswordChange}
         />
-        <div className="right-icon" onClick={togglePasswordVisibility}>
-          <Image src={visible} alt="Ícone de visibilidade" width={13.33} height={10.67} className="input-icon relative left-[60%]" />
-        </div>
+       
       </div>
 
       <p className="sub-info mt-2 mb-2">Confirmar Senha</p>
@@ -165,9 +163,7 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
           value={confirmPassword}
           onChange={handleConfirmPasswordChange}
         />
-        <div className="right-icon" onClick={toggleConfirmPasswordVisibility}>
-          <Image src={visible} alt="Ícone de visibilidade" width={13.33} height={10.67} className="input-icon relative left-[60%]" />
-        </div>
+        
       </div>
           <button className="button-login border border-green-800 rounded-md duration-500 mt-10 hover:border-green-600 hover:text-green-600" onClick={handleCadastroClick}>Cadastrar</button>
           <ToastContainer />
