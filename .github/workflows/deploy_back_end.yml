@@ -84,7 +84,7 @@ jobs:
         run: echo ${{ github.workspace }}
 
       - name: List contents of current directory
-        run: ls dist
+        run: ls
 
       - name: Install prisma
         run: npm install --global prisma
