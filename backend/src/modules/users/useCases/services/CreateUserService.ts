@@ -1,9 +1,9 @@
 import { UserRoleType } from '@prisma/client';
 import { User } from '../../entities/user';
-import UserRepository from '../../repositories/user/UserRepository';
-import { hash } from 'bcrypt';
 import AppError from '../../../../shared/errors/AppError';
 import { excludeFromObject } from '../../../../shared/utils/excludePasswordUser';
+import { hash } from 'bcrypt';
+import { IUserRepository } from '@modules/users/repositories/user/IUserRepository';
 
 interface IUserConfig {
   cellphone: string;
@@ -18,6 +18,9 @@ interface IUserConfig {
 }
 
 export default class CreateUserService {
+
+  constructor(private repository: IUserRepository) { }
+
   public async execute({
     cellphone,
     cpf,
@@ -29,14 +32,14 @@ export default class CreateUserService {
     role,
     confirmPassword,
   }: IUserConfig): Promise<User> {
-    const userRepository = new UserRepository();
-    const emailExists = await userRepository.findByEmail(email);
+    //const userRepository = new UserRepository();
+    const emailExists = await this.repository.findByEmail(email);
 
     if (emailExists) {
       throw new AppError('Email addres already used.');
     }
 
-    const cpfExists = await userRepository.findByCPF(cpf);
+    const cpfExists = await this.repository.findByCPF(cpf);
 
     if (cpfExists) {
       throw new AppError('CPF already used.');
@@ -59,7 +62,7 @@ export default class CreateUserService {
       role,
     };
 
-    const userCreated = await userRepository.register(user);
+    const userCreated = await this.repository.register(user);
 
     const userWithoutPassword = excludeFromObject(userCreated, ['password']);
 
