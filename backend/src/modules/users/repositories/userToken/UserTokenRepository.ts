@@ -1,6 +1,6 @@
 import { UserToken } from '../../entities/UserToken';
 import { IUserTokenRepository } from './IUserTokenRepository';
-import { prismaClient } from '../../../../../prisma/prismaClient';
+import { prismaClient } from '../../../../prisma/prismaClient';
 
 class UserTokensRepository implements IUserTokenRepository {
   public async findByToken(token: string): Promise<UserToken | undefined> {

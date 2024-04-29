@@ -1,6 +1,6 @@
 import { IUserDTO, User } from '../../entities/user';
 import { IUserRepository } from './IUserRepository';
-import { prismaClient } from '../../../../../prisma/prismaClient';
+import { prismaClient } from '../../../../prisma/prismaClient';
 import {
   excludeFromList,
   excludeFromObject,
