@@ -81,7 +81,6 @@ jobs:
           rm ${{env.ARTIFACT_NAME}}.zip
 
       - name: Install dependencies
-        working-directory: ${{ env.REPO_PATH }}
         run: npm install
 
       - name: Print current directory
