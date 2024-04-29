@@ -82,13 +82,7 @@ jobs:
 
       - name: Install Vercel CLI
         run: npm install --global vercel
-      
-      - name: Generate
-        working-directory: ${{ env.REPO_PATH }}
-        run: npx prisma generate --schema dist/prisma/schema.prisma
-        env: 
-          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
-
+    
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
