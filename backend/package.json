@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "TypeScript Rest API with Express.js, JWT, MongoDB",
   "main": "server.ts",
+  "author": "",
+  "license": "ISC",
   "scripts": {
     "start": "nodemon -r tsconfig-paths/register src/shared/http/server.ts",
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
@@ -12,10 +14,8 @@
     "add-build": "git add dist",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.24.1",
     "@babel/core": "^7.24.4",
@@ -27,8 +27,10 @@
     "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/node": "^20.10.2",
+    "@types/supertest": "^6.0.2",
     "@typescript-eslint/eslint-plugin": "^7.7.1",
     "@typescript-eslint/parser": "^7.7.1",
     "babel-plugin-module-resolver": "^5.0.2",
@@ -36,9 +38,12 @@
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.2.0",
-    "nodemon": "^3.0.2",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.0",
     "pre-commit": "^1.2.2",
     "rimraf": "^5.0.5",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.1.2",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.3.2"
@@ -47,6 +52,7 @@
     "@prisma/adapter-pg": "^5.13.0",
     "@prisma/client": "^5.13.0",
     "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "celebrate": "^15.0.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
