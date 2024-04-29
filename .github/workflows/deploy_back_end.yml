@@ -70,6 +70,7 @@ jobs:
     needs: build
     steps:
       - name: Run production migration
+        working-directory: ${{ env.REPO_PATH }}
         run: npm run migrate:deploy
         env:
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
