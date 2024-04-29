@@ -10,6 +10,8 @@ import AppError from '../../../../backend/src/shared/errors/AppError';
 import CreateUserService from '../../../../backend/src/modules/users/useCases/services/CreateUserService';
 import { IUserRepository }  from '../../../../backend/src/modules/users/repositories/user/IUserRepository';
 import { UserRoleType } from '@prisma/client';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 interface CadastroModalProps {
@@ -26,6 +28,10 @@ const CadastroModal = ({ isOpen, onClose, userRepository }: CadastroModalProps) 
   const [telefone, setTelefone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const notify = () => toast.success("Usuário Cadastrado com Sucesso!");
 
   const handleNomeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNome(event.target.value);
@@ -55,14 +61,26 @@ const CadastroModal = ({ isOpen, onClose, userRepository }: CadastroModalProps) 
     setConfirmPassword(event.target.value);
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
+  const successLogin = () => {
+    toast.success('Usuário cadastrado com sucesso!');
+  };
+
   const handleCadastroClick = async () => {
     if (nome.trim() === '' || email.trim() === '' || dataNascimento.trim() === '' || cpf.trim() === '' || telefone.trim() === '' || password.trim() === '' || confirmPassword.trim() === '') {
-      alert('Por favor, preencha todos os campos para se cadastrar.');
+      toast.error("Preencha todos os campos");
       return;
     }
 
     if (password !== confirmPassword) {
-      alert('As senhas não coincidem. Por favor, verifique.');
+      toast.error('As senhas não coincidem. Por favor, verifique.');
       return;
     }
 
@@ -84,14 +102,16 @@ const CadastroModal = ({ isOpen, onClose, userRepository }: CadastroModalProps) 
 
       // Verificar se o usuário foi registrado com sucesso
       if (response.status === 200) {
-        alert('Usuário cadastrado com sucesso!');
-        onClose();
+        toast.success("Usuário Cadastrado com Sucesso!");
+        setTimeout(() => {
+          onClose(); // Fechar o modal após um pequeno atraso
+        }, 2000);
       } else {
-        alert('Ocorreu um erro ao cadastrar o usuário. Por favor, tente novamente mais tarde.');
+        toast.error('Ocorreu um erro ao cadastrar o usuário.');
       }
     } catch (error) {
       // Se ocorrer um erro, exibir uma mensagem de erro
-      alert('Ocorreu um erro ao cadassatrar o usuário. Por favor, tente novamente mais tarde.');
+      toast.error('Ocorreu um erro ao cadastrar o usuário.');
       console.error(error);
     }
   };
@@ -127,25 +147,40 @@ const CadastroModal = ({ isOpen, onClose, userRepository }: CadastroModalProps) 
             <input type="text" className="custom-input flex items-center" placeholder="Telefone" value={telefone} onChange={handleTelefoneChange} />
           </div>
           <p className="sub-info mt-2 mb-2">Senha</p>
-          <div className="custom-input-container">
-            <Image src={pass} alt="Icone" width={13.33} height={10.67} className="input-icon" />
-            <input type="password" className="custom-input" placeholder="Senha" value={password} onChange={handlePasswordChange} />
-            <div className="right-icon">
-              <Image src={visible} alt="Icone" width={13.33} height={10.67} className="input-icon relative left-[60%]" />
-            </div>
-          </div>
-          <p className="sub-info mt-2 mb-2">Confirmar Senha</p>
-          <div className="custom-input-container">
-            <Image src={pass} alt="Icone" width={13.33} height={10.67} className="input-icon" />
-            <input type="password" className="custom-input" placeholder="Confirmar Senha" value={confirmPassword} onChange={handleConfirmPasswordChange} />
-            <div className="right-icon">
-              <Image src={visible} alt="Icone" width={13.33} height={10.67} className="input-icon relative left-[60%]" />
-            </div>
-          </div>
-          <button className="button-cad border border-green-800 rounded-md duration-500 mt-10 hover:border-green-600 hover:text-green-600" onClick={handleCadastroClick}>Cadastrar</button>
-          <button className="button-login border border-green-800 rounded-md hover:bg-green-800 duration-500 mt-2" onClick={onClose}>Voltar</button>
+      <div className="custom-input-container">
+        <Image src={pass} alt="Icone" width={13.33} height={10.67} className="input-icon" />
+        <input
+          type={showPassword ? 'text' : 'password'}
+          className="custom-input"
+          placeholder="Senha"
+          value={password}
+          onChange={handlePasswordChange}
+        />
+        <div className="right-icon" onClick={togglePasswordVisibility}>
+          <Image src={visible} alt="Ícone de visibilidade" width={13.33} height={10.67} className="input-icon relative left-[60%]" />
         </div>
       </div>
+
+      <p className="sub-info mt-2 mb-2">Confirmar Senha</p>
+      <div className="custom-input-container">
+        <Image src={pass} alt="Icone" width={13.33} height={10.67} className="input-icon" />
+        <input
+          type={showConfirmPassword ? 'text' : 'password'}
+          className="custom-input"
+          placeholder="Confirmar Senha"
+          value={confirmPassword}
+          onChange={handleConfirmPasswordChange}
+        />
+        <div className="right-icon" onClick={toggleConfirmPasswordVisibility}>
+          <Image src={visible} alt="Ícone de visibilidade" width={13.33} height={10.67} className="input-icon relative left-[60%]" />
+        </div>
+      </div>
+          <button className="button-login border border-green-800 rounded-md duration-500 mt-10 hover:border-green-600 hover:text-green-600" onClick={handleCadastroClick}>Cadastrar</button>
+          <ToastContainer />
+          <button className="button-return rounded-md hover:bg-gray-400 duration-500 mt-2" onClick={onClose}>Voltar</button>
+        </div>
+      </div>
+      <ToastContainer />
     </div>
   );
 };
