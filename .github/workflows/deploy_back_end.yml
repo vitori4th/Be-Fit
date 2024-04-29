@@ -80,6 +80,10 @@ jobs:
           unzip ${{env.ARTIFACT_NAME}}.zip -d .
           rm ${{env.ARTIFACT_NAME}}.zip
 
+      - name: Install dependencies
+        working-directory: ${{ env.REPO_PATH }}
+        run: npm install
+
       - name: Print current directory
         run: echo ${{ github.workspace }}
 
