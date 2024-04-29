@@ -85,10 +85,13 @@ jobs:
 
       - name: List contents of current directory
         run: ls dist
+
+      - name: Install prisma
+        run: npm install --global prisma
       
       - name: Run production migration
         run:
-          npx prisma migrate deploy --schema dist/prisma/schema.prisma
+          prisma migrate deploy --schema dist/prisma/schema.prisma
         env:
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
           POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
