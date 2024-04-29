@@ -80,27 +80,15 @@ jobs:
           unzip ${{env.ARTIFACT_NAME}}.zip -d .
           rm ${{env.ARTIFACT_NAME}}.zip
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Print current directory
-        run: echo ${{ github.workspace }}
-
-      - name: List contents of current directory
-        run: ls
-
-      - name: List contents of current directory
-        run: ls node_modules
-
-      - name: Install prisma
-        run: npm install --global prisma
+      # - name: Install prisma
+      #   run: npm install --global prisma
       
-      - name: Run production migration
-        run:
-          prisma migrate deploy --schema dist/prisma/schema.prisma
-        env:
-          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
-          POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
+      # - name: Run production migration
+      #   run:
+      #     prisma migrate deploy --schema dist/prisma/schema.prisma
+      #   env:
+      #     POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+      #     POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
 
       - name: Install Vercel CLI
         run: npm install --global vercel
