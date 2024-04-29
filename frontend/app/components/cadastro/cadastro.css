@@ -14,3 +14,14 @@
   .bloco-cad{
     align-items: center;
   }
+
+  .button-return{
+      color: #797979;
+      background-color: #CCCCCC;
+      font-size: 90%;
+      width: 240px; /* Defina a largura do botão */
+      height: 32px; /* Defina a altura desejada */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }

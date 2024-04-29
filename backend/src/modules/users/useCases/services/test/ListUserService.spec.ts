@@ -14,9 +14,9 @@ describe('GetUser', () => {
     _createUser = new CreateUserService(userRepository);
   });
   it('GET', async () => {
-    const id = 'b4225ebe-0ab5-4a48-9615-0ba6d750d5a2';
+    const id = 'b4225ebe-0ab5-4a48-9615-0ba6d750d5a2'; // need to a id exists in DB
     const email = 'teste@email.com';
-    const password = '12345';
+    const password = 'teste';
 
 
     const sessionService = new CreateSessionsService();

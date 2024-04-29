@@ -8,7 +8,7 @@
   "scripts": {
     "start": "nodemon -r tsconfig-paths/register src/shared/http/server.ts",
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
-    "prisma": "npx prisma migrate dev --schema src/prisma/schema.prisma",
+    "prisma": "npx prisma migrate dev --schema ./src/prisma/schema.prisma",
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist",
     "lint": "eslint . --ext .ts",
