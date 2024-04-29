@@ -1,16 +1,16 @@
+import { IUserRepository } from '@modules/users/repositories/user/IUserRepository';
 import AppError from '../../../../shared/errors/AppError';
 import { User } from '../../entities/user';
-import UserRepository from '../../repositories/user/UserRepository';
 
 interface IRequest {
   id: string;
 }
 
 export default class ListUserService {
-  public async execute({ id }: IRequest): Promise<User> {
-    const usersRepository = new UserRepository();
+  constructor(private repository: IUserRepository) {}
 
-    const user = await usersRepository.findById(id);
+  public async execute({ id }: IRequest): Promise<User> {
+    const user = await this.repository.findById(id);
 
     if (!user) {
       throw new AppError('User not found');

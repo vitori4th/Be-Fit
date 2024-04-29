@@ -21,7 +21,8 @@
       "./node_modules/@types"
     ],
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "resolveJsonModule": true
   },
   "include": ["./src/**/*"]
 }

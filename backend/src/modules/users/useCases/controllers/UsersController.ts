@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import CreateUserService from '../services/CreateUserService';
 import { instanceToInstance } from 'class-transformer';
 import UserRepository from '../../repositories/user/UserRepository';
+import ListUserService from '../services/ListUserService';
 
 export default class UsersController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -16,7 +17,8 @@ export default class UsersController {
       role,
       confirmPassword,
     } = request.body;
-    const createUser = new CreateUserService();
+    const userRepository = new UserRepository();
+    const createUser = new CreateUserService(userRepository);
     const user = await createUser.execute({
       cellphone,
       cpf,
@@ -33,8 +35,9 @@ export default class UsersController {
 
   public async show(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
-    const userRepository = new UserRepository();
-    const user = await userRepository.findById(id);
+    const usersRepository = new UserRepository();
+    const showUser = new ListUserService(usersRepository);
+    const user = await showUser.execute({ id });
     return response.json(instanceToInstance(user));
   }
 
