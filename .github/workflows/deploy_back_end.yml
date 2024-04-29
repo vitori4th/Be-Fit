@@ -81,7 +81,9 @@ jobs:
           rm ${{env.ARTIFACT_NAME}}.zip
       
       - name: Run production migration
-        run: npm run migrate:deploy
+        run: |
+          cd backend
+          npx prisma migrate deploy --schema src/prisma/schema.prisma
         env:
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
           POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
