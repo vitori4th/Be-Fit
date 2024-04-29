@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Build 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: true
           lfs: false
@@ -37,18 +37,20 @@ jobs:
       - name: Build project
         working-directory: ${{ env.REPO_PATH }}
         run: npm run build
-      
-      - name: Apply all pending migrations to the database
-        working-directory: ${{ env.REPO_PATH }}
-        run: npx prisma migrate deploy --schema dist/prisma/schema.prisma
-        env: 
-          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+
+      # - name: Apply all pending migrations to the database
+      #   working-directory: ${{ env.REPO_PATH }}
+      #   run: npx prisma migrate deploy --schema dist/prisma/schema.prisma
+      #   env: 
+      #     POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+      #     POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
           
-      - name: Generate
-        working-directory: ${{ env.REPO_PATH }}
-        run: npx prisma generate --schema dist/prisma/schema.prisma
-        env: 
-          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+      # - name: Generate
+      #   working-directory: ${{ env.REPO_PATH }}
+      #   run: npx prisma generate --schema dist/prisma/schema.prisma
+      #   env: 
+      #     POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+      #     POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
 
       - name: "Zip build artifact"
         shell: bash
@@ -57,7 +59,7 @@ jobs:
           zip -r ${{env.ARTIFACT_NAME}}.zip * 
 
       - name: "Upload Artifact"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{env.ARTIFACT_NAME}}
           path: ${{ env.REPO_PATH }}/${{env.ARTIFACT_NAME}}.zip
@@ -68,7 +70,7 @@ jobs:
     needs: build
     steps:
       - name: "Download Artifact"
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
             name: ${{ env.ARTIFACT_NAME }}
 
@@ -78,15 +80,31 @@ jobs:
           unzip ${{env.ARTIFACT_NAME}}.zip -d .
           rm ${{env.ARTIFACT_NAME}}.zip
 
+      - name: Install dependencies
+        run: npm install
+
+      - name: Print current directory
+        run: echo ${{ github.workspace }}
+
+      - name: List contents of current directory
+        run: ls
+
+      - name: List contents of current directory
+        run: ls node_modules
+
+      - name: Install prisma
+        run: npm install --global prisma
+      
+      - name: Run production migration
+        run:
+          prisma migrate deploy --schema dist/prisma/schema.prisma
+        env:
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+          POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
+
       - name: Install Vercel CLI
         run: npm install --global vercel
-      
-      - name: Generate
-        working-directory: ${{ env.REPO_PATH }}
-        run: npx prisma generate --schema dist/prisma/schema.prisma
-        env: 
-          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
-
+    
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 

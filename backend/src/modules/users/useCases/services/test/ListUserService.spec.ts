@@ -2,7 +2,8 @@ import 'reflect-metadata';
 import FakeUserRepository from '@modules/users/repositories/user/fakes/FakeUserRepository';
 import CreateUserService from '../CreateUserService';
 import request from 'supertest';
-import AppError from '@shared/errors/AppError';
+import CreateSessionsService from '../CreateSessionService';
+
 
 let userRepository: FakeUserRepository;
 let _createUser: CreateUserService;
@@ -13,21 +14,20 @@ describe('GetUser', () => {
     _createUser = new CreateUserService(userRepository);
   });
   it('GET', async () => {
-    const userData = {
-      id: 'b4225ebe-0ab5-4a48-9615-0ba6d750d5a2',
-      email: 'andree@email.com',
-      cpf: 1478785,
-      name: 'andre',
-      lastname: 'gomides',
-      dateBirth: '2022-01-01T00:00:00.000Z',
-      cellphone: '37999791290',
-      role: 'ADMIN',
-      createdAt: '2024-04-29T02:26:10.998Z',
-      updatedAt: '2024-04-29T02:26:10.998Z',
-    };
+    const id = 'b4225ebe-0ab5-4a48-9615-0ba6d750d5a2';
+    const email = 'teste@email.com';
+    const password = '12345';
+
+
+    const sessionService = new CreateSessionsService();
+    const { token } = await sessionService.execute({
+      email,
+      password,
+    })
 
     const response = await request('http://localhost:3333')
-      .get(`/users/${userData.id}`)
+      .get(`/users/${id}`)
+      .set('Authorization', `bearer ${token}`);
 
     expect(response.status).toBe(200);
 
@@ -48,25 +48,11 @@ describe('GetUser', () => {
   });
 
   it('GET if id not exists, throw error', async () => {
-    const userData = {
-      id: '3',
-      email: 'andree@email.com',
-      cpf: 1478785,
-      name: 'andre',
-      lastname: 'gomides',
-      dateBirth: '2022-01-01T00:00:00.000Z',
-      cellphone: '37999791290',
-      role: 'ADMIN',
-      createdAt: '2024-04-29T02:26:10.998Z',
-      updatedAt: '2024-04-29T02:26:10.998Z',
-    };
+    const id = 'b4225ebe-0ab5-4a48-9615-0ba6d750d5a1';
 
-    const response = await request('http://localhost:3333').get(
-      `/users/${userData.id}`,
-    );
+    const response = await request('http://localhost:3333').get(`/users/${id}`);
 
     expect(response.status).toBe(400);
-    expect(response).rejects.toBeInstanceOf(AppError);
-
+    expect(response.body.message).toEqual('JWT Token is missing.');
   });
 });

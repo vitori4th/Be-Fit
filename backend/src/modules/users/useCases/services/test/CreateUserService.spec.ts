@@ -16,10 +16,10 @@ describe('CreateUser', () => {
     it('POST', async () => {
       const userData = {
         cellphone: '5588899',
-        cpf: 223365,
-        email: 'new@email.com',
+        cpf: 1234569,
+        email: 'teste33@email.com',
         dateBirth: new Date('2002-12-03'),
-        lastname: 'ferreira',
+        lastname: 'teste',
         name: 'ze',
         password: '12345',
         role: 'USER',
