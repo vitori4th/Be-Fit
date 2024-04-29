@@ -5,11 +5,6 @@ import mail from '../../../public/icons/mail.png';
 import pass from '../../../public/icons/pass.png';
 import visible from '../../../public/icons/visible.png';
 import './cadastro.css';
-import { User } from '../../../../backend/src/modules/users/entities/user';
-import AppError from '../../../../backend/src/shared/errors/AppError';
-import CreateUserService from '../../../../backend/src/modules/users/useCases/services/CreateUserService';
-import { IUserRepository }  from '../../../../backend/src/modules/users/repositories/user/IUserRepository';
-import { UserRoleType } from '@prisma/client';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -17,10 +12,9 @@ import 'react-toastify/dist/ReactToastify.css';
 interface CadastroModalProps {
   isOpen: boolean;
   onClose: () => void;
-  userRepository: IUserRepository;
 }
 
-const CadastroModal = ({ isOpen, onClose, userRepository }: CadastroModalProps) => {
+const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
