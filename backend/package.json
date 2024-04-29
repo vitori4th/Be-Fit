@@ -14,12 +14,7 @@
     "add-build": "git add dist",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix",
-    "test": "jest",
-    "db:push": "npx prisma db push --preview-feature",
-    "migrate:reset": "npx prisma migrate reset --schema src/prisma/schema.prisma",
-    "migrate:create": "npx prisma migrate dev --create-only --schema src/prisma/schema.prisma",
-    "migrate:deploy": "npx prisma migrate deploy --schema src/prisma/schema.prisma",
-    "prisma:generate": "npx prisma generate --schema src/prisma/schema.prisma"
+    "test": "jest"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.1",
