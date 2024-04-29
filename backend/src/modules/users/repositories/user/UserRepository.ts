@@ -69,16 +69,19 @@ export default class UserRepository implements IUserRepository {
     return user;
   }
 
-  public async findById(id: string): Promise<User> {
+  public async findById(id: string): Promise<User | undefined> {
     const user = await prismaClient.user.findUnique({
       where: {
         id,
       },
     });
 
-    const userWithoutPassword = excludeFromObject(user, ['password']);
+    if (user) {
+      const userWithoutPassword = excludeFromObject(user, ['password']);
 
-    return userWithoutPassword as User;
+      return userWithoutPassword as User;
+    }
+    return user;
   }
 
   public async findByCPF(cpf: number): Promise<User | undefined> {
