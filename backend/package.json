@@ -13,7 +13,12 @@
     "add-build": "git add dist",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix",
-    "test": "jest"
+    "test": "jest",
+    "db:push": "prisma db push --preview-feature",
+    "migrate:reset": "prisma migrate reset --schema src/prisma/schema.prisma",
+    "migrate:create": "prisma migrate dev --create-only --schema src/prisma/schema.prisma",
+    "migrate:deploy": "prisma migrate deploy --schema src/prisma/schema.prisma",
+    "prisma:generate": "prisma generate --schema src/prisma/schema.prisma"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.1",
