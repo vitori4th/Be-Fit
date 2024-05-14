@@ -20,6 +20,8 @@ class SendForgotPasswordEmailService {
 
     const { token } = await userTokenRepository.generate(user.id);
 
+    console.log(token)
+
     const forgotPasswordTemplate = path.resolve(
       __dirname,
       '..',

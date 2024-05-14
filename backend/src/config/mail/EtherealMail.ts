@@ -31,14 +31,14 @@ export default class EtherealMail {
     const mailTemplate = new HandlebarMailTemplate();
 
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      service: 'gmail',
       auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASS,
+        user: 'andreluccagomides@gmail.com',
+        pass: 'xmnq gtzf algy funx',
       },
       tls: {
         rejectUnauthorized: false,
-      }
+      },
     });
 
     const message = await transporter.sendMail({
