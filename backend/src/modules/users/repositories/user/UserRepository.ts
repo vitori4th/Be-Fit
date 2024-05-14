@@ -59,6 +59,24 @@ export default class UserRepository implements IUserRepository {
     return userWithoutPassword as User;
   }
 
+  public async updatePassword({
+    id,
+    password,
+  }: IUserDTO): Promise<User> {
+    const user = await prismaClient.user.update({
+      where: {
+        id,
+      },
+      data: {
+        password
+      },
+    });
+
+    const userWithoutPassword = excludeFromObject(user, ['password']);
+
+    return userWithoutPassword as User;
+  }
+
   public async findByEmail(email: string): Promise<User | undefined> {
     const user = await prismaClient.user.findUnique({
       where: {
