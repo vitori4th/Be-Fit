@@ -9,7 +9,9 @@ interface ITokenPayload {
   sub: string;
 }
 
-export default function isAuthenticated(
+
+
+export default function isAdmin(
   req: Request,
   _res: Response,
   next: NextFunction,
@@ -28,14 +30,14 @@ export default function isAuthenticated(
       authConfig.jwt.secret as Secret,
     ) as unknown as ITokenPayload;
 
-    const subjectToken = JSON.parse(decodedToken.sub);
+    const subjectToken = JSON.parse(decodedToken.sub)
 
-    req.user = {
-      id: subjectToken.id,
-    };
+    if (subjectToken.role !== 'ADMIN') {
+      throw Error;
+    }
 
     return next();
   } catch (_err) {
-    throw new AppError('Invalid JWT Token');
+    throw new AppError('User has no permission.', 403);
   }
 }

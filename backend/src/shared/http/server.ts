@@ -33,7 +33,7 @@ app.use(
   ) => {
     if (error instanceof AppError) {
       return response.status(error.statusCode).json({
-        status: 'error',
+        status: error.statusCode,
         message: error.message,
       });
     }
