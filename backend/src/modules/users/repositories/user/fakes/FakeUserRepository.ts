@@ -16,7 +16,7 @@ export default class FakeUserRepository implements IUserRepository {
     role,
   }: IUserDTO): Promise<User> {
     const newUser = new User();
-    
+
     newUser.cellphone = cellphone;
     newUser.cpf = cpf;
     newUser.email = email;
@@ -66,5 +66,20 @@ export default class FakeUserRepository implements IUserRepository {
 
   public async findAllUsers(): Promise<User[]> {
     return this.users;
+  }
+
+  public async updatePassword({
+    id,
+    password
+  }: IUserDTO): Promise<User> {
+    const index = this.users.findIndex(user => user.id === id);
+
+    if (index === -1) {
+      throw new AppError('User not found');
+    }
+
+    this.users[index].password = password;
+
+    return this.users[index];
   }
 }

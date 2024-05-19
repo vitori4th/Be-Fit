@@ -32,7 +32,6 @@ export default class CreateUserService {
     role,
     confirmPassword,
   }: IUserConfig): Promise<User> {
-    //const userRepository = new UserRepository();
     const emailExists = await this.repository.findByEmail(email);
 
     if (emailExists) {
