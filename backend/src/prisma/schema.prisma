@@ -17,7 +17,7 @@ datasource db {
 model User {
   id        String       @id @default(uuid())
   email     String       @unique
-  cpf       Int          @unique
+  cpf       String          @unique
   name      String
   lastname  String
   dateBirth DateTime

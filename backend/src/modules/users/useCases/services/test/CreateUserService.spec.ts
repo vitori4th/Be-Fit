@@ -3,15 +3,18 @@ import FakeUserRepository from '@modules/users/repositories/user/fakes/FakeUserR
 import CreateUserService from '../CreateUserService';
 import AppError from '@shared/errors/AppError';
 import request from 'supertest';
+import { BcryptHashProvider } from '@modules/users/providers/implementation/BcryptHashProvider';
 
 
 let userRepository: FakeUserRepository;
+let hashedProvider: BcryptHashProvider;
 let createUser: CreateUserService;
 
 describe('CreateUser', () => {
   beforeEach(() => {
     userRepository = new FakeUserRepository();
-    createUser = new CreateUserService(userRepository);
+    hashedProvider = new BcryptHashProvider();
+    createUser = new CreateUserService(userRepository, hashedProvider);
   })
     it('POST', async () => {
       const userData = {
@@ -30,7 +33,6 @@ describe('CreateUser', () => {
         .post('/users/')
         .send(userData);
 
-      console.log(response)
 
       expect(response.status).toBe(200);
 

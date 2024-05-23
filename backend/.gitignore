@@ -1,8 +1,9 @@
 # Dependency directories
 node_modules/
-
+coverage/
 # Environment variables
 .env
 .env.production
 .vscode
 .vercel
+

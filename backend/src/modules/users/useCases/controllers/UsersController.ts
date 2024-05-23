@@ -3,6 +3,7 @@ import CreateUserService from '../services/CreateUserService';
 import { instanceToInstance } from 'class-transformer';
 import UserRepository from '../../repositories/user/UserRepository';
 import ListUserService from '../services/ListUserService';
+import { BcryptHashProvider } from '@modules/users/providers/implementation/BcryptHashProvider';
 
 export default class UsersController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -18,7 +19,8 @@ export default class UsersController {
       confirmPassword,
     } = request.body;
     const userRepository = new UserRepository();
-    const createUser = new CreateUserService(userRepository);
+    const hashProvider = new BcryptHashProvider()
+    const createUser = new CreateUserService(userRepository, hashProvider);
     const user = await createUser.execute({
       cellphone,
       cpf,

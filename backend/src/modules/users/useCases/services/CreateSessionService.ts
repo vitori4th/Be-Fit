@@ -1,9 +1,9 @@
 import { sign } from 'jsonwebtoken';
 import { User } from '../../entities/user';
-import UserRepository from '../../repositories/user/UserRepository';
 import AppError from '../../../../shared/errors/AppError';
-import { compare } from 'bcrypt';
 import authConfig from '../../../../config/auth';
+import { IHashprovider } from '@modules/users/providers/models/IHashProvider';
+import { IUserRepository } from '@modules/users/repositories/user/IUserRepository';
 
 interface IRequest {
   email: string;
@@ -16,15 +16,22 @@ interface Iresponse {
 }
 
 class CreateSessionsService {
+  constructor(
+    private repository: IUserRepository,
+    private hashProvider: IHashprovider,
+  ) {}
+
   public async execute({ email, password }: IRequest): Promise<Iresponse> {
-    const userRepository = new UserRepository();
-    const user = await userRepository.findByEmail(email);
+    const user = await this.repository.findByEmail(email);
 
     if (!user) {
       throw new AppError('Icorrect email/password combination.', 401);
     }
 
-    const passwordConfirmed = await compare(password, user.password);
+    const passwordConfirmed = await this.hashProvider.compareHash(
+      password,
+      user.password,
+    );
 
     if (!passwordConfirmed) {
       throw new AppError('Icorrect email/password combination.', 401);
