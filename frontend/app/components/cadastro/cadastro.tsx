@@ -28,9 +28,9 @@ const createUserFormSchema = z.object({
   dateBirth: z.string()
     .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid Date format"),
   cellphone: z.string()
-    .regex(/^\d{11}$/, "Phone must have 11 digits"),
+    .regex(/^\d{3}$/, "Phone must have 11 digits"),
   cpf: z.string()
-    .regex(/^\d{11}$/, "CPF must have 11 digits"),
+    .regex(/^\d{3}$/, "CPF must have 11 digits"),
   password: z.string()
     .min(8, "Password min 8 characters")
     .regex(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/, "Password requires uppercase, number, special char")
@@ -100,41 +100,41 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
               <Image src={mail} alt="Icone" width={13.33} height={10.67} className="input-icon" />
               <input type="text" className="custom-input flex items-center" placeholder="Nome" {...register('name')} />
             </div>
-            {errors.name && (<span className='sub-info w-full flex justify-start text-red-700'>{errors.name?.message}</span>)}
+            {errors.name && (<span className='sub-info w-full flex justify-start text-red-700' id='nameError'>{errors.name?.message}</span>)}
             <p className="sub-info mb-2">Sobrenome</p>
             <div className="custom-input-container">
               <Image src={mail} alt="Icone" width={13.33} height={10.67} className="input-icon" />
               <input type="text" className="custom-input flex items-center" placeholder="Nome" {...register('lastname')} />
             </div>
-            {errors.lastname && (<span className='sub-info w-full flex justify-start text-red-700'>{errors.lastname?.message}</span>)}
+            {errors.lastname && (<span className='sub-info w-full flex justify-start text-red-700' id='lastnameError'>{errors.lastname?.message}</span>)}
 
             <p className="sub-info mt-2 mb-2">Email</p>
             <div className="custom-input-container">
               <Image src={mail} alt="Icone" width={13.33} height={10.67} className="input-icon" />
-              <input type="text" className="custom-input flex items-center" placeholder="Email"  {...register('email')} />
+              <input type="text" className="custom-input flex items-center" placeholder="Email" id='EmailRegister'  {...register('email')} />
             </div>
-            {errors.email && (<span className='sub-info w-full flex justify-start text-red-700'>{errors.email?.message}</span>)}
+            {errors.email && (<span className='sub-info w-full flex justify-start text-red-700' id='emailError'>{errors.email?.message}</span>)}
 
             <p className="sub-info mt-2 mb-2">Data de Nascimento</p>
             <div className="custom-input-container">
               <Image src={mail} alt="Icone" width={13.33} height={10.67} className="input-icon" />
               <input type="date" className="custom-input flex items-center" placeholder="Data de Nascimento"  {...register('dateBirth')} />
             </div>
-            {errors.dateBirth && (<span className='sub-info w-full flex justify-start text-red-700'>{errors.dateBirth?.message}</span>)}
+            {errors.dateBirth && (<span className='sub-info w-full flex justify-start text-red-700' id='dataError'>{errors.dateBirth?.message}</span>)}
 
             <p className="sub-info mt-2 mb-2">CPF</p>
             <div className="custom-input-container">
               <Image src={mail} alt="Icone" width={13.33} height={10.67} className="input-icon" />
               <input type="text" className="custom-input flex items-center" placeholder="CPF" {...register('cpf')} />
             </div>
-            {errors.cpf && (<span className='sub-info w-full flex justify-start text-red-700'>{errors.cpf?.message}</span>)}
+            {errors.cpf && (<span className='sub-info w-full flex justify-start text-red-700' id='cpfError'>{errors.cpf?.message}</span>)}
 
             <p className="sub-info mt-2 mb-2">Telefone</p>
             <div className="custom-input-container">
               <Image src={mail} alt="Icone" width={13.33} height={10.67} className="input-icon" />
               <input type="text" className="sub-info custom-input flex items-center" placeholder="Telefone" {...register('cellphone')} />
             </div>
-            {errors.cellphone && (<span className='w-full flex justify-start text-red-700'>{errors.cellphone?.message}</span>)}
+            {errors.cellphone && (<span className='w-full flex justify-start text-red-700' id='telError'>{errors.cellphone?.message}</span>)}
 
             <p className="sub-info mt-2 mb-2">Senha</p>
             <div className="custom-input-container">
@@ -144,9 +144,10 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
                 {...register('password')}
                 className="custom-input"
                 placeholder="Senha"
+                id='PassRegister'
               />
             </div>
-            {errors.password && (<span className=' sub-info w-full flex justify-start text-red-700'>{errors.password?.message}</span>)}
+            {errors.password && (<span className=' sub-info w-full flex justify-start text-red-700' id='passError'>{errors.password?.message}</span>)}
 
 
             <p className="sub-info mt-2 mb-2">Confirmar Senha</p>
@@ -159,11 +160,12 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
                 placeholder="Confirmar Senha"
               />
             </div>
-            {errors.confirmPassword && (<span className='sub-info w-full flex justify-start text-red-700'>{errors.confirmPassword?.message}</span>)}
+            {errors.confirmPassword && (<span className='sub-info w-full flex justify-start text-red-700' id='confirmPassError'>{errors.confirmPassword?.message}</span>)}
 
             <button className="button-login border border-green-800 rounded-md duration-500 mt-5 hover:border-green-600 hover:text-green-600"
               disabled={isSubmitting}
               type='submit'
+              id='register'
             >{isSubmitting ? 'Cadastrando...' : 'Cadastrar'}</button>
           </form>
           <ToastContainer containerId={"friendRequest"}/>
