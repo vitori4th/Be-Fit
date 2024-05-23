@@ -4,10 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'frontend/**.js'
-      - 'frontend/**.json'
-      - 'frontend/**.yml'
 
 jobs:
   complete-project-tests:
@@ -22,9 +18,30 @@ jobs:
         with:
           node-version: 20.12.2
 
-      - name: Install dependencies
+      - name: Install backend dependencies
+        run: npm install
+        working-directory: ./backend
+
+      - name: Run migrations
+        run: npm run migrate dev --schema ./src/prisma/schema.prisma
+        working-directory: ./backend
+
+      - name: Start backend server
+        run: |
+          npm run prisma &
+          npm run start &
+        working-directory: ./backend
+
+      - name: Install frontend dependencies
         run: npm install
         working-directory: ./frontend
+
+      - name: Start frontend server
+        run: npm run dev &
+        working-directory: ./frontend
+
+      - name: Wait for servers to be ready
+        run: npx wait-on http://localhost:3000 http://localhost:3333
 
       - name: Run Cypress tests
         run: npm run cypress:headless
