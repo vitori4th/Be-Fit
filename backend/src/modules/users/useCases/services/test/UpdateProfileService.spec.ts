@@ -1,44 +1,54 @@
-import request from 'supertest';
-import CreateUserService from '../CreateUserService';
-import UserRepository from '../../../repositories/user/UserRepository';
-import { IUserDTO } from '../../../entities/user';
-import CreateSessionsService from '../CreateSessionService';
-import { BcryptHashProvider } from '@modules/users/providers/implementation/BcryptHashProvider';
+import UpdateProfileService from '../UpdateProfileService';
+import FakeUserRepository from '@modules/users/repositories/user/fakes/FakeUserRepository';
+import AppError from '@shared/errors/AppError';
 
-let userRepository: UserRepository;
-let hashedProvider: BcryptHashProvider;
-let _createUser: CreateUserService;
+let fakeUsersRepository: FakeUserRepository;
+let updateProfileService: UpdateProfileService;
 
 describe('User API', () => {
 
   beforeEach(() => {
-    userRepository = new UserRepository();
-    hashedProvider = new BcryptHashProvider();
-        _createUser = new CreateUserService(userRepository, hashedProvider);
-      })
+    fakeUsersRepository = new FakeUserRepository();
+    updateProfileService = new UpdateProfileService(fakeUsersRepository);
+  })
 
-  it('should update user information', async () => {
-
-    const sessionService = new CreateSessionsService(userRepository, hashedProvider);
-    const { token } = await sessionService.execute({
+  it('should be able to update user profile', async () => {
+    const user = await fakeUsersRepository.register({
+      cellphone: '5588899',
+      cpf: '12345678901',
       email: 'teste@email.com',
+      dateBirth: new Date('2002-12-03'),
+      lastname: 'teste',
+      name: 'ze',
       password: 'teste',
+      role: 'USER',
     });
 
-    const updatedUserDetails: Partial<IUserDTO> = {
-      cellphone: '88888',
-      lastname: 'testou',
-    };
+    const updatedUser = await updateProfileService.execute({
+      user_id: user.id,
+      name: 'Updated Name',
+      lastname: 'Updated Lastname',
+      dateBirth: new Date('1990-01-01'),
+      cellphone: '0987654321',
+    });
 
-    const response = await request('http://localhost:3333')
-      .put(`/profile`)
-      .send(updatedUserDetails)
-      .set('Authorization', `bearer ${token}`);
-
-    expect(response.status).toBe(200);
-
-    expect(response.body.cellphone).toEqual(updatedUserDetails.cellphone);
-    expect(response.body.lastname).toEqual(updatedUserDetails.lastname);
+    expect(updatedUser.name).toBe('Updated Name');
+    expect(updatedUser.lastname).toBe('Updated Lastname');
+    expect(updatedUser.dateBirth).toEqual(new Date('1990-01-01'));
+    expect(updatedUser.cellphone).toBe('0987654321');
   });
 
+  it('should throw an error if user is not found', async () => {
+
+    await expect(
+      updateProfileService.execute({
+        user_id: 'nonexistent_user',
+        name: 'Updated Name',
+        lastname: 'Updated Lastname',
+        dateBirth: new Date('1990-01-01'),
+        cellphone: '0987654321',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
+
+});

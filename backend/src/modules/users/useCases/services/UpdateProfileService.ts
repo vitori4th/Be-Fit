@@ -1,5 +1,5 @@
 import { User } from '@modules/users/entities/user';
-import UserRepository from '@modules/users/repositories/user/UserRepository';
+import { IUserRepository } from '@modules/users/repositories/user/IUserRepository';
 import AppError from '@shared/errors/AppError';
 
 interface IRequest {
@@ -11,6 +11,9 @@ interface IRequest {
 }
 
 class UpdateProfileService {
+  constructor(
+    private repository: IUserRepository,
+  ) {}
   public async execute({
     user_id,
     name,
@@ -18,9 +21,8 @@ class UpdateProfileService {
     dateBirth,
     cellphone,
   }: IRequest): Promise<User> {
-    const userRepository = new UserRepository();
 
-    const user = await userRepository.findById(user_id);
+    const user = await this.repository.findById(user_id);
 
     if (!user) {
       throw new AppError('User not found');
@@ -31,7 +33,7 @@ class UpdateProfileService {
     user.cellphone = cellphone;
     user.dateBirth = dateBirth;
 
-    const userUpdated = await userRepository.update(user);
+    const userUpdated = await this.repository.update(user);
 
     return userUpdated;
   }

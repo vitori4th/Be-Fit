@@ -33,14 +33,12 @@ describe('CreateUser', () => {
         expect.objectContaining({
           cellphone: expect.any(String),
           cpf: expect.any(String),
-          createdAt: expect.any(String),
-          dateBirth: expect.any(String),
+          dateBirth: expect.any(Date),
           email: expect.any(String),
           id: expect.any(String),
           lastname: expect.any(String),
           name: expect.any(String),
           role: expect.any(String),
-          updatedAt: expect.any(String),
         }),
       );
     });

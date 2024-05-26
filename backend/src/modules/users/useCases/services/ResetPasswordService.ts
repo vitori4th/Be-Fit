@@ -1,9 +1,8 @@
 import AppError from '@shared/errors/AppError';
 import { isAfter, addHours } from 'date-fns';
 import { hash } from 'bcryptjs';
-import UserRepository from '@modules/users/repositories/user/UserRepository';
-import UserTokensRepository from '@modules/users/repositories/userToken/UserTokenRepository';
 import { IUserRepository } from '@modules/users/repositories/user/IUserRepository';
+import { IUserTokenRepository } from '@modules/users/repositories/userToken/IUserTokenRepository';
 
 interface IRequest {
   token: string;
@@ -11,19 +10,19 @@ interface IRequest {
 }
 
 class ResetPasswordService {
-
-  constructor(private repository: IUserRepository) {}
+  constructor(
+    private userRepository: IUserRepository,
+    private userTokenRepository: IUserTokenRepository,
+  ) {}
   public async execute({ token, password }: IRequest): Promise<void> {
-    const userRepository = new UserRepository();
-    const userTokenRepository = new UserTokensRepository();
 
-    const userToken = await userTokenRepository.findByToken(token);
+    const userToken = await this.userTokenRepository.findByToken(token);
 
     if (!userToken) {
       throw new AppError('User Token does not exists.');
     }
 
-    const user = await userRepository.findById(userToken.user_id);
+    const user = await this.userRepository.findById(userToken.user_id);
 
     if (!user) {
       throw new AppError('User does not exists.');
@@ -38,7 +37,7 @@ class ResetPasswordService {
 
     user.password = await hash(password, 8);
 
-    await this.repository.updatePassword(user);
+    await this.userRepository.updatePassword(user);
   }
 }
 
