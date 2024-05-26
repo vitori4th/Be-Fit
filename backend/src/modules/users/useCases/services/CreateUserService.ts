@@ -7,7 +7,7 @@ import { IHashprovider } from '@modules/users/providers/models/IHashProvider';
 
 interface IUserConfig {
   cellphone: string;
-  cpf: number;
+  cpf: string;
   email: string;
   dateBirth: Date;
   lastname: string;

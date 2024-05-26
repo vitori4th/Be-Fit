@@ -22,7 +22,7 @@ describe('CreateSession', () => {
   it('should be able to authenticate', async () => {
     const user = await fakeUsersRepository.register({
       cellphone: '5588899',
-      cpf: 1234,
+      cpf: '12345678901',
       email: 'teste@email.com',
       dateBirth: new Date('2002-12-03'),
       lastname: 'teste',
@@ -52,7 +52,7 @@ describe('CreateSession', () => {
   it('should not be able to authenticate with wrong password', async () => {
     await fakeUsersRepository.register({
       cellphone: '5588899',
-      cpf: 1234,
+      cpf: '12345678901',
       email: 'teste@email.com',
       dateBirth: new Date('2002-12-03'),
       lastname: 'teste',

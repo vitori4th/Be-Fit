@@ -1,58 +1,45 @@
 import 'reflect-metadata';
 import FakeUserRepository from '@modules/users/repositories/user/fakes/FakeUserRepository';
 import CreateUserService from '../CreateUserService';
-import request from 'supertest';
-import CreateSessionsService from '../CreateSessionService';
+import { BcryptHashProvider } from '@modules/users/providers/implementation/BcryptHashProvider';
+import FakeHashProvider from '@modules/users/providers/fakes/FakeHashProvider';
+import ListUserService from '../ListUserService';
+import AppError from '@shared/errors/AppError';
 
 
 let userRepository: FakeUserRepository;
-let _createUser: CreateUserService;
+let createUser: CreateUserService;
+let fakeHashProvider: BcryptHashProvider;
+let listUserService: ListUserService;
 
 describe('GetUser', () => {
   beforeEach(() => {
     userRepository = new FakeUserRepository();
-    _createUser = new CreateUserService(userRepository);
+    fakeHashProvider = new FakeHashProvider();
+    listUserService = new ListUserService(userRepository);
+    createUser = new CreateUserService(userRepository, fakeHashProvider);
   });
-  it('GET', async () => {
-    const id = 'b4225ebe-0ab5-4a48-9615-0ba6d750d5a2'; // need to a id exists in DB
-    const email = 'teste@email.com';
-    const password = 'teste';
+  it('should be able to list a user by id', async () => {
+    const user = await createUser.execute({
+     cellphone: '5588899',
+     cpf: '11233665899',
+     email: 'teste@email.com',
+     dateBirth: new Date('2002-12-03'),
+     lastname: 'teste',
+     name: 'ze',
+     password: 'teste',
+     role: 'USER',
+     confirmPassword: 'teste',
+    });
+    const result = await listUserService.execute({ id: user.id });
+    delete result.password;
+    expect(result).toEqual(user);
+  });
 
-
-    const sessionService = new CreateSessionsService();
-    const { token } = await sessionService.execute({
-      email,
-      password,
-    })
-
-    const response = await request('http://localhost:3333')
-      .get(`/users/${id}`)
-      .set('Authorization', `bearer ${token}`);
-
-    expect(response.status).toBe(200);
-
-    expect(response.body).toEqual(
-      expect.objectContaining({
-        cellphone: expect.any(String),
-        cpf: expect.any(Number),
-        createdAt: expect.any(String),
-        dateBirth: expect.any(String),
-        email: expect.any(String),
-        id: expect.any(String),
-        lastname: expect.any(String),
-        name: expect.any(String),
-        role: expect.any(String),
-        updatedAt: expect.any(String),
-      }),
+  it('should throw an error if user is not found', async () => {
+    await expect(listUserService.execute({ id: '123' })).rejects.toBeInstanceOf(
+      AppError,
     );
   });
 
-  it('GET if id not exists, throw error', async () => {
-    const id = 'b4225ebe-0ab5-4a48-9615-0ba6d750d5a1';
-
-    const response = await request('http://localhost:3333').get(`/users/${id}`);
-
-    expect(response.status).toBe(400);
-    expect(response.body.message).toEqual('JWT Token is missing.');
-  });
 });
