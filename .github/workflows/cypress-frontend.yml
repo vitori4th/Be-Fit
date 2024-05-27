@@ -1,71 +1,71 @@
-# name: Cypress Tests
+name: Cypress Tests
 
-# on:
-#   push:
-#     branches:
-#       - main
-#       - 23-teste-de-login-de-usurio
+on:
+  push:
+    branches:
+      - main
+      - 23-teste-de-login-de-usurio
 
-# jobs:
-#   test:
-#     runs-on: ubuntu-latest
-#     services:
-#       postgres:
-#         image: postgres:latest
-#         env:
-#           POSTGRES_USER: postgres
-#           POSTGRES_PASSWORD: postgres
-#           POSTGRES_DB: mydatabase
-#         ports:
-#           - 5432:5432
-#         options: >-
-#           --health-cmd pg_isready
-#           --health-interval 10s
-#           --health-timeout 5s
-#           --health-retries 5
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: mydatabase
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
-#     env:
-#       POSTGRES_URL: postgres://postgres:postgres@localhost:5432/postgres
+    env:
+      POSTGRES_URL: postgres://postgres:postgres@localhost:5432/postgres
 
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-#       - name: Setup Node.js
-#         uses: actions/setup-node@v4
-#         with:
-#           node-version: 20.12.2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.12.2
 
-#       - name: Install backend dependencies
-#         run: npm install
-#         working-directory: ./backend
+      - name: Install backend dependencies
+        run: npm install
+        working-directory: ./backend
 
-#       - name: Run Prisma migrations
-#         env:
-#           POSTGRES_URL: postgres://postgres:postgres@localhost:5432/postgres
-#         run: npm run prisma migrate dev
-#         working-directory: ./backend
+      - name: Run Prisma migrations
+        env:
+          POSTGRES_URL: postgres://postgres:postgres@localhost:5432/postgres
+        run: npm run prisma migrate dev
+        working-directory: ./backend
 
-#       - name: Start backend server
-#         run: |
-#           npm run prisma &
-#           npm run start &
-#         working-directory: ./backend
+      - name: Start backend server
+        run: |
+          npm run prisma &
+          npm run start &
+        working-directory: ./backend
 
-#       - name: Install frontend dependencies
-#         run: npm install
-#         working-directory: ./frontend
+      - name: Install frontend dependencies
+        run: npm install
+        working-directory: ./frontend
 
-#       - name: Start frontend server
-#         run: npm run dev &
-#         working-directory: ./frontend
+      - name: Start frontend server
+        run: npm run dev &
+        working-directory: ./frontend
 
-#       - name: Run Cypress tests
-#         run: npm run cypress:headless
-#         working-directory: ./frontend
+      - name: Run Cypress tests
+        run: npm run cypress:headless
+        working-directory: ./frontend
 
-#       - name: Upload Cypress artifacts
-#         uses: actions/upload-artifact@v3
-#         with:
-#           name: cypress-artifacts
-#           path: frontend/cypress/screenshots/**/*.png
+      - name: Upload Cypress artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-artifacts
+          path: frontend/cypress/screenshots/**/*.png
