@@ -43,6 +43,7 @@ describe('Teste Funcional de Login com Erro - Email', ()=>{
     it('Email inválido', ()=>{
         cy.visit("/")
         // Clique no botão de login na barra lateral para abrir o formulário de login
+        input.email = 'viniciusexample.com';
         registerForm.clickLogin();
         registerForm.typeEmail(input.email);
         registerForm.typePassword(input.password);
