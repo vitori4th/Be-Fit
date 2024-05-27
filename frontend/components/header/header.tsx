@@ -11,9 +11,9 @@ import RecuperarSenhaModal from '../recuperarSenha/recuperarSenha';
 
 
 const Header = () => {
-  const searchParams = useSearchParams()
+  // const searchParams = useSearchParams()
 
-  const tokenRecovery = searchParams.get("recovery")
+  const tokenRecovery = 'teste'
   const [isModalOpen, setIsModalOpen] = useState(!!tokenRecovery);
 
   console.log(tokenRecovery)
@@ -58,13 +58,13 @@ const Header = () => {
             className="bg-transparent border border-green-800 text-green-800 px-8 py-1 rounded-lg hover:bg-green-800 hover:text-white duration-500 font-bold login-button"
             id='profileButton'
             onClick={handleModalToggle} >
-            {/* <Suspense> */}
+            <Suspense>
               {isAuthenticated ? (
                 <FaUser size={20} />
               ) : (
                 "Login"
               )}
-            {/* </Suspense> */}
+            </Suspense>
           </button>
 
         </div>
