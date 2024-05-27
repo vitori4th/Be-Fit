@@ -2,13 +2,16 @@
 
 class RegisterForm{
     elements = {
-        emailInput: () => cy.get('input.custom-input[name="email"][placeholder="Email"]'),
-        passwordInput: () => cy.get('input.custom-input[type="password"][placeholder="Senha"]'),
+        emailInput: () => cy.get('input#inputEmail'),
+        passwordInput: () => cy.get('input#inputPass'),
         loginButton: () => cy.get('button.button-login'),
-        sidebarLoginButton: () => cy.get('button.login-button')
+        sidebarLoginButton: () => cy.get('button.login-button'),
+        emailErrorMessage: () => cy.get('span#emailErrorLogin'),
+        passErrorMessage: () => cy.get('span#passErrorLogin'),
+        toast: () => cy.get('.Toastify__toast-body > :nth-child(2)'),
     }
 
-    typeEmail(text) {   //digita no input email
+    typeEmail(text) {   //digita no input email 
         if(!text) return;
         this.elements.emailInput().type(text);
     }
@@ -29,49 +32,92 @@ class RegisterForm{
 
 const registerForm = new RegisterForm()
 
-
-
-describe('Teste Funcional ade Login', ()=>{
-    it('Deve realizar login  acom sucesso', ()=>{
-        cy.visit("/")
-        cy.get('.bg-transparent').click()
-        cy.get(":nth-child(2) > .custom-input").type("valid_user");
-        cy.get(":nth-child(4) > .custom-input").type("valid_password");
-        cy.get('.button-login').click()
-    });
-})
-
-describe('Teste Funcional de Login', ()=>{
-    it('Não deve realizar login - Senha inválida', ()=>{
-        cy.visit("/")
-        cy.get('.bg-transparent').click()
-        cy.get(':nth-child(2) > .custom-input').type("valid_user")
-        cy.get(":nth-child(4) > .custom-input").type("valid_password");
-        cy.get('.button-login').click()
-    });
-})
-
-describe('Teste Funcional de Login', ()=>{
-    it('Não deve realizar login - Usuário inválida', ()=>{
-        cy.visit("/")
-        cy.get('.bg-transparent').click()
-        cy.get(':nth-child(2) > .custom-input').type("valid_user")
-        cy.get(":nth-child(4) > .custom-input").type("valid_password");
-        cy.get('.button-login').click()
-    });
-})
-/*
-describe('Teste Funcional de Login', ()=>{
+describe('Teste Funcional de Login com Erro - Email', ()=>{
+    beforeEach(() => {
+        cy.timeout(10000);
+      });
+    after(() => {
+        cy.clearAllLocalStorage()
+    })
     const input = {
-        email: 'teste@email.com',
-        pass: '#Teste123'
+        email: 'viniciusexample.com',
+        password: '#Teste123',
+    }
+    it('Email vazio', ()=>{
+        cy.visit("/")
+        // Clique no botão de login na barra lateral para abrir o formulário de login
+        input.email = '';
+        registerForm.clickLogin();
+        registerForm.typeEmail(input.email);
+        registerForm.typePassword(input.password);
+        registerForm.clickSubmit();
+        registerForm.elements.emailErrorMessage().should('have.text', 'E-mail inválido');
+    });
+    it('Email inválido', ()=>{
+        cy.visit("/")
+        // Clique no botão de login na barra lateral para abrir o formulário de login
+        input.email = 'viniciusexample.com';
+        registerForm.clickLogin();
+        registerForm.typeEmail(input.email);
+        registerForm.typePassword(input.password);
+        registerForm.clickSubmit();
+        registerForm.elements.emailErrorMessage().should('have.text', 'E-mail inválido');
+    });
+})
+
+describe('Teste Funcional de Login com Erro - Senha', ()=>{
+    after(() => {
+        cy.clearAllLocalStorage()
+    })
+    const input = {
+        email: 'vinicius@example.com',
+        password: '',
+    }
+    it('Senha vazia', ()=>{
+        cy.visit("/")
+        // Clique no botão de login na barra lateral para abrir o formulário de login
+        registerForm.clickLogin();
+        registerForm.typeEmail(input.email);
+        registerForm.typePassword(input.password);
+        registerForm.clickSubmit();
+        registerForm.elements.passErrorMessage().should('have.text', 'Senha é obrigatório');
+    });
+})
+
+describe('Teste Funcional de Login com Erro', ()=>{
+    after(() => {
+        cy.clearAllLocalStorage()
+    })
+    const input = {
+        email: 'vinis@example.com',
+        password: 'ste1%T23',
+    }
+    it('Dados Inválidos', ()=>{
+        cy.visit("/")
+        // Clique no botão de login na barra lateral para abrir o formulário de login
+        registerForm.clickLogin();
+        registerForm.typeEmail(input.email);
+        registerForm.typePassword(input.password);
+        registerForm.clickSubmit();
+        registerForm.elements.toast().should('have.text', 'E-mail e/ou senha incorreto!');
+    });
+})
+
+describe('Teste Funcional de Login com Sucesso', ()=>{
+    after(() => {
+        cy.clearAllLocalStorage()
+    })
+    const input = {
+        email: 'silvaaa@example.com',
+        password: '#Teste123',
     }
     it('Deve realizar login com sucesso', ()=>{
         cy.visit("/")
         // Clique no botão de login na barra lateral para abrir o formulário de login
-        registerForm.clickLogin()
-        registerForm.typeEmail(input.email)
-        registerForm.typePassword(input.pass)
-        registerForm.clickSubmit()
+        registerForm.clickLogin();
+        registerForm.typeEmail(input.email);
+        registerForm.typePassword(input.password);
+        registerForm.clickSubmit();
+        registerForm.elements.toast().should('have.text', 'Logado!');
     });
-})*/
+})

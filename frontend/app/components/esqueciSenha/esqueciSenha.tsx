@@ -68,6 +68,7 @@ const EsqueciSenhaModal: React.FC<EsqueciSenhaModalProps> = ({ isOpen, onClose }
                 type="text"
                 className="custom-input flex items-center"
                 placeholder="Email"
+                id='emailRecoveryPass'
                 {...register('email')}
               />
             </div>
@@ -76,6 +77,7 @@ const EsqueciSenhaModal: React.FC<EsqueciSenhaModalProps> = ({ isOpen, onClose }
               className="button-login border border-green-800 rounded-md duration-500 mt-5 hover:border-green-600 hover:text-green-600"
               disabled={isSubmitting}
               type='submit'
+              id='submitEmailRecovery'
             >
               Enviar
             </button>

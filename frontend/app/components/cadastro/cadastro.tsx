@@ -126,7 +126,7 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
               <input type="text" className="custom-input flex items-center" placeholder="Nome" {...register('name',)}
                 />
             </div>
-            {errors.name && (<span className='sub-info w-full flex justify-start text-red-700'>{errors.name?.message}</span>)}
+            {errors.name && (<span className='sub-info w-full flex justify-start text-red-700'  id='nameError'>{errors.name?.message}</span>)}
 
             <p className="sub-info mb-2">Sobrenome</p>
             <div className="custom-input-container">
@@ -140,9 +140,9 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
               <p className="sub-info mt-2 mb-2">Email</p>
               <div className="custom-input-container">
                 <Image src={mail} alt="Icone" width={13.33} height={10.67} className="input-icon" />
-                <input type="text" className="custom-input flex items-center" placeholder="Email"  {...register('email')} />
+                <input type="text" className="custom-input flex items-center" placeholder="Email" id="EmailRegister" {...register('email')} />
               </div>
-              {errors.email && !userInfo && (<span className='sub-info w-full flex justify-start text-red-700'>{errors.email?.message}</span>)}
+              {errors.email && !userInfo && (<span className='sub-info w-full flex justify-start text-red-700' id='emailError'>{errors.email?.message}</span>)}
             </>)}
 
 
@@ -165,7 +165,7 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
                 <Image src={mail} alt="Icone" width={13.33} height={10.67} className="input-icon" />
                 <input type="text" className="custom-input flex items-center" placeholder="CPF" {...register('cpf')} />
               </div>
-              {errors.cpf && !userInfo && (<span className='sub-info w-full flex justify-start text-red-700'>{errors.cpf?.message}</span>)}
+              {errors.cpf && !userInfo && (<span className='sub-info w-full flex justify-start text-red-700' id='cpfError'>{errors.cpf?.message}</span>)}
             </>)}
 
             <p className="sub-info mt-2 mb-2">Telefone</p>
@@ -190,6 +190,7 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
                   type={showPassword ? 'text' : 'password'}
                   className="custom-input"
                   placeholder="Senha"
+                  id='PassRegister'
                   {...register("password")}
                 />
                 <div className="right-icon">
@@ -204,7 +205,7 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
                 </div>
               </div>
             </>)}
-            {errors.password && !userInfo && (<span className=' sub-info w-full flex justify-start text-red-700'>{errors.password?.message}</span>)}
+            {errors.password && !userInfo && (<span className=' sub-info w-full flex justify-start text-red-700' id='passError'>{errors.password?.message}</span>)}
 
             {!userInfo && (<>
               <p className="sub-info mt-2 mb-2">Confirmar Senha</p>
@@ -228,11 +229,12 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
                 </div>
               </div>
             </>)}
-            {errors.confirmPassword && !userInfo && (<span className='sub-info w-full flex justify-start text-red-700'>{errors.confirmPassword?.message}</span>)}
+            {errors.confirmPassword && !userInfo && (<span className='sub-info w-full flex justify-start text-red-700' id='confirmPassError'>{errors.confirmPassword?.message}</span>)}
 
             <button className="button-login border border-green-800 rounded-md duration-500 mt-5 hover:border-green-600 hover:text-green-600"
               disabled={isSubmitting}
               type='submit'
+              id='register'
             >
               {!userInfo ?
                 "Cadastrar"
@@ -247,6 +249,7 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
         {userInfo && < a
           href="#"
           className="text-red-500 hover:text-red-800 flex items-center mt-10 pl-10"
+          id='logoutButton'
           onClick={(e) => {
             e.preventDefault();
             handleLogout();

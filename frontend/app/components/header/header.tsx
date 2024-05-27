@@ -57,6 +57,7 @@ const Header = () => {
 
           <button
             className="bg-transparent border border-green-800 text-green-800 px-8 py-1 rounded-lg hover:bg-green-800 hover:text-white duration-500 font-bold login-button"
+            id='profileButton'
             onClick={handleModalToggle}          >
             <Suspense fallback={"Carregando..."}>
               {isAuthenticated ? (

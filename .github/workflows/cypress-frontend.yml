@@ -4,18 +4,32 @@ on:
   push:
     branches:
       - main
+      - 23-teste-de-login-de-usurio
 
 jobs:
-  complete-project-tests:
+  test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: mydatabase
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      POSTGRES_URL: postgres://postgres:postgres@localhost:5432/postgres
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Set up environment variables
-        run: |
-          export POSTGRES_URL=postgresql://postgres:postgres@localhost:5432     
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -27,7 +41,9 @@ jobs:
         working-directory: ./backend
 
       - name: Run Prisma migrations
-        run: npm run prisma
+        env:
+          POSTGRES_URL: postgres://postgres:postgres@localhost:5432/postgres
+        run: npm run prisma migrate dev
         working-directory: ./backend
 
       - name: Start backend server
@@ -44,9 +60,12 @@ jobs:
         run: npm run dev &
         working-directory: ./frontend
 
-      - name: Wait for servers to be ready
-        run: npx wait-on http://localhost:3000 http://localhost:3333
-
       - name: Run Cypress tests
         run: npm run cypress:headless
         working-directory: ./frontend
+
+      - name: Upload Cypress artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-artifacts
+          path: frontend/cypress/screenshots/**/*.png
