@@ -7,6 +7,7 @@ class RegisterForm{
         esqueciButton: () => cy.get('#esqueciButton'),
         loginButton: () => cy.get('button#profileButton'),
         emailErrorMessage: () => cy.get('span.sub-info.w-full.flex.justify-start.text-red-700'),
+        toast: () => cy.get('.Toastify__toast-body > :nth-child(2)'),
     }
 
     typeEmail(text) {   //digita no input email 
@@ -44,5 +45,15 @@ describe('Teste Funcional de Esqueceu a Senha', ()=>{
         registerForm.typeEmail(input.email);
         registerForm.clickSubmit();
         registerForm.elements.emailErrorMessage().should('have.text', 'Email inválido');
+    });
+    it('Email Válido e Enviado', ()=>{
+        cy.visit("/")
+        // Clique no botão de login na barra lateral para abrir o formulário de login
+        input.email = 'igorvinijesus@gmail.com';
+        registerForm.clickLogin();
+        registerForm.clickEsqueci();
+        registerForm.typeEmail(input.email);
+        registerForm.clickSubmit();
+        registerForm.elements.toast().should('have.text', 'Email enviado!');
     });
 })
