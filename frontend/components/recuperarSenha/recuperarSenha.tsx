@@ -41,12 +41,14 @@ const RecuperarSenhaModal: React.FC<RecuperarSenhaModalProps> = ({ isOpen, onClo
   });
 
   const userServiceH = new UserService(api);
-  const searchParams = useSearchParams()
 
-  const tokenRecovery = searchParams.get("recovery")
 
   const handleRecuperarSenha = async (data: RecuperarSenhaSchema) => {
     try {
+      const searchParams = useSearchParams()
+
+      const tokenRecovery = searchParams.get("recovery")
+      
       if (tokenRecovery) {
         const response = await userServiceH.recoveryPassword(
           tokenRecovery,
@@ -77,40 +79,40 @@ const RecuperarSenhaModal: React.FC<RecuperarSenhaModalProps> = ({ isOpen, onClo
         <div className="flex flex-col justify-center items-center">
           <h2 className="title-cad font-bold">Redefinir Senha</h2>
           <Suspense>
-          <form onSubmit={handleSubmit(handleRecuperarSenha)}>
+            <form onSubmit={handleSubmit(handleRecuperarSenha)}>
 
-            <p className="sub-info mt-2 mb-2">Nova Senha</p>
-            <div className="custom-input-container">
-              <Image src={pass} alt="Icone" width={13.33} height={10.67} className="input-icon" />
-              <input
-                type="password"
-                className="custom-input flex items-center"
-                placeholder="Nova Senha"
-                {...register('newPassword')}
-              />
-            </div>
-            {errors.newPassword && <span className='sub-info w-full flex justify-start text-red-700'>{errors.newPassword.message}</span>}
+              <p className="sub-info mt-2 mb-2">Nova Senha</p>
+              <div className="custom-input-container">
+                <Image src={pass} alt="Icone" width={13.33} height={10.67} className="input-icon" />
+                <input
+                  type="password"
+                  className="custom-input flex items-center"
+                  placeholder="Nova Senha"
+                  {...register('newPassword')}
+                />
+              </div>
+              {errors.newPassword && <span className='sub-info w-full flex justify-start text-red-700'>{errors.newPassword.message}</span>}
 
-            <p className="sub-info mt-2 mb-2">Confirmar Nova Senha</p>
-            <div className="custom-input-container">
-              <Image src={pass} alt="Icone" width={13.33} height={10.67} className="input-icon" />
-              <input
-                type="password"
-                className="custom-input flex items-center"
-                placeholder="Confirmar Nova Senha"
-                {...register('confirmPassword')}
-              />
-            </div>
-            {errors.confirmPassword && <span className='sub-info w-full flex justify-start text-red-700'>{errors.confirmPassword.message}</span>}
+              <p className="sub-info mt-2 mb-2">Confirmar Nova Senha</p>
+              <div className="custom-input-container">
+                <Image src={pass} alt="Icone" width={13.33} height={10.67} className="input-icon" />
+                <input
+                  type="password"
+                  className="custom-input flex items-center"
+                  placeholder="Confirmar Nova Senha"
+                  {...register('confirmPassword')}
+                />
+              </div>
+              {errors.confirmPassword && <span className='sub-info w-full flex justify-start text-red-700'>{errors.confirmPassword.message}</span>}
 
-            <button
-              className="button-login border border-green-800 rounded-md duration-500 mt-5 hover:border-green-600 hover:text-green-600"
-              disabled={isSubmitting}
-              type='submit'
-            >
-              Alterar Senha
-            </button>
-          </form>
+              <button
+                className="button-login border border-green-800 rounded-md duration-500 mt-5 hover:border-green-600 hover:text-green-600"
+                disabled={isSubmitting}
+                type='submit'
+              >
+                Alterar Senha
+              </button>
+            </form>
           </Suspense>
           <ToastContainer />
         </div>
