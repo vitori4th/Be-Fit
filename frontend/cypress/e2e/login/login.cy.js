@@ -108,8 +108,8 @@ describe('Teste Funcional de Login com Sucesso', ()=>{
         cy.clearAllLocalStorage()
     })
     const input = {
-        email: 'zinin@example.com',
-        password: '#Mumu123',
+        email: 'silvaaa@example.com',
+        password: '#Teste123',
     }
     it('Deve realizar login com sucesso', ()=>{
         cy.visit("/")

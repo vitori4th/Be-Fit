@@ -107,7 +107,7 @@ describe('Teste Funcional de Cadastro com Sucesso', ()=>{
         registerForm.typePassword(input.password);
         registerForm.typeConfirmPassword(input.confirmPassword);
         registerForm.clickSubmit();
-        registerForm.elements.toast().should('have.text', 'Usuário Cadastrado com Sucesso!');
+        registerForm.elements.toast().should('have.text', 'Cadastro bem sucedido!');
     });
 })
 
