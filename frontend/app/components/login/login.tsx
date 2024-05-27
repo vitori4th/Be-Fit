@@ -126,6 +126,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
             <a
               href="#"
               className="forgot-password-link hover:text-green-800"
+              id='esqueciButton'
               onClick={(e) => {
                 e.preventDefault();
                 handleEsqueciMinhaSenhaClick();
