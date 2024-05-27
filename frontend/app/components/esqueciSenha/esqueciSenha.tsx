@@ -24,7 +24,7 @@ interface EsqueciSenhaModalProps {
 }
 
 const EsqueciSenhaModal: React.FC<EsqueciSenhaModalProps> = ({ isOpen, onClose }) => {
-  const { 
+  const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
@@ -34,14 +34,15 @@ const EsqueciSenhaModal: React.FC<EsqueciSenhaModalProps> = ({ isOpen, onClose }
 
   const handleRecuperarSenha = async (data: EsqueciSenhaSchema) => {
     try {
-      const response = await axios.post('http://localhost:3333/password/reset', {
+      console.log('emailll', data)
+      const response = await axios.post('http://localhost:3333/password/forgot', {
         email: data.email,
       });
 
       if (response.status === 200) {
-        toast.success("Senha alterada com sucesso!");
+        // toast.success("Email enviado!");
       } else {
-        toast.error("Ocorreu um erro ao tentar alterar a senha.");
+        // toast.error("Ocorreu um erro ao tentar enviar o email.");
       }
       setTimeout(() => {
         onClose();
@@ -54,25 +55,27 @@ const EsqueciSenhaModal: React.FC<EsqueciSenhaModalProps> = ({ isOpen, onClose }
 
   return (
     <div className={`modal-overlay ${isOpen ? 'active' : ''}`} onClick={onClose}>
+      <ToastContainer containerId={"forgotPassword"} />
+
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="flex flex-col justify-center items-center">
           <h2 className="title-cad font-bold">Esqueci minha Senha</h2>
           <p className='text-center mx-auto'>Insira o seu e-mail de cadastro que enviaremos o link para redefinição da sua senha.</p>
           <form onSubmit={handleSubmit(handleRecuperarSenha)}>
-      
-          <p className="sub-info mb-2">Email</p>
+
+            <p className="sub-info mb-2">Email</p>
             <div className="custom-input-container">
               <Image src={mail} alt="Icone" width={13.33} height={10.67} className="input-icon" />
-              <input 
-                type="text" 
-                className="custom-input flex items-center" 
-                placeholder="Email" 
+              <input
+                type="text"
+                className="custom-input flex items-center"
+                placeholder="Email"
                 {...register('email')}
               />
             </div>
             {errors.email && <span className='sub-info w-full flex justify-start text-red-700'>{errors.email.message}</span>}
 
-            <button 
+            <button
               className="button-login border border-green-800 rounded-md duration-500 mt-5 hover:border-green-600 hover:text-green-600"
               disabled={isSubmitting}
               type='submit'
@@ -80,7 +83,6 @@ const EsqueciSenhaModal: React.FC<EsqueciSenhaModalProps> = ({ isOpen, onClose }
               Enviar
             </button>
           </form>
-          <ToastContainer />
           <button className="button-return rounded-md hover:bg-gray-400 duration-500 mt-2" onClick={onClose}>Voltar</button>
         </div>
       </div>

@@ -14,7 +14,7 @@ import { loginSchema } from './schema/loginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContexts'
 import Link from 'next/link';
@@ -33,7 +33,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
 
   const [isOpenCadastro, setIsOpenCadastro] = useState(false);
   const [isOpenEsqueciMinhaSenha, setIsOpenEsqueciMinhaSenha] = useState(false);
-  const [showPassword, setShowPassword] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema)
@@ -45,10 +45,8 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
     try {
       const res = await signIn(data);
       console.log('res', res);
-      // toast.success("Logado!");
-      // setTimeout(() => {
-        onClose();
-      // }, 2000);
+      toast.success("Logado!");
+      onClose();
     } catch (e) {
       console.error('erro loginSubmit', e);
       toast.error("E-mail e/ou senha incorreto!");
@@ -68,6 +66,8 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
       className={`modal-overlay ${isOpen ? "active" : ""} modal-bg`}
       onClick={onClose}
     >
+      <ToastContainer containerId={"loginUser"} />
+
       <div
         className="modal-content delay-[2000ms]"
         onClick={(e) => e.stopPropagation()}
@@ -115,7 +115,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                   width={13.33}
                   height={10.67}
                   className="input-icon relative left-[60%]"
-                  onClick={() => setShowPassword(!showPassword)} 
+                  onClick={() => setShowPassword(!showPassword)}
                 />
               </div>
             </div>

@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState, ReactNode } from "react";
 import { setCookie, parseCookies, destroyCookie } from 'nookies';
-import Router from 'next/router';
 
 import UserService from '@/app/services/userService';
 import api from '@/app/utils/api';
@@ -22,7 +21,8 @@ type AuthContextType = {
   isAuthenticated: boolean;
   user: User | null;
   signIn: (data: SignInData) => Promise<void>;
-  signOut: () => void; // Adicionado para gerenciar a saída
+  signOut: () => void; 
+  getUserData: () => void;
 }
 
 interface AuthProviderProps {
@@ -61,10 +61,21 @@ export function AuthProvider({ children }: AuthProviderProps) {
       const { token, user } = response;
       setUser(user);
       console.log(user, token);
-
-      // Redirecionar para a página desejada após o login
-      // Router.push('/dashboard');
       return user;
+    } catch (error) {
+      console.error('Sign-in error:', error);
+      throw error;
+    }
+  }
+  async function getUserData(): Promise<void> {
+    try {
+      const { 'nextauth.token': token } = parseCookies();
+
+      if (token) {
+        userServiceH.recoverUserInformation().then(response => {
+          setUser(response);
+        });
+      }
     } catch (error) {
       console.error('Sign-in error:', error);
       throw error;
@@ -74,11 +85,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
   function signOut() {
     userServiceH.logout();
     setUser(null);
-    Router.push('/'); 
   }
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut, getUserData }}>
       {children}
     </AuthContext.Provider>
   );

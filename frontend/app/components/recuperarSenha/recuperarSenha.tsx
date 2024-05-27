@@ -9,6 +9,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import UserService from '@/app/services/userService';
+import api from '@/app/utils/api';
+import { useSearchParams } from 'next/navigation';
 
 // Defina o esquema de validação para recuperação de senha
 const recuperarSenhaSchema = z.object({
@@ -18,10 +21,10 @@ const recuperarSenhaSchema = z.object({
   confirmPassword: z.string()
     .nonempty("Confirmação de senha é obrigatória")
 })
-.refine(data => data.newPassword === data.confirmPassword, {
-  message: "As senhas não coincidem",
-  path: ["confirmPassword"]
-});
+  .refine(data => data.newPassword === data.confirmPassword, {
+    message: "As senhas não coincidem",
+    path: ["confirmPassword"]
+  });
 
 type RecuperarSenhaSchema = z.infer<typeof recuperarSenhaSchema>;
 
@@ -31,7 +34,7 @@ interface RecuperarSenhaModalProps {
 }
 
 const RecuperarSenhaModal: React.FC<RecuperarSenhaModalProps> = ({ isOpen, onClose }) => {
-  const { 
+  const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
@@ -39,20 +42,29 @@ const RecuperarSenhaModal: React.FC<RecuperarSenhaModalProps> = ({ isOpen, onClo
     resolver: zodResolver(recuperarSenhaSchema)
   });
 
+  const userServiceH = new UserService(api);
+  const searchParams = useSearchParams()
+
+  const tokenRecovery = searchParams.get("recovery")
+
   const handleRecuperarSenha = async (data: RecuperarSenhaSchema) => {
     try {
-      const response = await axios.post('http://localhost:3333/password/reset', {
-        newPassword: data.newPassword,
-      });
+      if (tokenRecovery) {
+        const response = await userServiceH.recoveryPassword(
+          tokenRecovery,
+          data.newPassword,
+          data.confirmPassword
+        );
 
-      if (response.status === 200) {
-        toast.success("Senha alterada com sucesso!");
-      } else {
-        toast.error("Ocorreu um erro ao tentar alterar a senha.");
+        if (response) {
+          toast.success("Senha Atualizada com Sucesso!");
+          setTimeout(() => {
+            onClose();
+          }, 5000);
+        } else {
+          toast.error("Ocorreu um Erro ao Atualizar a senha.");
+        }
       }
-      setTimeout(() => {
-        onClose();
-      }, 2000);
     } catch (error) {
       toast.error("Ocorreu um erro ao tentar alterar a senha.");
       console.error(error);
@@ -61,11 +73,13 @@ const RecuperarSenhaModal: React.FC<RecuperarSenhaModalProps> = ({ isOpen, onClo
 
   return (
     <div className={`modal-bg modal-overlay ${isOpen ? 'active' : ''}`} >
+      <ToastContainer containerId={"recoveryPassword"} />
+
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="flex flex-col justify-center items-center">
           <h2 className="title-cad font-bold">Redefinir Senha</h2>
           <form onSubmit={handleSubmit(handleRecuperarSenha)}>
-      
+
             <p className="sub-info mt-2 mb-2">Nova Senha</p>
             <div className="custom-input-container">
               <Image src={pass} alt="Icone" width={13.33} height={10.67} className="input-icon" />
@@ -90,7 +104,7 @@ const RecuperarSenhaModal: React.FC<RecuperarSenhaModalProps> = ({ isOpen, onClo
             </div>
             {errors.confirmPassword && <span className='sub-info w-full flex justify-start text-red-700'>{errors.confirmPassword.message}</span>}
 
-            <button 
+            <button
               className="button-login border border-green-800 rounded-md duration-500 mt-5 hover:border-green-600 hover:text-green-600"
               disabled={isSubmitting}
               type='submit'
