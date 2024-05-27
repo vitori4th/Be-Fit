@@ -35,21 +35,20 @@ const EsqueciSenhaModal: React.FC<EsqueciSenhaModalProps> = ({ isOpen, onClose }
   const handleRecuperarSenha = async (data: EsqueciSenhaSchema) => {
     try {
       console.log('emailll', data)
+      toast.success("Email enviado!");
       const response = await axios.post('http://localhost:3333/password/forgot', {
         email: data.email,
       });
-
-      if (response.status === 200) {
-        toast.success("Email enviado!");
-      } else {
-        toast.error("Ocorreu um erro ao tentar enviar o email.");
-      }
+      // if (response.status === 200) {
+      // } else {
+      //   toast.error("Ocorreu um erro ao tentar enviar o email.");
+      // }
       setTimeout(() => {
         onClose();
       }, 2000);
     } catch (error) {
-      toast.error("Ocorreu um erro ao tentar alterar a senha.");
-      console.error(error);
+      // toast.error("Ocorreu um erro ao tentar alterar a senha.");
+      // console.error(error);
     }
   };
 
