@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import axios from 'axios'; // Importar a biblioteca Axios
 import mail from '../../../public/icons/mail.png';
 import pass from '../../../public/icons/pass.png';
 import visible from '../../../public/icons/visible.png';
 import google from '../../../public/icons/google.png';
 import facebook from '../../../public/icons/facebook.png';
 import CadastroModal from '../cadastro/cadastro';
-
 
 import '../login/login.css';
 import UserService from '@/app/services/userService';
@@ -17,7 +15,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
+import { useContext } from 'react';
+import { AuthContext } from '../../contexts/AuthContexts'
+import Link from 'next/link';
+import EsqueciSenhaModal from '../esqueciSenha/esqueciSenha';
 
 const userService = new UserService(api);
 
@@ -31,38 +32,46 @@ type LoginSchema = z.infer<typeof loginSchema>
 const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
 
   const [isOpenCadastro, setIsOpenCadastro] = useState(false);
+  const [isOpenEsqueciMinhaSenha, setIsOpenEsqueciMinhaSenha] = useState(false);
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema)
   });
+  const { signIn } = useContext(AuthContext)
+
 
   const loginSubmit = async (data: LoginSchema): Promise<void> => {
     try {
-      const res = await userService.login(data);
-      if (res) {
+      const res = await signIn(data);
+      console.log('res', res);
+      toast.success("Logado!");
+      setTimeout(() => {
         onClose();
-        toast.success("Logado!");
-      }
+      }, 2000);
     } catch (e) {
-      toast.error("E-mail e/ou senha icorreto!");
+      console.error('erro loginSubmit', e);
+      toast.error("E-mail e/ou senha incorreto!");
     }
-  }
-
+  };
 
   const handleCadastroClick = () => {
     setIsOpenCadastro(true);
   };
 
+  const handleEsqueciMinhaSenhaClick = () => {
+    setIsOpenEsqueciMinhaSenha(true);
+  };
+
   return (
     <div
-      className={`modal-overlay ${isOpen ? "active" : ""}`}
+      className={`modal-overlay ${isOpen ? "active" : ""} modal-bg`}
       onClick={onClose}
     >
       <div
         className="modal-content delay-[2000ms]"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="bloco-login ml-10 mb-15">
+        <div className="bloco-login ml-10 mb-15 modal">
           <h2 className="title-login font-bold">Login</h2>
           <form onSubmit={handleSubmit(loginSubmit)}>
             <p className="sub-info mt-8 mb-2">Email</p>
@@ -112,6 +121,17 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
             {errors.password && (
               <p className="error-message">{errors.password?.message}</p>
             )}
+
+            <a
+              href="#"
+              className="forgot-password-link hover:text-green-800"
+              onClick={(e) => {
+                e.preventDefault();
+                handleEsqueciMinhaSenhaClick();
+              }}
+            >
+              Esqueci minha senha
+            </a>
             <button
               type="submit"
               className="button-login border border-green-800 rounded-md hover:bg-green-800 duration-500 mt-10"
@@ -132,12 +152,12 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
           </div>
           <div className="flex justify-center mt-2 mr-12">
             <button
-            
+
             >
               <Image src={google} alt="Google Icon" className="w-6 h-6 mr-4" />
             </button>
             <button
-             
+
             >
               <Image src={facebook} alt="Facebook Icon" className="w-6 h-6" />
             </button>
@@ -148,6 +168,12 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
         <CadastroModal
           isOpen={isOpenCadastro}
           onClose={() => setIsOpenCadastro(false)}
+        />
+      )}
+      {isOpenEsqueciMinhaSenha && (
+        <EsqueciSenhaModal
+          isOpen={isOpenEsqueciMinhaSenha}
+          onClose={() => setIsOpenEsqueciMinhaSenha(false)}
         />
       )}
     </div>

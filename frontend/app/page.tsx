@@ -1,3 +1,5 @@
+'use client';
+
 import Image from "next/image";
 import befitLogo from "../public/icons/beFit-logo.png";
 import cartLogo from "../public/icons/cart.png";
@@ -13,8 +15,10 @@ import lines from "../public/lines.png";
 import Header from "../app/components/header/header";
 import ToastProvider from "./providers/ToastProvider";
 
+
 export default function Home() {
   return (
+
     <main className="home-page flex min-h-screen flex-col items-center justify-between p-0">
       <ToastProvider>
         <Header></Header>
@@ -611,5 +615,6 @@ export default function Home() {
         </div>
       </ToastProvider>
     </main>
+
   );
 }
