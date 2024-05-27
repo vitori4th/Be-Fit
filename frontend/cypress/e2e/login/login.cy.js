@@ -114,5 +114,6 @@ describe('Teste Funcional de Login com Sucesso', ()=>{
         registerForm.typeEmail(input.email);
         registerForm.typePassword(input.password);
         registerForm.clickSubmit();
+        registerForm.elements.toast().should('have.text', 'Logado!');
     });
 })

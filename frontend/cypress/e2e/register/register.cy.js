@@ -111,7 +111,7 @@ describe('Teste Funcional de Cadastro com Sucesso', ()=>{
     });
 })
 
-describe('Teste Funcional de Cadastro com Erro - Usuário já existe', ()=>{
+describe('Teste Funcional de Cadastro com Erro', ()=>{
     after(() => {
         cy.clearAllLocalStorage()
     })
@@ -125,7 +125,7 @@ describe('Teste Funcional de Cadastro com Erro - Usuário já existe', ()=>{
         password: '#Teste123',
         confirmPassword: '#Teste123'
     }
-    it('Deve realizar login com sucesso', ()=>{
+    it('Usuário já existe', ()=>{
         cy.visit("/")
         // Clique no botão de login na barra lateral para abrir o formulário de login
         registerForm.clickLogin();

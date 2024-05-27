@@ -246,6 +246,7 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
         <a
           href="#"
           className="text-red-500 hover:text-red-800 flex items-center mt-10 pl-10"
+          id='logoutButton'
           onClick={(e) => {
             e.preventDefault();
             handleLogout();
