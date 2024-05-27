@@ -12,8 +12,8 @@ import azul from "../public/em alta/azul.png";
 import rosa from "../public/em alta/rosa.png";
 import star from "../public/icons/star.png";
 import lines from "../public/lines.png";
-import Header from "../app/components/header/header";
-import ToastProvider from "./providers/ToastProvider";
+import Header from "@/components/header/header";
+import ToastProvider from "@/providers/ToastProvider";
 
 
 export default function Home() {

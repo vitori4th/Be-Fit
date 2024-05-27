@@ -1,12 +1,11 @@
 import React, { useState, useRef, useContext, Suspense } from 'react';
 import Image from 'next/image';
-import befitLogo from '../../../public/icons/beFit-logo.png';
-import cartLogo from '../../../public/icons/cart.png';
+import befitLogo from '../../public/icons/beFit-logo.png';
+import cartLogo from '../../public/icons/cart.png';
 import LoginModal from '../login/login';
 import CadastroModal from '../cadastro/cadastro';
 import { FaUser } from 'react-icons/fa';
-import EsqueciSenhaModal from '../esqueciSenha/esqueciSenha';
-import { AuthContext } from '@/app/contexts/AuthContexts';
+import { AuthContext } from '@/contexts/AuthContexts';
 import { useSearchParams } from 'next/navigation';
 import RecuperarSenhaModal from '../recuperarSenha/recuperarSenha';
 

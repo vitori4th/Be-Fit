@@ -1,8 +1,8 @@
 import { createContext, useEffect, useState, ReactNode } from "react";
 import { setCookie, parseCookies, destroyCookie } from 'nookies';
 
-import UserService from '@/app/services/userService';
-import api from '@/app/utils/api';
+import UserService from '@/services/userService';
+import api from '@/utils/api';
 
 type User = {
   name: string;

@@ -1,19 +1,19 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
-import mail from '../../../public/icons/mail.png';
-import pass from '../../../public/icons/pass.png';
+import mail from '../../public/icons/mail.png';
+import pass from '../../public/icons/pass.png';
 import '../cadastro/cadastro.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { AuthContext } from '@/app/contexts/AuthContexts';
-import UserService from '@/app/services/userService';
-import api from '@/app/utils/api';
+import { AuthContext } from '@/contexts/AuthContexts';
+import UserService from '@/services/userService';
+import api from '@/utils/api';
 import { createUserFormSchema, updateUserFormSchema } from './schema/cadastroSchema';
-import visible from '../../../public/icons/visible.png';
+import visible from '../../public/icons/visible.png';
 
 interface CadastroModalProps {
   isOpen: boolean;

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import mail from '../../../public/icons/mail.png';
-import pass from '../../../public/icons/pass.png';
-import visible from '../../../public/icons/visible.png';
-import google from '../../../public/icons/google.png';
-import facebook from '../../../public/icons/facebook.png';
+import mail from '../../public/icons/mail.png';
+import pass from '../../public/icons/pass.png';
+import visible from '../../public/icons/visible.png';
+import google from '../../public/icons/google.png';
+import facebook from '../../public/icons/facebook.png';
 import CadastroModal from '../cadastro/cadastro';
 
 import '../login/login.css';
-import UserService from '@/app/services/userService';
-import api from '@/app/utils/api';
+import UserService from '@/services/userService';
+import api from '@/utils/api';
 import { loginSchema } from './schema/loginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';

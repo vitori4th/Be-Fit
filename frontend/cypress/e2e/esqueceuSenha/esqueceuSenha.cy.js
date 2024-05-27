@@ -49,7 +49,7 @@ describe('Teste Funcional de Esqueceu a Senha', ()=>{
     it('Email Válido e Enviado', ()=>{
         cy.visit("/")
         // Clique no botão de login na barra lateral para abrir o formulário de login
-        input.email = 'igorvinijesus@gmail.com';
+        input.email = 'vitoriathdasilva@gmail.com';
         registerForm.clickLogin();
         registerForm.clickEsqueci();
         registerForm.typeEmail(input.email);

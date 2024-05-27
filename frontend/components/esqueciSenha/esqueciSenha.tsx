@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
-import mail from '../../../public/icons/mail.png';
-import pass from '../../../public/icons/pass.png';
+import mail from '../../public/icons/mail.png';
 import '../esqueciSenha/esqueciSenha.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

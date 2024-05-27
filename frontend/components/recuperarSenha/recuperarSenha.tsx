@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import Image from 'next/image';
-import mail from '../../../public/icons/mail.png';
-import pass from '../../../public/icons/pass.png';
+import pass from '../../public/icons/pass.png';
 import './recuperarSenha.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import UserService from '@/app/services/userService';
-import api from '@/app/utils/api';
+import UserService from '@/services/userService';
+import api from '@/utils/api';
 import { useSearchParams } from 'next/navigation';
 
 // Defina o esquema de validação para recuperação de senha
