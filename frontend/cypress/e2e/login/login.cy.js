@@ -32,25 +32,6 @@ class RegisterForm{
 
 const registerForm = new RegisterForm()
 
-describe('Teste Funcional de Login com Erro', ()=>{
-    after(() => {
-        cy.clearAllLocalStorage()
-    })
-    const input = {
-        email: 'vinis@example.com',
-        password: 'ste1%T23',
-    }
-    it('Dados Inválidos', ()=>{
-        cy.visit("/")
-        // Clique no botão de login na barra lateral para abrir o formulário de login
-        registerForm.clickLogin();
-        registerForm.typeEmail(input.email);
-        registerForm.typePassword(input.password);
-        registerForm.clickSubmit();
-        registerForm.elements.toast().should('have.text', 'E-mail e/ou senha incorreto!');
-    });
-})
-
 describe('Teste Funcional de Login com Erro - Email', ()=>{
     after(() => {
         cy.clearAllLocalStorage()
@@ -96,6 +77,25 @@ describe('Teste Funcional de Login com Erro - Senha', ()=>{
         registerForm.typePassword(input.password);
         registerForm.clickSubmit();
         registerForm.elements.passErrorMessage().should('have.text', 'Senha é obrigatório');
+    });
+})
+
+describe('Teste Funcional de Login com Erro', ()=>{
+    after(() => {
+        cy.clearAllLocalStorage()
+    })
+    const input = {
+        email: 'vinis@example.com',
+        password: 'ste1%T23',
+    }
+    it('Dados Inválidos', ()=>{
+        cy.visit("/")
+        // Clique no botão de login na barra lateral para abrir o formulário de login
+        registerForm.clickLogin();
+        registerForm.typeEmail(input.email);
+        registerForm.typePassword(input.password);
+        registerForm.clickSubmit();
+        registerForm.elements.toast().should('have.text', 'E-mail e/ou senha incorreto!');
     });
 })
 
