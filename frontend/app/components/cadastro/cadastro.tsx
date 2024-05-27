@@ -13,6 +13,7 @@ import { AuthContext } from '@/app/contexts/AuthContexts';
 import UserService from '@/app/services/userService';
 import api from '@/app/utils/api';
 import { createUserFormSchema, updateUserFormSchema } from './schema/cadastroSchema';
+import visible from '../../../public/icons/visible.png';
 
 interface CadastroModalProps {
   isOpen: boolean;
@@ -161,13 +162,29 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
             {!userInfo && (<>
               <p className="sub-info mt-2 mb-2">Senha</p>
               <div className="custom-input-container">
-                <Image src={pass} alt="Icone" width={13.33} height={10.67} className="input-icon" />
+                <Image
+                  src={pass}
+                  alt="Icone"
+                  width={13.33}
+                  height={10.67}
+                  className="input-icon"
+                />
                 <input
                   type={showPassword ? 'text' : 'password'}
-                  {...register('password')}
                   className="custom-input"
                   placeholder="Senha"
+                  {...register("password")}
                 />
+                <div className="right-icon">
+                  <Image
+                    src={visible}
+                    alt="Icone"
+                    width={13.33}
+                    height={10.67}
+                    className="input-icon relative left-[60%]"
+                    onClick={() => setShowPassword(!showPassword)}
+                  />
+                </div>
               </div>
             </>)}
             {errors.password && !userInfo && (<span className=' sub-info w-full flex justify-start text-red-700'>{errors.password?.message}</span>)}
@@ -182,6 +199,16 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
                   className="custom-input"
                   placeholder="Confirmar Senha"
                 />
+                <div className="right-icon">
+                  <Image
+                    src={visible}
+                    alt="Icone"
+                    width={13.33}
+                    height={10.67}
+                    className="input-icon relative left-[60%]"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  />
+                </div>
               </div>
             </>)}
             {errors.confirmPassword && !userInfo && (<span className='sub-info w-full flex justify-start text-red-700'>{errors.confirmPassword?.message}</span>)}

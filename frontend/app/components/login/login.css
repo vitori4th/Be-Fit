@@ -50,6 +50,7 @@
   width: 240px;
   height: 36px;
   border-radius: 5px;
+  overflow: hidden;
   border: 1px solid #140005;
   /* Adiciona uma borda na cor especificada */
   display: flex;
@@ -96,15 +97,10 @@
 }
 
 .right-icon {
-  position: absolute;
-  top: 0;
-  right: 0;
+  margin-right: .5rem;
   width: 36px;
   /* Largura do ícone à direita */
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .button-login {

@@ -33,6 +33,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
 
   const [isOpenCadastro, setIsOpenCadastro] = useState(false);
   const [isOpenEsqueciMinhaSenha, setIsOpenEsqueciMinhaSenha] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); 
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema)
@@ -44,10 +45,10 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
     try {
       const res = await signIn(data);
       console.log('res', res);
-      toast.success("Logado!");
-      setTimeout(() => {
+      // toast.success("Logado!");
+      // setTimeout(() => {
         onClose();
-      }, 2000);
+      // }, 2000);
     } catch (e) {
       console.error('erro loginSubmit', e);
       toast.error("E-mail e/ou senha incorreto!");
@@ -103,7 +104,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                 className="input-icon"
               />
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 className="custom-input"
                 placeholder="Senha"
                 {...register("password")}
@@ -115,6 +116,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                   width={13.33}
                   height={10.67}
                   className="input-icon relative left-[60%]"
+                  onClick={() => setShowPassword(!showPassword)} 
                 />
               </div>
             </div>
