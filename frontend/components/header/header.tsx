@@ -57,40 +57,43 @@ const Header = () => {
           <button
             className="bg-transparent border border-green-800 text-green-800 px-8 py-1 rounded-lg hover:bg-green-800 hover:text-white duration-500 font-bold login-button"
             id='profileButton'
-            onClick={handleModalToggle}          >
-            <Suspense fallback={"Carregando..."}>
+            onClick={handleModalToggle} >
+            {/* <Suspense> */}
               {isAuthenticated ? (
                 <FaUser size={20} />
               ) : (
                 "Login"
-              )}          </Suspense>
+              )}
+            {/* </Suspense> */}
           </button>
 
         </div>
 
 
       </header>
-      {isModalOpen && !tokenRecovery && (
-        <div className="modal-background" onClick={handleOutsideClick}>
-          {isAuthenticated && (
-            <CadastroModal
-              isOpen={isModalOpen}
+      <Suspense>
+        {isModalOpen && !tokenRecovery && (
+          <div className="modal-background" onClick={handleOutsideClick}>
+            {isAuthenticated && (
+              <CadastroModal
+                isOpen={isModalOpen}
+                onClose={handleModalToggle}
+              />
+            )}
+            {!isAuthenticated && !tokenRecovery && (
+              <LoginModal isOpen={isModalOpen} onClose={handleModalToggle} />
+            )}
+          </div>
+        )}
+        {!isAuthenticated && tokenRecovery && (
+          <div className="modal-background">
+            <RecuperarSenhaModal
+              isOpen={true}
               onClose={handleModalToggle}
             />
-          )}
-          {!isAuthenticated && !tokenRecovery && (
-            <LoginModal isOpen={isModalOpen} onClose={handleModalToggle} />
-          )}
-        </div>
-      )}
-      {!isAuthenticated && tokenRecovery && (
-        <div className="modal-background">
-          <RecuperarSenhaModal
-            isOpen={true}
-            onClose={handleModalToggle}
-          />
-        </div>
-      )}
+          </div>
+        )}
+      </Suspense>
 
     </>
   );
