@@ -96,6 +96,10 @@ describe('Teste Funcional de Cadastro com Sucesso', ()=>{
         password: '#Teste123',
         confirmPassword: '#Teste123'
     }
+    it('Teste Visitando o endereço', ()=>{
+        cy.visit("/")
+        // teste
+    });
     it('Deve realizar cadastro com sucesso', ()=>{
         cy.visit("/")
         // Clique no botão de login na barra lateral para abrir o formulário de login
