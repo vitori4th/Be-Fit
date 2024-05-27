@@ -11,7 +11,7 @@ export interface IUserRepository {
 
   findById(id: string): Promise<User | undefined>;
 
-  findByCPF(cpf: number): Promise<User | undefined>;
+  findByCPF(cpf: string): Promise<User | undefined>;
 
   findAllUsers(): Promise<User[] | undefined>;
 }

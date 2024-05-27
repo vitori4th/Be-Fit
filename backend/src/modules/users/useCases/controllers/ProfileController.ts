@@ -18,10 +18,11 @@ export default class ProfileController {
 
   public async update(req: Request, res: Response): Promise<Response> {
     const user_id = req.user.id;
+    const usersRepository = new UserRepository();
 
     const { name, lastname, dateBirth, cellphone } = req.body;
 
-    const updateProfile = new UpdateProfileService();
+    const updateProfile = new UpdateProfileService(usersRepository);
 
     const user = await updateProfile.execute({
       user_id,

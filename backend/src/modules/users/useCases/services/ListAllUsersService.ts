@@ -1,12 +1,14 @@
+import { IUserRepository } from '@modules/users/repositories/user/IUserRepository';
 import AppError from '../../../../shared/errors/AppError';
 import { User } from '../../entities/user';
-import UserRepository from '../../repositories/user/UserRepository';
 
 export default class ListAllUserService {
+  constructor(
+    private repository: IUserRepository,
+  ) {}
   public async execute(): Promise<User[]> {
-    const usersRepository = new UserRepository();
 
-    const users = await usersRepository.findAllUsers();
+    const users = await this.repository.findAllUsers();
 
     if (!users) {
       throw new AppError('Users not found');

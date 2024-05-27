@@ -120,7 +120,7 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
               <input type="text" className="custom-input flex items-center" placeholder="Nome" {...register('lastname')}
                 defaultValue={userInfo?.lastname || ''} />
             </div>
-            {errors.lastname && (<span className='sub-info w-full flex justify-start text-red-700'>{errors.lastname?.message}</span>)}
+            {errors.lastname && (<span className='sub-info w-full flex justify-start text-red-700' id='lastnameError'>{errors.lastname?.message}</span>)}
 
             {!userInfo && (<>
               <p className="sub-info mt-2 mb-2">Email</p>
@@ -138,7 +138,7 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
               <input type="date" className="custom-input flex items-center" placeholder="Data de Nascimento"  {...register('dateBirth')}
               />
             </div>
-            {errors.dateBirth && (<span className='sub-info w-full flex justify-start text-red-700'>{errors.dateBirth?.message}</span>)}
+            {errors.dateBirth && (<span className='sub-info w-full flex justify-start text-red-700' id='dataError'>{errors.dateBirth?.message}</span>)}
 
 
             {!userInfo && (<>
@@ -156,7 +156,7 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
               <input type="text" className="sub-info custom-input flex items-center" placeholder="Telefone" {...register('cellphone')}
                 defaultValue={userInfo?.cellphone || ''} />
             </div>
-            {errors.cellphone && (<span className='w-full flex justify-start text-red-700'>{errors.cellphone?.message}</span>)}
+            {errors.cellphone && (<span className='w-full flex justify-start text-red-700' id='telError'>{errors.cellphone?.message}</span>)}
 
             {!userInfo && (<>
               <p className="sub-info mt-2 mb-2">Senha</p>

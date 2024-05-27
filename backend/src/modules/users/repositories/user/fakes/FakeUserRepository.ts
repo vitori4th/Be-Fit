@@ -60,7 +60,7 @@ export default class FakeUserRepository implements IUserRepository {
     return this.users.find(user => user.id === id);
   }
 
-  public async findByCPF(cpf: number): Promise<User | undefined> {
+  public async findByCPF(cpf: string): Promise<User | undefined> {
     return this.users.find(user => user.cpf === cpf);
   }
 

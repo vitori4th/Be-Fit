@@ -41,7 +41,7 @@ export default class EtherealMail {
       },
     });
 
-    const message = await transporter.sendMail({
+    await transporter.sendMail({
       from: {
         name: from?.name || 'Equipe BeFit',
         address: from?.email || 'andreluccagomides@gmail.com',
@@ -54,7 +54,5 @@ export default class EtherealMail {
       html: await mailTemplate.parse(templateData),
     });
 
-    console.log('Message sent: %s', message.messageId);
-    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(message));
   }
 }

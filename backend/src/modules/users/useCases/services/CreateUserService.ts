@@ -2,12 +2,12 @@ import { UserRoleType } from '@prisma/client';
 import { User } from '../../entities/user';
 import AppError from '../../../../shared/errors/AppError';
 import { excludeFromObject } from '../../../../shared/utils/excludePasswordUser';
-import { hash } from 'bcrypt';
 import { IUserRepository } from '@modules/users/repositories/user/IUserRepository';
+import { IHashprovider } from '@modules/users/providers/models/IHashProvider';
 
 interface IUserConfig {
   cellphone: string;
-  cpf: number;
+  cpf: string;
   email: string;
   dateBirth: Date;
   lastname: string;
@@ -19,7 +19,10 @@ interface IUserConfig {
 
 export default class CreateUserService {
 
-  constructor(private repository: IUserRepository) { }
+  constructor(
+    private repository: IUserRepository,
+    private hashProvider: IHashprovider
+  ) { }
 
   public async execute({
     cellphone,
@@ -48,7 +51,7 @@ export default class CreateUserService {
       throw new AppError('Passwords do not match.');
     }
 
-    const hashedPassword = await hash(password, 8);
+    const hashedPassword = await this.hashProvider.generateHash(password)
 
     const user = {
       cellphone,

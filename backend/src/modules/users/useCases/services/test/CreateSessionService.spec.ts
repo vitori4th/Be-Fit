@@ -1,19 +1,71 @@
-import request from 'supertest';
+import FakeUserRepository from '@modules/users/repositories/user/fakes/FakeUserRepository';
 import 'reflect-metadata';
+import CreateSessionsService from '../CreateSessionService';
+import FakeHashProvider from '@modules/users/providers/fakes/FakeHashProvider';
+import AppError from '@shared/errors/AppError';
 
 
-describe('POST /sessions', () => {
-  it('should return a user and token when credentials are correct', async () => {
-    // Dados de algum usuario existente
-    const email = 'teste@email.com';
-    const password = 'teste';
+let fakeUsersRepository: FakeUserRepository;
+let createSession: CreateSessionsService;
+let fakeHashProvider: FakeHashProvider;
 
-    const response = await request('http://localhost:3333')
-      .post('/login/')
-      .send({ email, password });
+describe('CreateSession', () => {
+  beforeEach(() => {
+    fakeUsersRepository = new FakeUserRepository();
+    fakeHashProvider = new FakeHashProvider();
+    createSession = new CreateSessionsService(
+      fakeUsersRepository,
+      fakeHashProvider,
+    );
+  });
 
-    expect(response.status).toBe(200);
+  it('should be able to authenticate', async () => {
+    const user = await fakeUsersRepository.register({
+      cellphone: '5588899',
+      cpf: '12345678901',
+      email: 'teste@email.com',
+      dateBirth: new Date('2002-12-03'),
+      lastname: 'teste',
+      name: 'ze',
+      password: 'teste',
+      role: 'USER',
+    });
 
-    expect(response.body).toHaveProperty('token');
+    const response = await createSession.execute({
+      email: 'teste@email.com',
+      password: 'teste',
+    });
+
+    expect(response).toHaveProperty('token');
+    expect(response.user).toEqual(user);
+  });
+
+  it('should not be able to authenticate with non existent user', async () => {
+    expect(
+      createSession.execute({
+        email: 'teste@teste.com',
+        password: '123456',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('should not be able to authenticate with wrong password', async () => {
+    await fakeUsersRepository.register({
+      cellphone: '5588899',
+      cpf: '12345678901',
+      email: 'teste@email.com',
+      dateBirth: new Date('2002-12-03'),
+      lastname: 'teste',
+      name: 'ze',
+      password: 'teste',
+      role: 'USER',
+    });
+
+    expect(
+      createSession.execute({
+        email: 'teste@teste.com',
+        password: '567890',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });

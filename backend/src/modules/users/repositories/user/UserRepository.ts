@@ -102,7 +102,7 @@ export default class UserRepository implements IUserRepository {
     return user;
   }
 
-  public async findByCPF(cpf: number): Promise<User | undefined> {
+  public async findByCPF(cpf: string): Promise<User | undefined> {
     const user = await prismaClient.user.findUnique({
       where: {
         cpf,

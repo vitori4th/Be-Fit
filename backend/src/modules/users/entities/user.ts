@@ -7,7 +7,7 @@ export interface IUserDTO {
 
   email: string;
 
-  cpf: number;
+  cpf: string;
 
   role?: UserRoleType;
 
@@ -29,7 +29,7 @@ class User {
 
   email: string;
 
-  cpf: number;
+  cpf: string;
 
   role?: UserRoleType;
 
