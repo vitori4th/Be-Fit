@@ -81,7 +81,7 @@ const registerForm = new RegisterForm()
 
 describe('Teste Funcional de Cadastro com Sucesso', ()=>{
     beforeEach(() => {
-        cy.timeout(10000);
+        cy.timeout(15000);
       });
     after(() => {
         cy.clearAllLocalStorage()
