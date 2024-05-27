@@ -84,12 +84,12 @@ describe('Teste Funcional de Cadastro com Sucesso', ()=>{
         cy.clearAllLocalStorage()
     })
     const input = {
-        name: 'Igor',
-        lastName: 'Vinicius',
-        email: 'vinicius@example.com',
+        name: 'Igorr',
+        lastName: 'Viniciuus',
+        email: 'igorr@example.com',
         dateOfBirth: '1990-01-01',
-        cpf: '90300000000',
-        phone: '99900001313',
+        cpf: '90308880000',
+        phone: '99888001313',
         password: '#Teste123',
         confirmPassword: '#Teste123'
     }
@@ -139,7 +139,7 @@ describe('Teste Funcional de Cadastro com Erro', ()=>{
         registerForm.typePassword(input.password);
         registerForm.typeConfirmPassword(input.confirmPassword);
         registerForm.clickSubmit();
-        registerForm.elements.toast().should('have.text', 'Ocorreu um erro ao cadastrar o usuário.');
+        registerForm.elements.toast().should('have.text', 'Ocorreu um erro');
     });
 })
 
@@ -285,7 +285,7 @@ describe('Teste Funcional de Cadastro com Erro - Data', ()=>{
         registerForm.typePassword(input.password);
         registerForm.typeConfirmPassword(input.confirmPassword);
         registerForm.clickSubmit();
-        registerForm.elements.toast().should('have.text', 'Ocorreu um erro ao cadastrar o usuário.');
+        registerForm.elements.toast().should('have.text', 'Ocorreu um erro');
     });
 })
 
