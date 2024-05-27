@@ -84,12 +84,12 @@ describe('Teste Funcional de Cadastro com Sucesso', ()=>{
         cy.clearAllLocalStorage()
     })
     const input = {
-        name: 'Igor',
-        lastName: 'Vinicius',
-        email: 'vinicius@example.com',
-        dateOfBirth: '1990-01-01',
-        cpf: '90300000000',
-        phone: '99000001313',
+        name: 'Igor Silva',
+        lastName: 'Jesus',
+        email: 'silvaaa@example.com',
+        dateOfBirth: '1999-01-01',
+        cpf: '90300000093',
+        phone: '94500001313',
         password: '#Teste123',
         confirmPassword: '#Teste123'
     }
@@ -116,12 +116,12 @@ describe('Teste Funcional de Cadastro com Erro', ()=>{
         cy.clearAllLocalStorage()
     })
     const input = {
-        name: 'Igor',
-        lastName: 'Vinicius',
-        email: 'vinicius@example.com',
-        dateOfBirth: '1990-01-01',
-        cpf: '90300000000',
-        phone: '99900001313',
+        name: 'Igor Silva',
+        lastName: 'Jesus',
+        email: 'silvaaa@example.com',
+        dateOfBirth: '1999-01-01',
+        cpf: '90300000093',
+        phone: '94500001313',
         password: '#Teste123',
         confirmPassword: '#Teste123'
     }

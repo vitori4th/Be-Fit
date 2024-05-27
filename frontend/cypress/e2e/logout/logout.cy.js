@@ -45,8 +45,8 @@ describe('Teste Funcional de Logout', ()=>{
         cy.clearAllLocalStorage()
     })
     const input = {
-        email: 'vinicius@example.com',
-        password: '#Teste123',
+        email: 'zinin@example.com',
+        password: '#Mumu123',
     }
     it('Login com Sucesso', ()=>{
         cy.visit("/")

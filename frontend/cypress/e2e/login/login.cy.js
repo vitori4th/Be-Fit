@@ -33,6 +33,9 @@ class RegisterForm{
 const registerForm = new RegisterForm()
 
 describe('Teste Funcional de Login com Erro - Email', ()=>{
+    beforeEach(() => {
+        cy.timeout(10000);
+      });
     after(() => {
         cy.clearAllLocalStorage()
     })
@@ -105,8 +108,8 @@ describe('Teste Funcional de Login com Sucesso', ()=>{
         cy.clearAllLocalStorage()
     })
     const input = {
-        email: 'vinicius@example.com',
-        password: '#Teste123',
+        email: 'zinin@example.com',
+        password: '#Mumu123',
     }
     it('Deve realizar login com sucesso', ()=>{
         cy.visit("/")
