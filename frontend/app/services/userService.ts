@@ -73,4 +73,18 @@ export default class UserService {
       return null;
     }
   }
+
+  async recoveryPassword (token:string, password: string,confirmPassword: string ){
+    try {
+      const response = await this.axios.post("/password/reset", {
+        token: token,
+        password: password,
+        passwordConfirmation: confirmPassword,
+      });
+      return response;
+    } catch (error) {
+      console.error("Error recoveryPassword:", error);
+      return null;
+    }
+  }
 }

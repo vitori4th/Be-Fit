@@ -27,7 +27,7 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [userData, setUserData] = useState<CreateUserFormSchema | null>(null);
-  const { user, signOut } = useContext(AuthContext)
+  const { user, signOut, getUserData } = useContext(AuthContext)
 
   const userInfo = user;
   const userServiceH = new UserService(api);
@@ -57,12 +57,13 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
         );
 
         if (response) {
-          toast.success("Dados atualizados com sucesso!");
-          setTimeout(() => {
-            onClose();
-          }, 2000);
+          toast.success("Dados Atualizados com Sucesso!");
+          // setTimeout(() => {
+          // onClose();
+          getUserData();
+          // }, 5000);
         } else {
-          toast.error("Ocorreu um erro ao atualizar os dados.");
+          toast.error("Ocorreu um Erro ao Atualizar os dados.");
         }
       } else {
         const userData = {
@@ -80,17 +81,17 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
         const response = await axios.post('http://localhost:3333/users/', userData);
 
         if (response.status === 200) {
-          toast.success("Usuário Cadastrado com Sucesso!");
-          setTimeout(() => {
-            onClose();
-          }, 2000);
+          toast.success("Cadastro bem sucedido!");
+          // setTimeout(() => {
+          //   onClose();
+          // }, 2000);
         } else {
-          toast.error('Ocorreu um erro ao cadastrar o usuário.');
+          toast.error('Ocorreu um erro ao realizar o cadastrar.');
         }
       }
 
     } catch (error) {
-      toast.error('Ocorreu um erro ao cadastrar o usuário.');
+      toast.error('Ocorreu um erro');
       console.error(error);
     }
   };
@@ -107,6 +108,8 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
 
   return (
     <div className={`modal-overlay ${isOpen ? 'active' : ''} ${userInfo ? 'modal-bg' : ''}`} onClick={onClose}>
+      <ToastContainer containerId={"createUser"} />
+
       <div className="modal-content delay-[2000ms]" onClick={(e) => e.stopPropagation()}>
         <div className="flex flex-col justify-center items-center">
           <h2 className="title-cad font-bold">
@@ -147,6 +150,7 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
             <div className="custom-input-container">
               <Image src={mail} alt="Icone" width={13.33} height={10.67} className="input-icon" />
               <input type="date" className="custom-input flex items-center" placeholder="Data de Nascimento"  {...register('dateBirth')}
+                defaultValue={`${new Date('25-02-2023')}`}
               />
             </div>
             {errors.dateBirth && (<span className='sub-info w-full flex justify-start text-red-700' id='dataError'>{errors.dateBirth?.message}</span>)}
@@ -236,23 +240,20 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
               }
             </button>
           </form>
-          <ToastContainer containerId={"friendRequest"} />
           <button className="button-return rounded-md hover:bg-gray-400 duration-500 mt-2" onClick={onClose}>Voltar</button>
-          
+
         </div>
         <a
-              href="#"
-              className="text-red-500 hover:text-red-800 flex items-center mt-10 pl-10"
-              onClick={(e) => {
-                e.preventDefault();
-                handleLogout();
-              }}
-            >
-              Fazer Logout
-            </a>
+          href="#"
+          className="text-red-500 hover:text-red-800 flex items-center mt-10 pl-10"
+          onClick={(e) => {
+            e.preventDefault();
+            handleLogout();
+          }}
+        >
+          Fazer Logout
+        </a>
       </div>
-      
-      <ToastContainer />
     </div>
   );
 };

@@ -11,18 +11,15 @@ import { useSearchParams } from 'next/navigation';
 import RecuperarSenhaModal from '../recuperarSenha/recuperarSenha';
 
 
-
 const Header = () => {
   const searchParams = useSearchParams()
-  
+
   const tokenRecovery = searchParams.get("recovery")
   const [isModalOpen, setIsModalOpen] = useState(!!tokenRecovery);
 
   console.log(tokenRecovery)
   const { user } = useContext(AuthContext);
-  if(tokenRecovery){
 
-  }
 
   console.log('USUARIO', user)
   const isAuthenticated = !!user;
@@ -86,7 +83,7 @@ const Header = () => {
           )}
         </div>
       )}
-      {tokenRecovery && (
+      {!isAuthenticated && tokenRecovery && (
         <div className="modal-background">
           <RecuperarSenhaModal
             isOpen={true}
