@@ -84,16 +84,16 @@ describe('Teste Funcional de Cadastro com Sucesso', ()=>{
         cy.clearAllLocalStorage()
     })
     const input = {
-        name: 'Igorr',
-        lastName: 'Viniciuus',
-        email: 'igorr@example.com',
+        name: 'Igor',
+        lastName: 'Vinicius',
+        email: 'vinicius@example.com',
         dateOfBirth: '1990-01-01',
-        cpf: '90308880000',
-        phone: '99888001313',
+        cpf: '90300000000',
+        phone: '99000001313',
         password: '#Teste123',
         confirmPassword: '#Teste123'
     }
-    it('Deve realizar login com sucesso', ()=>{
+    it('Deve realizar cadastro com sucesso', ()=>{
         cy.visit("/")
         // Clique no botão de login na barra lateral para abrir o formulário de login
         registerForm.clickLogin();

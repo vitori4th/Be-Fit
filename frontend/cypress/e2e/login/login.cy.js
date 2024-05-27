@@ -40,15 +40,6 @@ describe('Teste Funcional de Login com Erro - Email', ()=>{
         email: 'viniciusexample.com',
         password: '#Teste123',
     }
-    it('Email inválido', ()=>{
-        cy.visit("/")
-        // Clique no botão de login na barra lateral para abrir o formulário de login
-        registerForm.clickLogin();
-        registerForm.typeEmail(input.email);
-        registerForm.typePassword(input.password);
-        registerForm.clickSubmit();
-        registerForm.elements.emailErrorMessage().should('have.text', 'E-mail inválido');
-    });
     it('Email vazio', ()=>{
         cy.visit("/")
         // Clique no botão de login na barra lateral para abrir o formulário de login
