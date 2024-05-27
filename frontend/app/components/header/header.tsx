@@ -20,6 +20,9 @@ const Header = () => {
 
   console.log(tokenRecovery)
   const { user } = useContext(AuthContext);
+  if(tokenRecovery){
+
+  }
 
   console.log('USUARIO', user)
   const isAuthenticated = !!user;
@@ -70,14 +73,8 @@ const Header = () => {
 
 
       </header>
-      {isModalOpen && (
+      {isModalOpen && !tokenRecovery && (
         <div className="modal-background" onClick={handleOutsideClick}>
-          {!isAuthenticated && tokenRecovery && (
-            <RecuperarSenhaModal
-              isOpen={isModalOpen}
-              onClose={handleModalToggle}
-            />
-          )}
           {isAuthenticated && (
             <CadastroModal
               isOpen={isModalOpen}
@@ -89,10 +86,10 @@ const Header = () => {
           )}
         </div>
       )}
-      {!isAuthenticated && tokenRecovery && (
-        <div className="modal-background" onClick={handleOutsideClick}>
+      {tokenRecovery && (
+        <div className="modal-background">
           <RecuperarSenhaModal
-            isOpen={isModalOpen}
+            isOpen={true}
             onClose={handleModalToggle}
           />
         </div>

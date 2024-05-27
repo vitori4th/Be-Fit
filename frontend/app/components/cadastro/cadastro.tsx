@@ -27,10 +27,10 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [userData, setUserData] = useState<CreateUserFormSchema | null>(null);
-  const { user } = useContext(AuthContext)
+  const { user, signOut } = useContext(AuthContext)
+
   const userInfo = user;
   const userServiceH = new UserService(api);
-
 
   const { register,
     handleSubmit,
@@ -92,6 +92,16 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
     } catch (error) {
       toast.error('Ocorreu um erro ao cadastrar o usuário.');
       console.error(error);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      signOut();
+      toast.success("Logout realizado com sucesso!");
+    } catch (error) {
+      console.error('Erro ao fazer logout', error);
+      toast.error("Erro ao fazer logout!");
     }
   };
 
@@ -226,8 +236,20 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
           </form>
           <ToastContainer containerId={"friendRequest"} />
           <button className="button-return rounded-md hover:bg-gray-400 duration-500 mt-2" onClick={onClose}>Voltar</button>
+          
         </div>
+        <a
+              href="#"
+              className="text-red-500 hover:text-red-800 flex items-center mt-10 pl-10"
+              onClick={(e) => {
+                e.preventDefault();
+                handleLogout();
+              }}
+            >
+              Fazer Logout
+            </a>
       </div>
+      
       <ToastContainer />
     </div>
   );

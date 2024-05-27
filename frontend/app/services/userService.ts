@@ -61,7 +61,7 @@ export default class UserService {
 
   async updateUserData(name: string, lastname: string, dateBirth: string, cellphone:string) {
     try {
-      const response = await this.axios.put("/", {
+      const response = await this.axios.put("/profile", {
         name,
         lastname,
         dateBirth,

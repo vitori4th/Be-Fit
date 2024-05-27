@@ -74,7 +74,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   function signOut() {
     userServiceH.logout();
     setUser(null);
-    Router.push('/'); // Redirecionar para a página de login
+    Router.push('/'); 
   }
 
   return (
