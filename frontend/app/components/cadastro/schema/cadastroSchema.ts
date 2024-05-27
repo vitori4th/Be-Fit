@@ -19,8 +19,8 @@ export const createUserFormSchema = z.object({
     password: z.string()
         .min(8, "Senha deve ter no mínimo 8 caracteres")
         .regex(/^(?=.*[A-Z]).*/, "Senha precisa ter letra maiúscula")
-        .regex(/^(?=.*[0-9]).*/, "Senha precisa ter  número")
-        .regex(/^(?=.*[!@#$%^&*]).*/, "Senha precisa ter  especial")
+        .regex(/^(?=.*[0-9]).*/, "Senha precisa ter número")
+        .regex(/^(?=.*[!@#$%^&*]).*/, "Senha precisa ter especial")
         .nonempty("Senha é obrigatória"),
     confirmPassword: z.string()
         .nonempty("Confirmação de senha é obrigatória")

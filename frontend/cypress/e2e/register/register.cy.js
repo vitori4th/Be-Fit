@@ -21,7 +21,7 @@ class RegisterForm{
         telErrorMessage: () => cy.get('span#telError'),
         passErrorMessage: () => cy.get('span#passError'),
         confirmPassErrorMessage: () => cy.get('span#confirmPassError'),
-        successToast: () => cy.get('.Toastify__toast-body > :nth-child(2)'),
+        toast: () => cy.get('.Toastify__toast-body > :nth-child(2)'),
     }
 
     typeName(text) {
@@ -86,10 +86,10 @@ describe('Teste Funcional de Cadastro com Sucesso', ()=>{
     const input = {
         name: 'Igor',
         lastName: 'Vinicius',
-        email: 'viiu77s@example.com',
-        dateOfBirth: '1998-01-01',
-        cpf: '903',
-        phone: '999',
+        email: 'vinicius@example.com',
+        dateOfBirth: '1990-01-01',
+        cpf: '90300000000',
+        phone: '99900001313',
         password: '#Teste123',
         confirmPassword: '#Teste123'
     }
@@ -107,7 +107,7 @@ describe('Teste Funcional de Cadastro com Sucesso', ()=>{
         registerForm.typePassword(input.password);
         registerForm.typeConfirmPassword(input.confirmPassword);
         registerForm.clickSubmit();
-        registerForm.elements.successToast().should('have.text', 'Usuário Cadastrado com Sucesso!');
+        registerForm.elements.toast().should('have.text', 'Usuário Cadastrado com Sucesso!');
     });
 })
 
@@ -120,8 +120,8 @@ describe('Teste Funcional de Cadastro com Erro - Usuário já existe', ()=>{
         lastName: 'Vinicius',
         email: 'vinicius@example.com',
         dateOfBirth: '1990-01-01',
-        cpf: '223',
-        phone: '319',
+        cpf: '90300000000',
+        phone: '99900001313',
         password: '#Teste123',
         confirmPassword: '#Teste123'
     }
@@ -139,7 +139,7 @@ describe('Teste Funcional de Cadastro com Erro - Usuário já existe', ()=>{
         registerForm.typePassword(input.password);
         registerForm.typeConfirmPassword(input.confirmPassword);
         registerForm.clickSubmit();
-        registerForm.elements.successToast().should('have.text', 'Ocorreu um erro ao cadastrar o usuário.');
+        registerForm.elements.toast().should('have.text', 'Ocorreu um erro ao cadastrar o usuário.');
     });
 })
 
@@ -152,8 +152,8 @@ describe('Teste Funcional de Cadastro com Erro - Nome', ()=>{
         lastName: 'Vinicius',
         email: 'vinicius@example.com',
         dateOfBirth: '1990-01-01',
-        cpf: '723',
-        phone: '119',
+        cpf: '72315457889',
+        phone: '11945781245',
         password: '#Teste123',
         confirmPassword: '#Teste123'
     }
@@ -171,7 +171,7 @@ describe('Teste Funcional de Cadastro com Erro - Nome', ()=>{
         registerForm.typePassword(input.password);
         registerForm.typeConfirmPassword(input.confirmPassword);
         registerForm.clickSubmit();
-        registerForm.elements.nameErrorMessage().should('have.text', 'Username required');
+        registerForm.elements.nameErrorMessage().should('have.text', 'Nome é obrigatório');
     });
 })
 
@@ -184,8 +184,8 @@ describe('Teste Funcional de Cadastro com Erro - Sobrenome', ()=>{
         lastName: '',
         email: 'vinicius@example.com',
         dateOfBirth: '1990-01-01',
-        cpf: '723',
-        phone: '119',
+        cpf: '72315457889',
+        phone: '11945781245',
         password: '#Teste123',
         confirmPassword: '#Teste123'
     }
@@ -203,7 +203,7 @@ describe('Teste Funcional de Cadastro com Erro - Sobrenome', ()=>{
         registerForm.typePassword(input.password);
         registerForm.typeConfirmPassword(input.confirmPassword);
         registerForm.clickSubmit();
-        registerForm.elements.lastNameErrorMessage().should('have.text', 'Username required');
+        registerForm.elements.lastNameErrorMessage().should('have.text', 'Sobrenome é obrigatório');
     });
 })
 
@@ -216,8 +216,8 @@ describe('Teste Funcional de Cadastro com Erro - Email', ()=>{
         lastName: 'Vinicius',
         email: 'vinicius',
         dateOfBirth: '1990-01-01',
-        cpf: '723',
-        phone: '119',
+        cpf: '72315457889',
+        phone: '11945781245',
         password: '#Teste123',
         confirmPassword: '#Teste123'
     }
@@ -235,7 +235,7 @@ describe('Teste Funcional de Cadastro com Erro - Email', ()=>{
         registerForm.typePassword(input.password);
         registerForm.typeConfirmPassword(input.confirmPassword);
         registerForm.clickSubmit();
-        registerForm.elements.emailErrorMessage().should('have.text', 'Invalid email');
+        registerForm.elements.emailErrorMessage().should('have.text', 'E-mail inválido');
     });
 
     it('Email Vazio', ()=>{
@@ -254,7 +254,7 @@ describe('Teste Funcional de Cadastro com Erro - Email', ()=>{
         registerForm.typePassword(input.password);
         registerForm.typeConfirmPassword(input.confirmPassword);
         registerForm.clickSubmit();
-        registerForm.elements.emailErrorMessage().should('have.text', 'Invalid email');
+        registerForm.elements.emailErrorMessage().should('have.text', 'E-mail inválido');
     });
 })
 
@@ -266,8 +266,9 @@ describe('Teste Funcional de Cadastro com Erro - Data', ()=>{
         name: 'Igor',
         lastName: 'Vinicius',
         email: 'vinicius@example.com',
-        cpf: '723',
-        phone: '119',
+        dateOfBirth: ' ',
+        cpf: '72315457889',
+        phone: '11945781245',
         password: '#Teste123',
         confirmPassword: '#Teste123'
     }
@@ -279,13 +280,12 @@ describe('Teste Funcional de Cadastro com Erro - Data', ()=>{
         registerForm.typeName(input.name);
         registerForm.typeLastName(input.lastName);
         registerForm.typeEmail(input.email);
-        registerForm.typeDateOfBirth(input.dateOfBirth);
         registerForm.typeCpf(input.cpf);
         registerForm.typePhone(input.phone);
         registerForm.typePassword(input.password);
         registerForm.typeConfirmPassword(input.confirmPassword);
         registerForm.clickSubmit();
-        registerForm.elements.dataErrorMessage().should('have.text', 'Invalid Date format');
+        registerForm.elements.toast().should('have.text', 'Ocorreu um erro ao cadastrar o usuário.');
     });
 })
 
@@ -299,7 +299,7 @@ describe('Teste Funcional de Cadastro com Erro - Cpf', ()=>{
         email: 'vinicius@example.com',
         dateOfBirth: '1990-01-01',
         cpf: '',
-        phone: '119',
+        phone: '11945781245',
         password: '#Teste123',
         confirmPassword: '#Teste123'
     }
@@ -317,7 +317,7 @@ describe('Teste Funcional de Cadastro com Erro - Cpf', ()=>{
         registerForm.typePassword(input.password);
         registerForm.typeConfirmPassword(input.confirmPassword);
         registerForm.clickSubmit();
-        registerForm.elements.cpfErrorMessage().should('have.text', 'CPF must have 11 digits');
+        registerForm.elements.cpfErrorMessage().should('have.text', 'CPF deve ter 11 dígitos');
     });
     it('Cpf Inválido', ()=>{
         cy.visit("/")
@@ -334,7 +334,7 @@ describe('Teste Funcional de Cadastro com Erro - Cpf', ()=>{
         registerForm.typePassword(input.password);
         registerForm.typeConfirmPassword(input.confirmPassword);
         registerForm.clickSubmit();
-        registerForm.elements.cpfErrorMessage().should('have.text', 'CPF must have 11 digits');
+        registerForm.elements.cpfErrorMessage().should('have.text', 'CPF deve ter 11 dígitos');
     });
 })
 
@@ -347,7 +347,7 @@ describe('Teste Funcional de Cadastro com Erro - Telefone', ()=>{
         lastName: 'Vinicius',
         email: 'vinicius@example.com',
         dateOfBirth: '1990-01-01',
-        cpf: '723',
+        cpf: '72315457889',
         phone: '',
         password: '#Teste123',
         confirmPassword: '#Teste123'
@@ -366,7 +366,7 @@ describe('Teste Funcional de Cadastro com Erro - Telefone', ()=>{
         registerForm.typePassword(input.password);
         registerForm.typeConfirmPassword(input.confirmPassword);
         registerForm.clickSubmit();
-        registerForm.elements.telErrorMessage().should('have.text', 'Phone must have 11 digits');
+        registerForm.elements.telErrorMessage().should('have.text', 'Telefone deve ter 11 dígitos');
     });
     it('Telefone Inválido', ()=>{
         cy.visit("/")
@@ -383,7 +383,7 @@ describe('Teste Funcional de Cadastro com Erro - Telefone', ()=>{
         registerForm.typePassword(input.password);
         registerForm.typeConfirmPassword(input.confirmPassword);
         registerForm.clickSubmit();
-        registerForm.elements.telErrorMessage().should('have.text', 'Phone must have 11 digits');
+        registerForm.elements.telErrorMessage().should('have.text', 'Telefone deve ter 11 dígitos');
     });
 })
 
@@ -396,8 +396,8 @@ describe('Teste Funcional de Cadastro com Erro - Senha', ()=>{
         lastName: 'Vinicius',
         email: 'vinicius@example.com',
         dateOfBirth: '1990-01-01',
-        cpf: '723',
-        phone: '119',
+        cpf: '72315457889',
+        phone: '11945781245',
         password: '',
         confirmPassword: ''
     }
@@ -416,12 +416,12 @@ describe('Teste Funcional de Cadastro com Erro - Senha', ()=>{
         registerForm.typePassword(input.password);
         registerForm.typeConfirmPassword(input.confirmPassword);
         registerForm.clickSubmit();
-        registerForm.elements.passErrorMessage().should('have.text', 'Password min 8 characters');
+        registerForm.elements.passErrorMessage().should('have.text', 'Senha deve ter no mínimo 8 caracteres');
     });
-    it('Senha sem Requisitos', ()=>{
+    it('Senha sem Letra Maiúscula', ()=>{
         cy.visit("/")
         // Clique no botão de login na barra lateral para abrir o formulário de login
-        input.password = '1$345678';
+        input.password = 'abc3#defghij';
         registerForm.clickLogin();
         registerForm.clickRegister();
         registerForm.typeName(input.name);
@@ -433,7 +433,41 @@ describe('Teste Funcional de Cadastro com Erro - Senha', ()=>{
         registerForm.typePassword(input.password);
         registerForm.typeConfirmPassword(input.confirmPassword);
         registerForm.clickSubmit();
-        registerForm.elements.passErrorMessage().should('have.text', 'Password requires uppercase, number, special char');
+        registerForm.elements.passErrorMessage().should('have.text', 'Senha precisa ter letra maiúscula');
+    });
+    it('Senha sem Número', ()=>{
+        cy.visit("/")
+        // Clique no botão de login na barra lateral para abrir o formulário de login
+        input.password = 'abA@cdefghij';
+        registerForm.clickLogin();
+        registerForm.clickRegister();
+        registerForm.typeName(input.name);
+        registerForm.typeLastName(input.lastName);
+        registerForm.typeEmail(input.email);
+        registerForm.typeDateOfBirth(input.dateOfBirth);
+        registerForm.typeCpf(input.cpf);
+        registerForm.typePhone(input.phone);
+        registerForm.typePassword(input.password);
+        registerForm.typeConfirmPassword(input.confirmPassword);
+        registerForm.clickSubmit();
+        registerForm.elements.passErrorMessage().should('have.text', 'Senha precisa ter número');
+    });
+    it('Senha sem Especial', ()=>{
+        cy.visit("/")
+        // Clique no botão de login na barra lateral para abrir o formulário de login
+        input.password = 'abA8cdefghij';
+        registerForm.clickLogin();
+        registerForm.clickRegister();
+        registerForm.typeName(input.name);
+        registerForm.typeLastName(input.lastName);
+        registerForm.typeEmail(input.email);
+        registerForm.typeDateOfBirth(input.dateOfBirth);
+        registerForm.typeCpf(input.cpf);
+        registerForm.typePhone(input.phone);
+        registerForm.typePassword(input.password);
+        registerForm.typeConfirmPassword(input.confirmPassword);
+        registerForm.clickSubmit();
+        registerForm.elements.passErrorMessage().should('have.text', 'Senha precisa ter especial');
     });
     input.password = '#Teste123'; // colocando a senha correta agora
     it('Confirmar Senha Vazio', ()=>{
@@ -451,7 +485,7 @@ describe('Teste Funcional de Cadastro com Erro - Senha', ()=>{
         registerForm.typePassword(input.password);
         registerForm.typeConfirmPassword(input.confirmPassword);
         registerForm.clickSubmit();
-        registerForm.elements.confirmPassErrorMessage().should('have.text', 'Confirm password required');
+        registerForm.elements.confirmPassErrorMessage().should('have.text', 'Confirmação de senha é obrigatória');
     });
     it('Senhas não Coincidem', ()=>{
         cy.visit("/")
@@ -468,7 +502,7 @@ describe('Teste Funcional de Cadastro com Erro - Senha', ()=>{
         registerForm.typePassword(input.password);
         registerForm.typeConfirmPassword(input.confirmPassword);
         registerForm.clickSubmit();
-        registerForm.elements.confirmPassErrorMessage().should('have.text', "Passwords don't match");
+        registerForm.elements.confirmPassErrorMessage().should('have.text', "As senhas não coincidem");
     });
 })
 
