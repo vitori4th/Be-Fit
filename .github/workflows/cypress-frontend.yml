@@ -4,18 +4,29 @@ on:
   push:
     branches:
       - main
+      - 23-teste-de-login-de-usurio
 
 jobs:
-  complete-project-tests:
+  test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: mydatabase
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Set up environment variables
-        run: |
-          export POSTGRES_URL=postgresql://postgres:postgres@localhost:5432     
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -27,7 +38,9 @@ jobs:
         working-directory: ./backend
 
       - name: Run Prisma migrations
-        run: npm run prisma
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
+        run: npm run prisma migrate dev
         working-directory: ./backend
 
       - name: Start backend server
