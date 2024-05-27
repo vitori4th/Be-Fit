@@ -11,9 +11,9 @@ import RecuperarSenhaModal from '../recuperarSenha/recuperarSenha';
 
 
 const Header = () => {
-  // const searchParams = useSearchParams()
+  const searchParams = useSearchParams()
 
-  const tokenRecovery = 'teste'
+  const tokenRecovery = searchParams.get("recovery")
   const [isModalOpen, setIsModalOpen] = useState(!!tokenRecovery);
 
   console.log(tokenRecovery)

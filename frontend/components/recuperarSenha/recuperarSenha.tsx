@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import Image from 'next/image';
 import pass from '../../public/icons/pass.png';
 import './recuperarSenha.css';
@@ -76,6 +76,7 @@ const RecuperarSenhaModal: React.FC<RecuperarSenhaModalProps> = ({ isOpen, onClo
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="flex flex-col justify-center items-center">
           <h2 className="title-cad font-bold">Redefinir Senha</h2>
+          <Suspense>
           <form onSubmit={handleSubmit(handleRecuperarSenha)}>
 
             <p className="sub-info mt-2 mb-2">Nova Senha</p>
@@ -110,6 +111,7 @@ const RecuperarSenhaModal: React.FC<RecuperarSenhaModalProps> = ({ isOpen, onClo
               Alterar Senha
             </button>
           </form>
+          </Suspense>
           <ToastContainer />
         </div>
       </div>
