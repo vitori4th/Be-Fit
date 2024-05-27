@@ -63,9 +63,6 @@ jobs:
         run: npm run dev &
         working-directory: ./frontend
 
-      - name: Wait for servers to be ready
-        run: npx wait-on http://localhost:3000 http://localhost:3333
-
       - name: Run Cypress tests
         run: npm run cypress:headless
         working-directory: ./frontend
