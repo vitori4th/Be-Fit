@@ -41,7 +41,7 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
       name: userInfo ? userInfo.name : '',
       lastname: userInfo ? userInfo.lastname : '',
       cellphone: userInfo ? userInfo.cellphone : '',
-      dateBirth: userInfo ? userInfo.dateBirth : '',
+      dateBirth: userInfo ? userInfo.dateBirth.split("T")[0] : '',
     },
   });
 
@@ -124,7 +124,7 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
             <div className="custom-input-container">
               <Image src={mail} alt="Icone" width={13.33} height={10.67} className="input-icon" />
               <input type="text" className="custom-input flex items-center" placeholder="Nome" {...register('name',)}
-                defaultValue={userInfo?.name || ''} />
+                />
             </div>
             {errors.name && (<span className='sub-info w-full flex justify-start text-red-700'>{errors.name?.message}</span>)}
 
@@ -132,7 +132,7 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
             <div className="custom-input-container">
               <Image src={mail} alt="Icone" width={13.33} height={10.67} className="input-icon" />
               <input type="text" className="custom-input flex items-center" placeholder="Nome" {...register('lastname')}
-                defaultValue={userInfo?.lastname || ''} />
+                 />
             </div>
             {errors.lastname && (<span className='sub-info w-full flex justify-start text-red-700' id='lastnameError'>{errors.lastname?.message}</span>)}
 
@@ -149,8 +149,11 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
             <p className="sub-info mt-2 mb-2">Data de Nascimento</p>
             <div className="custom-input-container">
               <Image src={mail} alt="Icone" width={13.33} height={10.67} className="input-icon" />
-              <input type="date" className="custom-input flex items-center" placeholder="Data de Nascimento"  {...register('dateBirth')}
-                defaultValue={`${new Date('25-02-2023')}`}
+              <input 
+                type="date" 
+                className="custom-input flex items-center" 
+                placeholder="Data de Nascimento"  
+                {...register('dateBirth')}
               />
             </div>
             {errors.dateBirth && (<span className='sub-info w-full flex justify-start text-red-700' id='dataError'>{errors.dateBirth?.message}</span>)}
@@ -169,7 +172,7 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
             <div className="custom-input-container">
               <Image src={mail} alt="Icone" width={13.33} height={10.67} className="input-icon" />
               <input type="text" className="sub-info custom-input flex items-center" placeholder="Telefone" {...register('cellphone')}
-                defaultValue={userInfo?.cellphone || ''} />
+              />
             </div>
             {errors.cellphone && (<span className='w-full flex justify-start text-red-700' id='telError'>{errors.cellphone?.message}</span>)}
 
@@ -241,7 +244,7 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
           <button className="button-return rounded-md hover:bg-gray-400 duration-500 mt-2" onClick={onClose}>Voltar</button>
 
         </div>
-        <a
+        {userInfo && < a
           href="#"
           className="text-red-500 hover:text-red-800 flex items-center mt-10 pl-10"
           onClick={(e) => {
@@ -251,8 +254,9 @@ const CadastroModal = ({ isOpen, onClose }: CadastroModalProps) => {
         >
           Fazer Logout
         </a>
+        }
       </div>
-    </div>
+    </div >
   );
 };
 
