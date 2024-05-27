@@ -91,9 +91,8 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                 {...register("email")}
               />
             </div>
-            {errors.email && (
-              <p className="error-message">{errors.email?.message}</p>
-            )}
+            {errors.email && (<span className=' sub-info w-full flex justify-start text-red-700'>{errors.email?.message}</span>)}
+
             <p className="sub-info mt-2 mb-2">Senha</p>
             <div className="custom-input-container">
               <Image
@@ -120,9 +119,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                 />
               </div>
             </div>
-            {errors.password && (
-              <p className="error-message">{errors.password?.message}</p>
-            )}
+            {errors.password && (<span className=' sub-info w-full flex justify-start text-red-700'>{errors.password?.message}</span>)}
 
             <a
               href="#"
