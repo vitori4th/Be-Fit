@@ -38,16 +38,15 @@ jobs:
           key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-${{ env.NODE_VERSION }}-
-      
-      - name: Cache Node.js modules and Next.js build
-        uses: actions/cache@v4
+
+      - name: Cache Next.js build
+        id: next-cache
+        uses: actions/cache@v2
         with:
-          path: |
-            ~/.npm
-            ${{ github.workspace }}/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+          path: ${{ env.REPO_PATH }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+            ${{ runner.os }}-nextjs-
 
       - name: Install dependencies
         working-directory: ${{ env.REPO_PATH }}
@@ -56,6 +55,13 @@ jobs:
       - name: Build with Next.js
         working-directory: ${{ env.REPO_PATH }}
         run: ${{ env.RUNNER }} next build
+
+      - name: Save Next.js cache
+        if: steps.next-cache.outputs.cache-hit != 'true'
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.REPO_PATH }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2

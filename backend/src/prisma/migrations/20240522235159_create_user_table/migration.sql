@@ -5,7 +5,7 @@ CREATE TYPE "UserRoleType" AS ENUM ('ADMIN', 'USER');
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "cpf" TEXT NOT NULL,
+    "cpf" INTEGER NOT NULL,
     "name" TEXT NOT NULL,
     "lastname" TEXT NOT NULL,
     "dateBirth" TIMESTAMP(3) NOT NULL,
