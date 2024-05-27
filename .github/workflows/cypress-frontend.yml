@@ -16,6 +16,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: mydatabase
+          POSTGRES_URL: postgres://postgres:postgres@localhost:5432/postgres
         ports:
           - 5432:5432
         options: >-
@@ -37,9 +38,12 @@ jobs:
         run: npm install
         working-directory: ./backend
 
+      - name: Print POSTGRES_URL
+        run: echo "POSTGRES_URL=$POSTGRES_URL"
+
       - name: Run Prisma migrations
         env:
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
+          POSTGRES_URL: postgres://postgres:postgres@localhost:5432/postgres
         run: npm run prisma migrate dev
         working-directory: ./backend
 
