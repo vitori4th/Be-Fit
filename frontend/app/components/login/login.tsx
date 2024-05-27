@@ -88,6 +88,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                 type="text"
                 className="custom-input"
                 placeholder="Email"
+                id='inputEmail'
                 {...register("email")}
               />
             </div>
@@ -106,6 +107,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                 type={showPassword ? 'text' : 'password'}
                 className="custom-input"
                 placeholder="Senha"
+                id='inputPass'
                 {...register("password")}
               />
               <div className="right-icon">

@@ -2,8 +2,8 @@
 
 class RegisterForm{
     elements = {
-        emailInput: () => cy.get('input.custom-input[name="email"][placeholder="Email"]'),
-        passwordInput: () => cy.get('input.custom-input[type="password"][placeholder="Senha"]'),
+        emailInput: () => cy.get('input#inputEmail'),
+        passwordInput: () => cy.get('input#inputPass'),
         loginButton: () => cy.get('button.button-login'),
         sidebarLoginButton: () => cy.get('button.login-button'),
         emailErrorMessage: () => cy.get('span#emailErrorLogin'),
