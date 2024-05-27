@@ -40,9 +40,9 @@ const EsqueciSenhaModal: React.FC<EsqueciSenhaModalProps> = ({ isOpen, onClose }
       });
 
       if (response.status === 200) {
-        // toast.success("Email enviado!");
+        toast.success("Email enviado!");
       } else {
-        // toast.error("Ocorreu um erro ao tentar enviar o email.");
+        toast.error("Ocorreu um erro ao tentar enviar o email.");
       }
       setTimeout(() => {
         onClose();
@@ -58,11 +58,10 @@ const EsqueciSenhaModal: React.FC<EsqueciSenhaModalProps> = ({ isOpen, onClose }
       <ToastContainer containerId={"forgotPassword"} />
 
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center w-full max-w-md p-8">
           <h2 className="title-cad font-bold">Esqueci minha Senha</h2>
-          <p className='text-center mx-auto'>Insira o seu e-mail de cadastro que enviaremos o link para redefinição da sua senha.</p>
+          <p className='text-center mx-auto p-text'>Insira o seu e-mail de cadastro que enviaremos o link para redefinição da sua senha.</p>
           <form onSubmit={handleSubmit(handleRecuperarSenha)}>
-
             <p className="sub-info mb-2">Email</p>
             <div className="custom-input-container">
               <Image src={mail} alt="Icone" width={13.33} height={10.67} className="input-icon" />
@@ -74,7 +73,6 @@ const EsqueciSenhaModal: React.FC<EsqueciSenhaModalProps> = ({ isOpen, onClose }
               />
             </div>
             {errors.email && <span className='sub-info w-full flex justify-start text-red-700'>{errors.email.message}</span>}
-
             <button
               className="button-login border border-green-800 rounded-md duration-500 mt-5 hover:border-green-600 hover:text-green-600"
               disabled={isSubmitting}
@@ -85,6 +83,7 @@ const EsqueciSenhaModal: React.FC<EsqueciSenhaModalProps> = ({ isOpen, onClose }
           </form>
           <button className="button-return rounded-md hover:bg-gray-400 duration-500 mt-2" onClick={onClose}>Voltar</button>
         </div>
+
       </div>
     </div>
   );
