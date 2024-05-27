@@ -39,6 +39,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-${{ env.NODE_VERSION }}-
 
+      - name: Cache Next.js build
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.REPO_PATH }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-
+
       - name: Install dependencies
         working-directory: ${{ env.REPO_PATH }}
         run: ${{ env.MANAGER }} ${{ env.COMMAND }}
