@@ -84,7 +84,7 @@ describe('Teste Funcional de Cadastro com Sucesso', ()=>{
         cy.clearAllLocalStorage()
     })
     const input = {
-        name: 'Igor Silva',
+        name: 'Igoro',
         lastName: 'Jesus',
         email: 'silvaaa@example.com',
         dateOfBirth: '1999-01-01',
@@ -116,7 +116,7 @@ describe('Teste Funcional de Cadastro com Erro', ()=>{
         cy.clearAllLocalStorage()
     })
     const input = {
-        name: 'Igor Silva',
+        name: 'Igoro',
         lastName: 'Jesus',
         email: 'silvaaa@example.com',
         dateOfBirth: '1999-01-01',
