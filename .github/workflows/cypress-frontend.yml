@@ -40,15 +40,6 @@ jobs:
         run: npm install
         working-directory: ./backend
 
-      - name: Print POSTGRES_URL
-        run: echo "POSTGRES_URL=$POSTGRES_URL"
-
-      - name: Run Prisma migrations
-        env:
-          POSTGRES_URL: postgres://postgres:postgres@localhost:5432/postgres
-        run: npm run prisma migrate dev
-        working-directory: ./backend
-
       - name: Start backend server
         run: |
           npm run prisma &
