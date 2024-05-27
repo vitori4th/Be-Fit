@@ -91,7 +91,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                 {...register("email")}
               />
             </div>
-            {errors.email && (<span className=' sub-info w-full flex justify-start text-red-700'>{errors.email?.message}</span>)}
+            {errors.email && (<span className=' sub-info w-full flex justify-start text-red-700' id='emailErrorLogin'>{errors.email?.message}</span>)}
 
             <p className="sub-info mt-2 mb-2">Senha</p>
             <div className="custom-input-container">
@@ -119,7 +119,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                 />
               </div>
             </div>
-            {errors.password && (<span className=' sub-info w-full flex justify-start text-red-700'>{errors.password?.message}</span>)}
+            {errors.password && (<span className=' sub-info w-full flex justify-start text-red-700' id='passErrorLogin'>{errors.password?.message}</span>)}
 
             <a
               href="#"
